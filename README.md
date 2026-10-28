@@ -1,9 +1,9 @@
-﻿# Salesforce Agentforce & Data 360 Interactive Workbench
+# Salesforce Agentforce & Data 360 Interactive Workbench
 
 An interactive training workbench, field manual, and study portal for **Salesforce Agentforce** and **Data 360 (Data Cloud)**.
 
 ## 🌐 Live Portal
-👉 **[https://mohnishtakzordial.github.io/agentforce-data360-workbench/](https://mohnishtakzordial.github.io/agentforce-data360-workbench/)**
+👉 **[https://mohnishtak2725.github.io/agentforce-data360-workbench/](https://mohnishtak2725.github.io/agentforce-data360-workbench/)**
 
 ## 📚 Curriculum & Architecture Covered
 1. **Autonomous AI & The Atlas Engine**: ReAct (Reason + Act) loop, model planning, Model Builder (BYO-LLM).
