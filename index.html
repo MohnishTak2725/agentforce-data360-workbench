@@ -1,0 +1,2523 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Salesforce Agentforce & Data 360 (Data Cloud) Senior Developer Crash Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* ==========================================================================
+   Design Tokens & Modern Styling System
+   ========================================================================== */
+:root {
+  --bg: #eef2f7;
+  --surface: #ffffff;
+  --surface-2: #e2e8f0;
+  --surface-3: #cbd5e1;
+  --ink: #0f172a;
+  --ink-secondary: #334155;
+  --muted: #64748b;
+  --line: #cbd5e1;
+  --accent: #0284c7;
+  --accent-light: #e0f2fe;
+  --accent-ink: #ffffff;
+  --mark: #b45309;
+  --mark-soft: #fef3c7;
+  --good: #15803d;
+  --good-soft: #dcfce7;
+  --bad: #b91c1c;
+  --bad-soft: #fee2e2;
+  --code-bg: #0f172a;
+  --code-ink: #f1f5f9;
+  --code-dim: #94a3b8;
+  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+  --modal-bg: rgba(15, 23, 42, 0.65);
+  --f-display: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --f-body: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #090d16;
+    --surface: #111827;
+    --surface-2: #1e293b;
+    --surface-3: #334155;
+    --ink: #f8fafc;
+    --ink-secondary: #cbd5e1;
+    --muted: #94a3b8;
+    --line: #243046;
+    --accent: #38bdf8;
+    --accent-light: #0c4a6e;
+    --accent-ink: #082f49;
+    --mark: #fbbf24;
+    --mark-soft: #382907;
+    --good: #4ade80;
+    --good-soft: #052e16;
+    --bad: #f87171;
+    --bad-soft: #450a0a;
+    --code-bg: #030712;
+    --code-ink: #f8fafc;
+    --code-dim: #818cf8;
+    --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+    --modal-bg: rgba(3, 7, 18, 0.82);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #090d16;
+  --surface: #111827;
+  --surface-2: #1e293b;
+  --surface-3: #334155;
+  --ink: #f8fafc;
+  --ink-secondary: #cbd5e1;
+  --muted: #94a3b8;
+  --line: #243046;
+  --accent: #38bdf8;
+  --accent-light: #0c4a6e;
+  --accent-ink: #082f49;
+  --mark: #fbbf24;
+  --mark-soft: #382907;
+  --good: #4ade80;
+  --good-soft: #052e16;
+  --bad: #f87171;
+  --bad-soft: #450a0a;
+  --code-bg: #030712;
+  --code-ink: #f8fafc;
+  --code-dim: #818cf8;
+  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+  --modal-bg: rgba(3, 7, 18, 0.82);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.6 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: env(safe-area-inset-top, 0px) env(safe-area-inset-bottom, 0px);
+  -webkit-font-smoothing: antialiased;
+}
+
+.view-panel { padding-block: 10px 40px; }
+
+h1, h2, h3, h4 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2; margin: 0; color: var(--ink); }
+code { font-family: var(--f-mono); font-size: 0.88em; background: var(--surface-2); padding: 0.15em 0.4em; border-radius: 4px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; }
+
+.wrap { max-width: 1220px; margin: 0 auto; padding-block: 24px 60px; }
+
+/* Top Header */
+header.top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 28px;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 22px;
+  border-bottom: 2px solid var(--ink);
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 700 12px/1 var(--f-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.badge-version {
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 3px 7px;
+  border-radius: 999px;
+  font-size: 11px;
+}
+header.top h1 { font-size: clamp(26px, 4vw, 42px); font-weight: 800; letter-spacing: -0.025em; margin-top: 8px; }
+header.top p { margin: 8px 0 0; color: var(--muted); max-width: 65ch; font-size: 15px; }
+
+.hdr-controls { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+.meter { min-width: 240px; }
+.meter .lbl { display: flex; justify-content: space-between; font: 600 12px var(--f-mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.bar { height: 10px; background: var(--surface-2); border-radius: 6px; overflow: hidden; margin-top: 6px; }
+.bar > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.35s ease-out; }
+.top-actions { display: flex; gap: 8px; align-items: center; }
+.btn-icon {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.btn-icon:hover { background: var(--surface-2); border-color: var(--ink); }
+
+/* Navigation Pills */
+nav.views { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 24px; }
+nav.views button {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.15s ease;
+}
+nav.views button:hover { border-color: var(--muted); }
+nav.views button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); box-shadow: var(--card-shadow); }
+.pill-count {
+  font: 700 11px var(--f-mono);
+  background: var(--surface-2);
+  color: var(--ink);
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+nav.views button[aria-pressed="true"] .pill-count {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Main Grid Layout */
+.grid { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 30px; align-items: start; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Sidebar Rail */
+aside.rail { position: sticky; top: 16px; display: flex; flex-direction: column; gap: 5px; }
+@media (max-width: 860px) {
+  aside.rail { position: static; flex-direction: row; overflow-x: auto; padding-bottom: 8px; }
+}
+.rail button {
+  display: grid;
+  grid-template-columns: 26px 1fr 20px;
+  gap: 10px;
+  align-items: center;
+  text-align: left;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.35;
+  transition: background 0.15s, border-color 0.15s;
+}
+@media (max-width: 860px) {
+  .rail button { flex: 0 0 auto; grid-template-columns: 24px auto 18px; background: var(--surface); border: 1px solid var(--line); }
+}
+.rail button:hover { background: var(--surface-2); }
+.rail button[aria-current="true"] { background: var(--surface); border-color: var(--line); box-shadow: inset 3.5px 0 0 var(--accent); font-weight: 700; }
+.rail .num { font: 600 12px var(--f-mono); color: var(--muted); }
+.rail .tick { width: 17px; height: 17px; border-radius: 50%; border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 10px; }
+.rail .done .tick { background: var(--good); border-color: var(--good); color: #fff; }
+
+/* Module View Header */
+main { min-width: 0; }
+.mod-head { display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; align-items: flex-start; }
+.mod-head h2 { font-size: clamp(24px, 3.2vw, 34px); font-weight: 700; letter-spacing: -0.015em; }
+.mod-head .why { margin: 8px 0 0; color: var(--muted); max-width: 68ch; font-size: 15px; }
+.pill-tag {
+  display: inline-block;
+  font: 700 11px/1 var(--f-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--mark-soft);
+  color: var(--mark);
+}
+.mod-actions { display: flex; gap: 8px; align-items: center; }
+.done-btn {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.done-btn[aria-pressed="true"] { background: var(--good-soft); border-color: var(--good); color: var(--good); }
+.star-btn {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 8px 11px;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.star-btn.starred { color: #f59e0b; border-color: #f59e0b; background: #fef3c733; }
+
+/* Module Tabs */
+.tabs { display: flex; gap: 4px; margin: 24px 0 0; border-bottom: 2px solid var(--line); }
+.tabs button {
+  border: 0;
+  background: transparent;
+  padding: 10px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--muted);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.15s;
+}
+.tabs button:hover { color: var(--ink); }
+.tabs button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.panel { padding-top: 22px; }
+
+/* Learn Points */
+.points { display: flex; flex-direction: column; gap: 16px; }
+.pt {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 22px;
+  box-shadow: var(--card-shadow);
+}
+.pt h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+.pt p, .pt ul, .pt ol { margin: 0 0 10px; max-width: 78ch; }
+.pt p:last-child, .pt ul:last-child { margin-bottom: 0; }
+.pt ul, .pt ol { padding-left: 20px; }
+.pt li + li { margin-top: 6px; }
+.trap {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-left: 4px solid var(--mark);
+  background: var(--mark-soft);
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  color: var(--ink);
+}
+.trap b { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; margin-right: 8px; color: var(--mark); }
+
+/* Comparison Tables */
+.tbl { overflow-x: auto; margin: 12px 0; border-radius: 8px; border: 1px solid var(--line); }
+table.cmp { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 580px; }
+table.cmp th, table.cmp td { border-bottom: 1px solid var(--line); padding: 9px 12px; text-align: left; vertical-align: top; }
+table.cmp th { font: 600 12px var(--f-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); background: var(--surface-2); }
+table.cmp tr:last-child td { border-bottom: 0; }
+
+/* Code Blocks */
+.code { margin-top: 8px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--card-shadow); }
+.code + .code { margin-top: 20px; }
+.code .bar2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface-2);
+  padding: 7px 14px;
+  font: 600 12px var(--f-mono);
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+.code .bar2 button { border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 3px 11px; font-size: 12px; font-weight: 600; }
+.code .bar2 button:hover { background: var(--ink); color: var(--bg); }
+.code pre { margin: 0; padding: 16px 18px; background: var(--code-bg); color: var(--code-ink); font: 13px/1.6 var(--f-mono); overflow-x: auto; }
+.code .note { padding: 10px 16px; font-size: 14px; background: var(--surface); color: var(--muted); border-top: 1px solid var(--line); }
+
+/* Quizzes */
+.q { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; box-shadow: var(--card-shadow); }
+.q + .q { margin-top: 16px; }
+.q .qt { font-weight: 700; font-size: 15.5px; margin-bottom: 12px; }
+.opts { display: grid; gap: 8px; }
+.opts button {
+  text-align: left;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  transition: all 0.12s;
+}
+.opts button:hover:not(:disabled) { border-color: var(--accent); background: var(--surface); }
+.opts button:disabled { cursor: default; }
+.opts .right { background: var(--good-soft); border-color: var(--good); color: var(--good); font-weight: 600; }
+.opts .wrong { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); font-weight: 600; }
+.expl { margin-top: 12px; font-size: 14px; color: var(--ink-secondary); padding: 8px 12px; background: var(--surface-2); border-radius: 6px; }
+.score { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; font: 600 13px var(--f-mono); color: var(--muted); }
+.score button { border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 5px 12px; font-size: 12px; }
+
+/* 3D Flashcards */
+.deck { max-width: 680px; margin: 32px auto 40px; padding: 0 10px; }
+.card { perspective: 1400px; height: 300px; cursor: pointer; user-select: none; }
+.card .inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+.card.flip .inner { transform: rotateY(180deg); }
+.face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1);
+}
+.face.front { background: var(--surface); }
+.face.back { background: var(--ink); color: var(--bg); transform: rotateY(180deg); }
+.face .t { font: 600 11px var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; }
+.face .big { font-family: var(--f-display); font-size: clamp(20px, 3.2vw, 26px); font-weight: 700; line-height: 1.3; }
+.face.back .big { font-family: var(--f-body); font-size: 16px; font-weight: 400; line-height: 1.6; color: var(--bg); }
+.deck-ctl { display: flex; gap: 10px; align-items: center; margin-top: 18px; flex-wrap: wrap; justify-content: center; }
+.deck-ctl button { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 16px; font-weight: 600; font-size: 14px; }
+.deck-ctl button:hover { background: var(--surface-2); }
+.deck-ctl span { font: 600 13px var(--f-mono); color: var(--muted); }
+
+/* Scenarios & Practice Mode */
+.sc-header { margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+details.sc { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0 20px; box-shadow: var(--card-shadow); }
+details.sc + details.sc { margin-top: 14px; }
+details.sc summary {
+  cursor: pointer;
+  padding: 18px 0;
+  font-weight: 700;
+  font-size: 16px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
+details.sc summary::-webkit-details-marker { display: none; }
+details.sc summary .lvl { font: 700 11px var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 3px 8px; border-radius: 4px; }
+details.sc .ans { padding: 0 0 20px; border-top: 1px dashed var(--line); padding-top: 16px; }
+details.sc .ans ul { margin: 0; padding-left: 22px; }
+details.sc .ans li + li { margin-top: 7px; }
+
+/* Interactive Practice Drawer within Scenarios */
+.practice-box {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--surface-2);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.practice-box .p-hdr { display: flex; justify-content: space-between; align-items: center; font: 700 12px var(--f-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.practice-box textarea {
+  width: 100%;
+  height: 90px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px;
+  font-family: var(--f-body);
+  font-size: 14px;
+  color: var(--ink);
+  resize: vertical;
+}
+.timer-bar { display: flex; align-items: center; gap: 10px; font: 700 14px var(--f-mono); }
+
+/* 7-Day Plan */
+.plan { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 18px; }
+.day { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--card-shadow); }
+.day .d { font: 700 12px var(--f-mono); color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; }
+.day h3 { font-size: 18px; }
+.day ul { margin: 0; padding-left: 20px; font-size: 14px; }
+.day li + li { margin-top: 5px; }
+.day label { display: flex; gap: 8px; align-items: center; font-size: 14px; font-weight: 600; color: var(--ink-secondary); margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line); cursor: pointer; }
+
+/* Cheat Sheet */
+.cheat { columns: 2 340px; column-gap: 28px; margin-top: 18px; }
+.cheat .blk { break-inside: avoid; margin-bottom: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; box-shadow: var(--card-shadow); }
+.cheat h3 { font-size: 16px; border-bottom: 2px solid var(--ink); padding-bottom: 6px; margin-bottom: 12px; }
+.cheat dl { margin: 0; display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr); gap: 6px 14px; font-size: 13.5px; }
+.cheat dt { font-family: var(--f-mono); font-size: 12px; font-weight: 700; color: var(--accent); }
+.cheat dd { margin: 0; color: var(--ink-secondary); }
+
+/* Projects & Coming Soon Styling */
+.coming-soon-card {
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: 16px;
+  padding: 48px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: var(--card-shadow);
+  margin-top: 14px;
+}
+.cs-badge {
+  font: 700 11px/1 var(--f-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--mark-soft);
+  color: var(--mark);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+.cs-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.coming-soon-card h3 {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.coming-soon-card p {
+  color: var(--muted);
+  max-width: 58ch;
+  margin: 0 auto 28px;
+  font-size: 15px;
+}
+.cs-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 860px;
+  text-align: left;
+}
+.cs-item {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cs-pill {
+  font: 700 10px var(--f-mono);
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+.cs-item b {
+  font-size: 14px;
+  color: var(--ink);
+}
+.cs-item span:last-child {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* Global Search Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--modal-bg);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 80px 16px;
+  z-index: 999;
+}
+.modal-overlay.open {
+  display: flex !important;
+}
+.modal-overlay[hidden] {
+  display: none !important;
+}
+.modal-content {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 660px;
+  box-shadow: 0 20px 40px -10px rgb(0 0 0 / 0.35);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.search-input-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+}
+.search-input-box input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  font-size: 17px;
+  color: var(--ink);
+  font-family: var(--f-body);
+  outline: none;
+}
+.search-results { max-height: 400px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 4px; }
+.search-item {
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.search-item:hover, .search-item.active { background: var(--surface-2); border-color: var(--line); }
+.search-item .stitle { font-weight: 700; font-size: 15px; color: var(--ink); }
+.search-item .ssub { font-size: 13px; color: var(--muted); }
+.search-footer {
+  padding: 9px 16px;
+  background: var(--surface-2);
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 600 11px var(--f-mono);
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <!-- Top Header -->
+  <header class="top">
+    <div>
+      <div class="eyebrow">
+        <span>Salesforce Enterprise AI & Data</span>
+        <span class="badge-version">Winter '25 & Spring '26</span>
+      </div>
+      <h1>Agentforce & Data 360 Workbench</h1>
+      <p>Comprehensive team learning guide & interactive implementation workbench. Atlas Reasoning Engine, Topics & Actions, Apex Invocables, DLO/DMO, Identity Resolution, Data Graphs, Hybrid RAG, Zero Copy, and Einstein Trust Layer.</p>
+    </div>
+    <div class="hdr-controls">
+      <div class="meter">
+        <div class="lbl"><span>Curriculum Progress</span><span id="pct">0 / 12</span></div>
+        <div class="bar"><i id="pbar"></i></div>
+      </div>
+      <div class="top-actions">
+        <button type="button" class="btn-icon" id="btn-search" title="Global Search (Ctrl+K or /)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          Search <kbd style="font-size:10px;font-family:var(--f-mono);background:var(--surface-2);padding:1px 4px;border-radius:3px;">Ctrl+K</kbd>
+        </button>
+        <button type="button" class="btn-icon" id="btn-theme" title="Toggle Dark/Light Mode">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          Theme
+        </button>
+        <button type="button" class="btn-icon" id="btn-print" onclick="window.print()" title="Print Field Manual">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Print
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- View Switcher -->
+  <nav class="views" aria-label="Views">
+    <button type="button" data-view="modules" aria-pressed="true">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      Modules <span class="pill-count">12</span>
+    </button>
+    <button type="button" data-view="cards" aria-pressed="false">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M7 15h0M2 9.5h20"></path></svg>
+      3D Flashcards <span class="pill-count">32</span>
+    </button>
+    <button type="button" data-view="scenarios" aria-pressed="false">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      Practice Scenarios <span class="pill-count">8</span>
+    </button>
+    <button type="button" data-view="plan" aria-pressed="false">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      7-Day Plan
+    </button>
+    <button type="button" data-view="cheat" aria-pressed="false">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+      Cheat Sheet
+    </button>
+    <button type="button" data-view="starred" aria-pressed="false">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+      Starred <span class="pill-count" id="star-count">0</span>
+    </button>
+    <button type="button" data-view="projects" aria-pressed="false">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+      Projects <span class="pill-count">Soon</span>
+    </button>
+  </nav>
+
+  <!-- View: Modules (Grid Rail + Main) -->
+  <section id="v-modules" class="grid view-panel">
+    <aside class="rail" id="rail"></aside>
+    <main id="mod"></main>
+  </section>
+
+  <!-- View: Flashcards -->
+  <section id="v-cards" class="view-panel" hidden>
+    <div class="deck">
+      <div class="card" id="card" tabindex="0" role="button" aria-label="Flashcard. Click or hit Enter to flip.">
+        <div class="inner">
+          <div class="face front">
+            <span class="t" id="c-tag">AGENTFORCE ARCHITECTURE</span>
+            <div class="big" id="c-q">Question goes here...</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:auto;">Click or press Spacebar to reveal answer</div>
+          </div>
+          <div class="face back">
+            <span class="t">ARCHITECTURAL GROUND TRUTH</span>
+            <div class="big" id="c-a">Answer goes here...</div>
+            <div style="font-size:12px;opacity:0.75;margin-top:auto;">Click or press Spacebar to flip back</div>
+          </div>
+        </div>
+      </div>
+      <div class="deck-ctl">
+        <button type="button" id="c-prev">&larr; Previous</button>
+        <span id="c-num">1 / 32</span>
+        <button type="button" id="c-next">Next &rarr;</button>
+        <button type="button" id="c-shuffle">Shuffle</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- View: Scenarios -->
+  <section id="v-scenarios" class="view-panel" hidden>
+    <div class="sc-header">
+      <div>
+        <h2 style="font-size:24px;">Implementation & Architecture Scenarios</h2>
+        <p style="margin:4px 0 0;color:var(--muted);font-size:14px;">Real-world production challenges and case studies. Test your implementation strategy, write your approach in the scratchpad, and compare against the model solution.</p>
+      </div>
+    </div>
+    <div id="sc-list"></div>
+  </section>
+
+  <!-- View: 7-Day Plan -->
+  <section id="v-plan" class="view-panel" hidden>
+    <div style="margin-bottom:20px;">
+      <h2 style="font-size:24px;">7-Day Comprehensive Study & Implementation Plan</h2>
+      <p style="margin:4px 0 0;color:var(--muted);font-size:14px;">Day-by-day structured roadmap for mastering Agentforce & Data 360 concepts, architectures, and hands-on developer practices.</p>
+    </div>
+    <div class="plan" id="plan-grid"></div>
+  </section>
+
+  <!-- View: Cheat Sheet -->
+  <section id="v-cheat" class="view-panel" hidden>
+    <div style="margin-bottom:20px;">
+      <h2 style="font-size:24px;">Agentforce & Data 360 Quick Reference</h2>
+      <p style="margin:4px 0 0;color:var(--muted);font-size:14px;">Essential metadata suffixes, limits, annotations, connectors, and SOQL snippets.</p>
+    </div>
+    <div class="cheat" id="cheat-grid"></div>
+  </section>
+
+  <!-- View: Starred Review -->
+  <section id="v-starred" class="view-panel" hidden>
+    <div style="margin-bottom:20px;">
+      <h2 style="font-size:24px;">Bookmarked Review Items</h2>
+      <p style="margin:4px 0 0;color:var(--muted);font-size:14px;">Modules you have starred for targeted revision before your training sessions.</p>
+    </div>
+    <div id="starred-list" class="points"></div>
+  </section>
+
+  <!-- View: Production Projects & Case Studies -->
+  <section id="v-projects" class="view-panel" hidden>
+    <div style="margin-bottom:20px;">
+      <h2 style="font-size:24px;">Production Projects & Case Studies</h2>
+      <p style="margin:4px 0 0;color:var(--muted);font-size:14px;">Real-world client implementations: how, what, when, and where Agentforce & Data 360 are engineered and deployed.</p>
+    </div>
+
+    <div class="coming-soon-card">
+      <div class="cs-badge">IN PROGRESS</div>
+      <div class="cs-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path><polyline points="12 11 12 17 15 14"></polyline></svg>
+      </div>
+      <h3>Coming Soon...</h3>
+      <p>Project architecture breakdowns and real-world implementation case studies are being compiled for this section.</p>
+      <div class="cs-preview-grid">
+        <div class="cs-item">
+          <span class="cs-pill">WHAT</span>
+          <b>Use Cases & Architecture</b>
+          <span>Specific business problems solved, custom agents deployed, and architectural decisions.</span>
+        </div>
+        <div class="cs-item">
+          <span class="cs-pill">HOW</span>
+          <b>Tech Stack & Integrations</b>
+          <span>Apex Invocables, Data Graphs, Flow orchestrations, Zero Copy connectors, and Trust Layer configs.</span>
+        </div>
+        <div class="cs-item">
+          <span class="cs-pill">WHERE & WHEN</span>
+          <b>Client Orgs & Timelines</b>
+          <span>Deployment environments, sandbox staging, performance tuning, and rollout milestones.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Global Search Modal -->
+<div class="modal-overlay" id="search-modal" hidden>
+  <div class="modal-content">
+    <div class="search-input-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="search-input" placeholder="Search architecture, concepts, code, triggers..." autocomplete="off">
+      <button type="button" class="btn-icon" id="search-close" style="padding:4px 8px;">&times;</button>
+    </div>
+    <div class="search-results" id="search-results">
+      <div style="padding:20px;text-align:center;color:var(--muted);font-size:14px;">Type to search all 12 modules, code snippets, flashcards, and cheat sheet items...</div>
+    </div>
+    <div class="search-footer">
+      <span>Navigate with &uarr; &darr; &bull; Enter to select</span>
+      <span>Esc to close</span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ==========================================================================
+   Curriculum Data Model: 12 Modules
+   ========================================================================== */
+const MODULES = [
+  {
+    id: "atlas-core",
+    title: "Autonomous AI & The Atlas Engine",
+    tag: "AGENTFORCE-CORE",
+    why: "Master the cognitive ReAct loop powering Agentforce digital labor, contrasting iterative planning against traditional static chatbots.",
+    points: [
+      {
+        h: "From Chatbots to Autonomous Digital Labor",
+        body: `<p>Traditional chatbots (like legacy Einstein Bots) rely on rigid dialog trees and regex intent matchers. If a customer deviates from the scripted path, the bot fails. Generative copilots improved upon this by answering questions, but remained passive assistants waiting for human prompts.</p>
+               <p><b>Agentforce introduces autonomous digital labor</b>: role-based agents capable of independent multi-step execution. When triggered by a customer utterance, a webhook, or a CRM platform event, the agent executes tasks end-to-end without constant human intervention.</p>
+               <div class="tbl">
+                 <table class="cmp">
+                   <tr><th>Feature</th><th>Legacy Einstein Bots</th><th>Einstein Copilot</th><th>Agentforce (Atlas)</th></tr>
+                   <tr><td><b>Execution Model</b></td><td>Static dialog trees</td><td>Single-turn generative answers</td><td>Autonomous ReAct planning loop</td></tr>
+                   <tr><td><b>Tool Use</b></td><td>Hardcoded dialog transitions</td><td>Low-code action triggers</td><td>Dynamic multi-step action orchestration</td></tr>
+                   <tr><td><b>Grounding</b></td><td>CRM SOQL queries only</td><td>Basic prompt templates</td><td>Real-time Data Graphs & Vector RAG</td></tr>
+                   <tr><td><b>Error Handling</b></td><td>Route to human queue</td><td>Show generic failure message</td><td>Dynamic replanning and self-correction</td></tr>
+                 </table>
+               </div>`
+      },
+      {
+        h: "The Atlas Reasoning Engine (The Cognitive Brain)",
+        body: `<p>At the center of Agentforce is the <b>Atlas Reasoning Engine</b>. Atlas operates using an iterative <b>ReAct (Reason + Act)</b> cognitive loop:</p>
+               <ol>
+                 <li><b>Context Assembly</b>: Ingests user input, conversation history, session variables, and authenticated user identity.</li>
+                 <li><b>Topic Classification</b>: Matches the semantic intent against modular <i>Topics</i>.</li>
+                 <li><b>Plan Generation (Reason)</b>: Formulates a step-by-step hypothesis of actions needed to achieve the customer's goal.</li>
+                 <li><b>Tool Invocation (Act)</b>: Calls Apex Invocables, Flows, Prompt Templates, or MuleSoft APIs with extracted parameters.</li>
+                 <li><b>Observation & Reflection</b>: Inspects the tool output. If more steps or parameters are needed, it loops back to plan; if complete, it synthesizes the final response.</li>
+                 <li><b>Trust Layer Guardrail</b>: Runs the output through PII de-masking, toxicity detection, and hallucination scoring.</li>
+               </ol>
+               <div class="trap"><b>Common Misconception & Pitfall:</b> It is easy to assume Atlas is just a simple wrapper around an external LLM. In reality, Atlas is an <i>orchestration reasoning layer</i> that sits between the LLM and the enterprise; it coordinates multi-step planning, invokes tools, and leverages Model Builder to connect foundation models (Claude 3.5, GPT-4o, Gemini) while enforcing state, tools, and security.</div>`
+      }
+    ],
+    code: [
+      {
+        h: "Agentforce ReAct Planning Flow (Conceptual Trajectory)",
+        lang: "json",
+        code: `// Example of how Atlas internally models a ReAct execution trajectory
+{
+  "user_utterance": "I want to exchange the running shoes from my last order for a size 10.",
+  "active_topic": "Order_Management_and_Returns",
+  "plan": [
+    {
+      "step": 1,
+      "action": "Get_Recent_Customer_Orders",
+      "parameters": { "customerEmail": "context.user.email", "maxRecords": 1 },
+      "observation": { "orderId": "801XXXXXXXXXXXX", "item": "CloudRunner 42", "currentSize": "9.5" }
+    },
+    {
+      "step": 2,
+      "action": "Check_Warehouse_Inventory",
+      "parameters": { "productSku": "CR-42-BLK", "requestedSize": "10.0" },
+      "observation": { "inStock": true, "warehouse": "Chicago-Central", "availableQty": 14 }
+    },
+    {
+      "step": 3,
+      "action": "Initiate_Exchange_RMA",
+      "parameters": { "originalOrderId": "801XXXXXXXXXXXX", "newSize": "10.0" },
+      "observation": { "rmaNumber": "RMA-90421", "shippingLabelUrl": "https://..." }
+    }
+  ],
+  "final_response": "I have created an exchange for your CloudRunner shoes (Size 10). Your RMA number is RMA-90421..."
+}`,
+        note: "Atlas generates this plan dynamically at runtime. If Step 2 found 0 items in stock, Atlas would self-correct, notify the user, and offer backorder or refund options without crashing."
+      }
+    ],
+    quiz: [
+      {
+        qt: "What is the primary architectural loop utilized by the Atlas Reasoning Engine?",
+        opts: [
+          "Finite State Machine (FSM) linear dialog branching",
+          "ReAct (Reason + Act) iterative cognitive cycle",
+          "MapReduce distributed batch execution",
+          "Zero-shot single-pass transformer inference"
+        ],
+        a: 1,
+        expl: "Atlas utilizes the ReAct (Reason + Act) framework, alternating between reasoning about user intent, executing tools/actions, observing results, and dynamically updating its execution plan."
+      },
+      {
+        qt: "Which component allows enterprises to bring custom fine-tuned models (BYO-LLM) from AWS Bedrock or Google Vertex AI into Agentforce?",
+        opts: [
+          "Prompt Builder",
+          "Einstein Model Builder",
+          "Data Cloud Ingestion API",
+          "Atlas Flow Orchestrator"
+        ],
+        a: 1,
+        expl: "Einstein Model Builder is the management layer that allows organizations to select default Salesforce-hosted models or connect external models hosted in Amazon Bedrock, Google Cloud Vertex AI, or Azure OpenAI."
+      }
+    ]
+  },
+  {
+    id: "topics-instructions",
+    title: "Topics & Scope Engineering",
+    tag: "TOPIC-DESIGN",
+    why: "Understand how Topics partition agent intelligence, prevent prompt bloat, and maintain tight conversational guardrails.",
+    points: [
+      {
+        h: "The Problem with Monolithic Prompts",
+        body: `<p>In standard LLM architectures, developers attempt to load every business rule, FAQ, and tool schema into one gigantic 20,000-word prompt. This causes:</p>
+               <ul>
+                 <li><b>Prompt Drift & Hallucination</b>: The LLM confuses boundaries between distinct departments.</li>
+                 <li><b>Excessive Token Costs & Latency</b>: Every conversational turn incurs huge token fees.</li>
+                 <li><b>Tool Selection Errors</b>: The model attempts to run sales actions during a support inquiry.</li>
+               </ul>
+               <p>Agentforce solves this by introducing <b>Topics</b>: modular functional units that isolate instructions, classification triggers, and available tools.</p>`
+      },
+      {
+        h: "Topic Anatomy & Classification Routing",
+        body: `<p>Every Agentforce Topic contains four core elements:</p>
+               <ol>
+                 <li><b>Classification Description</b>: The semantic fingerprint. Atlas compares the user's utterance against this text to decide which topic to route into.</li>
+                 <li><b>Scope & Persona Instructions</b>: Rules that govern the agent <i>only when this topic is active</i> (e.g. Tone, boundary rules, escalation rules).</li>
+                 <li><b>Actions (Tools)</b>: The subset of Apex Invocables, Flows, and Prompts permitted in this topic.</li>
+                 <li><b>Classification Guardrails</b>: Explicit negative rules detailing what the topic should NOT handle.</li>
+               </ol>
+               <div class="trap"><b>Architecture Trap:</b> If two topics have overlapping or vague classification descriptions (e.g., Topic A: 'Handles accounts' and Topic B: 'Handles customer data'), Atlas will suffer from <i>topic oscillation</i>, bouncing between topics mid-conversation! Always write crisp, mutually exclusive descriptions.</div>`
+      }
+    ],
+    code: [
+      {
+        h: "Production-Grade Topic Specification (JSON Schema)",
+        lang: "json",
+        code: `{
+  "topic_name": "Billing_and_Invoicing_Support",
+  "classification_description": "Handles inquiries regarding customer monthly statements, past due balances, payment method updates, invoice dispute explanations, and refund status. Use when the user asks about charges on their bill or needs a copy of an invoice.",
+  "instructions": [
+    "Always verify that the user's billing postal code matches before revealing invoice amounts.",
+    "Never process any refund exceeding $150.00 without triggering the 'Manager_Refund_Escalation' action.",
+    "Do NOT answer technical product troubleshooting questions; transfer to 'Technical_Support' topic if asked about hardware errors.",
+    "Maintain a professional, empathetic tone when discussing billing disputes."
+  ],
+  "allowed_actions": [
+    "Apex:GetCustomerInvoiceSummary",
+    "Apex:ProcessProratedCredit",
+    "Flow:UpdateCreditCardOnFile"
+  ]
+}`,
+        note: "Notice how negative constraints ('Do NOT answer technical product troubleshooting') help Atlas immediately reroute out-of-scope utterances to neighboring topics."
+      }
+    ],
+    quiz: [
+      {
+        qt: "What is the primary function of a Topic's 'Classification Description' in Agentforce?",
+        opts: [
+          "It provides the user-facing welcome message",
+          "Atlas uses it as the semantic fingerprint to classify and route user intent",
+          "It defines the database primary key for SOQL lookups",
+          "It configures the SSL certificate for MuleSoft callouts"
+        ],
+        a: 1,
+        expl: "Atlas uses the Classification Description to evaluate user utterances and route the conversation to the most relevant Topic, dynamically injecting only that topic's instructions and tools."
+      }
+    ]
+  },
+  {
+    id: "action-architecture",
+    title: "Agent Actions: Apex, Flows, & APIs",
+    tag: "ACTION-PATTERNS",
+    why: "Master the four types of Agent Actions that give Agentforce digital hands to interact with CRM and external systems.",
+    points: [
+      {
+        h: "The Four Action Engines",
+        body: `<p>Actions are the tools Atlas executes to read state or perform mutations:</p>
+               <div class="tbl">
+                 <table class="cmp">
+                   <tr><th>Action Type</th><th>Technology</th><th>Best For</th></tr>
+                   <tr><td><b>Apex Action</b></td><td><code>@InvocableMethod</code></td><td>Complex business logic, high-volume DML, integrations, security-enforced SOQL.</td></tr>
+                   <tr><td><b>Flow Action</b></td><td>Autolaunched Flow</td><td>Declarative record creation, multi-step branching, screenless workflow orchestration.</td></tr>
+                   <tr><td><b>Prompt Template</b></td><td>Prompt Builder</td><td>Drafting emails, summarizing text, transforming tone, extracting entities.</td></tr>
+                   <tr><td><b>MuleSoft API</b></td><td>Anypoint Platform</td><td>Connecting to external ERPs (SAP, NetSuite) and legacy transactional databases.</td></tr>
+                 </table>
+               </div>`
+      },
+      {
+        h: "Parameter Extraction & Autonomous Binding",
+        body: `<p>When Atlas decides to run an action, it automatically extracts required parameters from:</p>
+               <ul>
+                 <li>The ongoing conversation history.</li>
+                 <li>Session context variables (e.g. <code>$User.Id</code>, <code>$MessagingSession.Id</code>).</li>
+                 <li>Outputs from prior actions in the ReAct trajectory.</li>
+               </ul>
+               <p>If a required parameter is missing, Atlas autonomously pauses execution and prompts the user in natural language to supply the missing information before firing the tool!</p>`
+      }
+    ],
+    code: [
+      {
+        h: "Action Execution Trace",
+        lang: "text",
+        code: `User: "Book a service appointment for next Tuesday."
+Atlas [Reasoning]:
+  - Action required: Schedule_Field_Service_Appointment
+  - Required parameters: 
+      * ContactId (Found: 003XXXXXXXXXXXX)
+      * TargetDate (Parsed: 2026-11-03)
+      * TimeSlot (MISSING)
+  - Decision: Ask user for preferred time slot.
+Atlas to User: "I'd be happy to book that appointment for Tuesday, November 3rd. Do you prefer morning (9 AM - 12 PM) or afternoon (1 PM - 5 PM)?"`,
+        note: "Developers do not need to write custom branching logic for missing fields; Atlas handles parameter elicitation automatically if input parameters are marked required."
+      }
+    ],
+    quiz: [
+      {
+        qt: "What happens when an Agent Action is marked with a required parameter that the user has not yet provided in the conversation?",
+        opts: [
+          "The transaction throws an unhandled System.NullPointerException",
+          "Atlas halts the conversation and terminates the session",
+          "Atlas autonomously asks the user in natural language to provide the missing value",
+          "The parameter is substituted with an empty string automatically"
+        ],
+        a: 2,
+        expl: "The Atlas Reasoning Engine identifies missing required parameters during plan formulation and autonomously prompts the user to supply them before executing the action."
+      }
+    ]
+  },
+  {
+    id: "apex-invocable-engineering",
+    title: "Senior Apex @InvocableMethod Engineering",
+    tag: "APEX-ENGINEERING",
+    why: "Learn how to write enterprise-grade Apex Invocables engineered specifically for LLM tool selection and resilient error recovery.",
+    points: [
+      {
+        h: "Description Engineering for LLMs",
+        body: `<p>In traditional Flow development, the <code>description</code> attribute in an <code>@InvocableMethod</code> was merely an admin tooltip. <b>In Agentforce, the description is the API documentation read directly by the LLM</b>.</p>
+               <p>A senior developer must engineer descriptions to clearly specify:</p>
+               <ul>
+                 <li><b>Exact Trigger Purpose</b>: What business capability does this method perform?</li>
+                 <li><b>Strict Pre-conditions</b>: When should it be called (and when should it NOT be called)?</li>
+                 <li><b>Input Expectations</b>: Expected formats (e.g., E.164 phone, 18-char record ID, ISO dates).</li>
+                 <li><b>Returned Output</b>: What insights downstream reasoning can extract from the result.</li>
+               </ul>`
+      },
+      {
+        h: "The 'Atlas-Friendly' Error Recovery Pattern",
+        body: `<p><b>Never allow unhandled exceptions to bubble out of an Agent Action</b>. If your Apex code throws an unhandled exception, Atlas encounters a catastrophic fault and outputs a generic error message to the user.</p>
+               <p>Instead, follow the <b>Structured Outcome Pattern</b>: return a DTO containing <code>isSuccess</code>, <code>outcomeMessage</code>, and structured data. When an error occurs, return an informative message explaining <i>why</i> (e.g., <i>'Account balance is insufficient for a $500 transfer; maximum allowed transfer is $120'</i>). Atlas reads this message and naturally explains the limitation or suggests valid alternatives!</p>`
+      }
+    ],
+    code: [
+      {
+        h: "Enterprise Agentforce Invocable Action (Apex)",
+        lang: "apex",
+        code: `public with sharing class AgentforceSubscriptionAction {
+
+    public class Request {
+        @InvocableVariable(
+            label='Subscription Record ID' 
+            description='The 18-character Salesforce ID of the Subscription__c record.' 
+            required=true
+        )
+        public Id subscriptionId;
+
+        @InvocableVariable(
+            label='Cancellation Reason' 
+            description='Customer reason for cancelling. E.g., Too expensive, Competitor switch.' 
+            required=true
+        )
+        public String reason;
+    }
+
+    public class Response {
+        @InvocableVariable(label='Is Success' description='True if cancelled successfully.')
+        public Boolean isSuccess;
+
+        @InvocableVariable(label='Outcome Message' description='Diagnostic message for Atlas to convey to the user.')
+        public String outcomeMessage;
+
+        @InvocableVariable(label='Refund Amount' description='Calculated prorated refund balance.')
+        public Decimal refundAmount;
+    }
+
+    @InvocableMethod(
+        label='Cancel Customer Subscription'
+        description='Cancels an active recurring customer subscription and calculates prorated refund. Requires SubscriptionId and reason. Do NOT call for billing disputes or general inquiries.'
+        category='Subscriptions'
+    )
+    public static List<Response> execute(List<Request> requests) {
+        List<Response> responses = new List<Response>();
+
+        for (Request req : requests) {
+            Response res = new Response();
+            try {
+                // Bulkified logic & security enforcement
+                List<Subscription__c> subs = [
+                    SELECT Id, Status__c, MonthlyRate__c 
+                    FROM Subscription__c 
+                    WHERE Id = :req.subscriptionId 
+                    WITH SECURITY_ENFORCED
+                ];
+                
+                if (subs.isEmpty()) {
+                    res.isSuccess = false;
+                    res.outcomeMessage = 'Subscription ID ' + req.subscriptionId + ' was not found.';
+                    responses.add(res);
+                    continue;
+                }
+
+                if (subs[0].Status__c == 'Cancelled') {
+                    res.isSuccess = false;
+                    res.outcomeMessage = 'This subscription was already cancelled on a previous date.';
+                    responses.add(res);
+                    continue;
+                }
+
+                // Process cancellation DML
+                subs[0].Status__c = 'Cancelled';
+                subs[0].Cancellation_Reason__c = req.reason;
+                update subs;
+
+                res.isSuccess = true;
+                res.refundAmount = subs[0].MonthlyRate__c * 0.5; // example proration
+                res.outcomeMessage = 'Subscription cancelled successfully with prorated refund of $' + res.refundAmount;
+            } catch (Exception ex) {
+                res.isSuccess = false;
+                res.outcomeMessage = 'Failed due to an internal system error: ' + ex.getMessage();
+            }
+            responses.add(res);
+        }
+        return responses;
+    }
+}`,
+        note: "Always return List<Response> even if called for a single conversational turn. The list signature is mandatory for all Apex @InvocableMethods in Salesforce."
+      }
+    ],
+    quiz: [
+      {
+        qt: "Why is throwing an unhandled exception inside an Agentforce Invocable Action considered a critical anti-pattern?",
+        opts: [
+          "It consumes 100 extra SOQL queries in the transaction",
+          "It crashes the Atlas ReAct planning loop and prevents the agent from self-correcting or explaining the issue to the user",
+          "It permanently disables the Topic in Agentforce Builder",
+          "Salesforce disables the org's Einstein Trust Layer for 24 hours"
+        ],
+        a: 1,
+        expl: "Unhandled exceptions cause an abrupt runtime failure. Returning a structured output with isSuccess=false and a descriptive outcome message allows Atlas to understand the failure and converse naturally with the user."
+      }
+    ]
+  },
+  {
+    id: "data-cloud-ingestion",
+    title: "Data Cloud Ingestion: Connectors & DLOs",
+    tag: "DATA-INGESTION",
+    why: "Explore the hyperscale lakehouse architecture of Data Cloud, understanding how raw data lands into Data Lake Objects (__dll).",
+    points: [
+      {
+        h: "Hyperscale Lakehouse Architecture",
+        body: `<p>Salesforce Data Cloud is built on top of an elastic hyperscale lakehouse (leveraging distributed storage, Apache Spark, and open table formats like Apache Iceberg and Delta Lake). It operates at a scale of billions of records without impacting operational CRM transactional performance.</p>
+               <p>Ingestion streams support both <b>streaming micro-batches</b> (seconds) and <b>scheduled bulk batches</b> (hourly/daily).</p>`
+      },
+      {
+        h: "Connectors & Data Lake Objects (DLOs)",
+        body: `<p>When data enters Data Cloud through a <b>Data Stream</b>, it lands directly into a <b>Data Lake Object (DLO)</b>:</p>
+               <ul>
+                 <li><b>Raw Schema Preservation</b>: DLOs retain the native field names and formats of the source system (e.g. <code>pos_terminal_id</code>, <code>cust_birth_dt</code>).</li>
+                 <li><b>Metadata Suffix</b>: DLOs are identified by the suffix <code>__dll</code> (Data Lake Logic/Object).</li>
+                 <li><b>Ingestion Formula Fields</b>: Developers can define formula transformations at the DLO layer to clean strings, convert timestamps, or build composite keys before mapping.</li>
+               </ul>
+               <div class="trap"><b>Implementation Pitfall:</b> DLOs cannot be queried directly by Agentforce or used in segmentation! They are raw landing tables. Data must be <b>mapped from DLO to DMO</b> (Data Model Object) to become active.</div>`
+      }
+    ],
+    code: [
+      {
+        h: "Ingestion API JSON Payload Structure",
+        lang: "json",
+        code: `// Sample streaming payload sent to Data Cloud Ingestion API endpoint
+POST /api/v1/ingest/connectors/ECommerce_Orders/raw_orders
+Content-Type: application/json
+
+{
+  "data": [
+    {
+      "order_id": "ORD-2026-99421",
+      "customer_email": "sophia.chen@example.com",
+      "order_timestamp": "2026-10-28T11:42:00Z",
+      "order_total": 249.99,
+      "currency_code": "USD",
+      "shipping_postal_code": "94105",
+      "items": [
+        { "sku": "WF-HEADPHONES-01", "qty": 1, "price": 199.99 },
+        { "sku": "WF-CASE-BLU", "qty": 1, "price": 50.00 }
+      ]
+    }
+  ]
+}`,
+        note: "This payload lands directly in the raw ECommerce_Orders__dll Data Lake Object before being mapped to the standard SalesOrder__dlm Data Model Object."
+      }
+    ],
+    quiz: [
+      {
+        qt: "What is the primary role of a Data Lake Object (DLO) with the '__dll' suffix?",
+        opts: [
+          "To act as the unified golden record for machine learning models",
+          "To serve as the raw, immutable landing container preserving source system schema",
+          "To execute real-time SOQL queries inside Lightning Web Components",
+          "To enforce Field-Level Security in Salesforce Sales Cloud"
+        ],
+        a: 1,
+        expl: "DLOs (__dll) are raw ingestion containers that preserve source system schemas and formats. Data must then be mapped to DMOs (__dlm) for harmonization and activation."
+      }
+    ]
+  },
+  {
+    id: "data-modeling-dmo",
+    title: "Canonical Modeling & Data Spaces",
+    tag: "C360-MODELING",
+    why: "Learn how to harmonize disparate schemas into the canonical Customer 360 data model and isolate data across Data Spaces.",
+    points: [
+      {
+        h: "The Customer 360 (C360) Canonical Model",
+        body: `<p>A major enterprise failure is having 10 different representations of a 'Customer' or 'Order'. Data Cloud solves this via the standardized <b>Customer 360 Data Model</b>:</p>
+               <ul>
+                 <li><b>Party / Profile</b>: <code>Individual__dlm</code>, <code>Account__dlm</code>, <code>ContactPointEmail__dlm</code>, <code>ContactPointPhone__dlm</code>.</li>
+                 <li><b>Engagement</b>: <code>SalesOrder__dlm</code>, <code>Case__dlm</code>, <code>DeviceApplicationEngagement__dlm</code>.</li>
+                 <li><b>Product</b>: <code>GoodsProduct__dlm</code>, <code>ProductCategory__dlm</code>.</li>
+               </ul>
+               <p>All DMOs carry the suffix <code>__dlm</code>. By mapping different DLOs to the same canonical DMO, you harmonize disparate enterprise sources into a unified language.</p>`
+      },
+      {
+        h: "Data Spaces (Multi-Tenant Governance)",
+        body: `<p>Enterprises with multiple brands, business units (BUs), or regulatory jurisdictions (e.g. EU GDPR vs US CCPA) use <b>Data Spaces</b> to logically segregate data within a single Data Cloud instance.</p>
+               <p>Users, Agentforce agents, and segmentation jobs are scoped to specific Data Spaces, guaranteeing that an agent for Brand A cannot see Brand B's customer data.</p>`
+      }
+    ],
+    code: [
+      {
+        h: "Querying Harmonized DMOs in Data Cloud (SOQL / SQL)",
+        lang: "sql",
+        code: `-- Querying harmonized Sales Orders and Individuals across disparate source systems
+SELECT 
+    Individual__dlm.FirstName__c,
+    Individual__dlm.LastName__c,
+    SalesOrder__dlm.OrderNumber__c,
+    SalesOrder__dlm.GrandTotalAmount__c,
+    SalesOrder__dlm.OrderDate__c
+FROM SalesOrder__dlm
+JOIN Individual__dlm 
+  ON SalesOrder__dlm.SoldToCustomerId__c = Individual__dlm.Id__c
+WHERE SalesOrder__dlm.GrandTotalAmount__c > 500.00
+ORDER BY SalesOrder__dlm.OrderDate__c DESC
+LIMIT 50;`,
+        note: "Because POS transactions, web orders, and ERP invoices were all mapped to SalesOrder__dlm, this single query accesses all sales channels simultaneously."
+      }
+    ],
+    quiz: [
+      {
+        qt: "What suffix designates a Data Model Object (DMO) in Salesforce Data Cloud?",
+        opts: [
+          "__c",
+          "__dll",
+          "__dlm",
+          "__cio"
+        ],
+        a: 2,
+        expl: "__dlm designates a Data Model Object. In contrast, __dll is for Data Lake Objects (raw landing), __cio is for Calculated Insights, and __c is for standard CRM custom objects."
+      }
+    ]
+  },
+  {
+    id: "identity-resolution",
+    title: "Identity Resolution & The Golden Record",
+    tag: "IDENTITY-RESOLUTION",
+    why: "Master deterministic and probabilistic matching rules to synthesize unified Golden Records across millions of customer fragments.",
+    points: [
+      {
+        h: "Rulesets: Deterministic vs. Probabilistic Matching",
+        body: `<p>Customers interact with companies across mobile apps, in-store registers, call centers, and website cookies. Identity Resolution links these disparate profiles into a single <b>Unified Individual</b>:</p>
+               <ul>
+                 <li><b>Deterministic Rules (Exact)</b>: Normalized Email matches, E.164 Phone matches, Party Identification ID (Driver's License, Loyalty Number).</li>
+                 <li><b>Probabilistic Rules (Fuzzy)</b>: Evaluates semantic similarity across First Name (e.g. Bill vs. William), Last Name, and Postal Address using confidence score thresholds.</li>
+               </ul>`
+      },
+      {
+        h: "Reconciliation Rules (Conflict Resolution)",
+        body: `<p>When source systems disagree (e.g. POS says phone is 555-0199; Web says 555-0100), reconciliation rules determine what appears on the Unified profile:</p>
+               <ul>
+                 <li><b>Most Frequent</b>: Picks the value that appears most often across all sources.</li>
+                 <li><b>Last Modified</b>: Uses the attribute from the most recently updated record.</li>
+                 <li><b>Source Priority</b>: Ranks sources (e.g. 1. Salesforce CRM > 2. E-Commerce > 3. Marketing Cloud).</li>
+               </ul>
+               <div class="trap"><b>Critical Data Pitfall:</b> Beware of <i>over-consolidation</i>! An unconstrained exact match rule on 'Home Phone' can merge an entire family of 5 into a single Unified Individual, corrupting customer analytics.</div>`
+      }
+    ],
+    code: [
+      {
+        h: "Traversing Unified Link Tables (SQL / SOQL)",
+        lang: "sql",
+        code: `-- Discovering all source system records linked to a specific Unified Individual Golden Record
+SELECT 
+    UnifiedIndividual__dlm.Id__c AS GoldenRecordId,
+    IndividualIdentityLink__dlm.SourceRecordId__c AS OriginalSourceId,
+    IndividualIdentityLink__dlm.DataSourceId__c AS SourceSystemName
+FROM UnifiedIndividual__dlm
+JOIN IndividualIdentityLink__dlm 
+  ON UnifiedIndividual__dlm.Id__c = IndividualIdentityLink__dlm.UnifiedRecordId__c
+WHERE UnifiedIndividual__dlm.Id__c = '003XXXXXXXXXXXX';`,
+        note: "IndividualIdentityLink__dlm is the critical bridge table linking raw source records to the unified golden record."
+      }
+    ],
+    quiz: [
+      {
+        qt: "Which bridge table maps individual source records to their corresponding Unified Individual golden record?",
+        opts: [
+          "UnifiedContactBridge__dlm",
+          "IndividualIdentityLink__dlm",
+          "DataStreamMapping__dll",
+          "PartyIdentificationLink__dlm"
+        ],
+        a: 1,
+        expl: "IndividualIdentityLink__dlm stores the exact lineage mapping linking every source record ID to its resulting Unified Record ID."
+      }
+    ]
+  },
+  {
+    id: "calculated-insights",
+    title: "Calculated Insights: Spark vs. Flink",
+    tag: "CALCULATED-INSIGHTS",
+    why: "Build multi-dimensional SQL metrics (LTV, Churn, RFM) that run in batch or real-time streaming to empower agent decision-making.",
+    points: [
+      {
+        h: "Batch Insights vs. Streaming Insights",
+        body: `<p>Calculated Insights (CI) compute complex analytical metrics across billions of rows:</p>
+               <div class="tbl">
+                 <table class="cmp">
+                   <tr><th>Feature</th><th>Batch Calculated Insights</th><th>Streaming Insights</th></tr>
+                   <tr><td><b>Engine</b></td><td>Distributed Apache Spark</td><td>Real-time Apache Flink</td></tr>
+                   <tr><td><b>Schedule</b></td><td>Hourly, daily, or on-demand</td><td>Continuous streaming sliding window (seconds/mins)</td></tr>
+                   <tr><td><b>Typical Use</b></td><td>Customer Lifetime Value (LTV), 12-month RFM score</td><td>Cart abandonment within 15 mins, sudden error spikes</td></tr>
+                   <tr><td><b>Windowing</b></td><td>Full historical table scans</td><td>Sliding, tumbling, or session time windows</td></tr>
+                 </table>
+               </div>`
+      },
+      {
+        h: "Dimensions vs. Measures in CI SQL",
+        body: `<p>Every Calculated Insight SQL query must explicitly define:</p>
+               <ul>
+                 <li><b>Dimensions</b>: Grouping keys (e.g. <code>UnifiedIndividualId__c</code>, <code>ProductCategory__c</code>).</li>
+                 <li><b>Measures</b>: Aggregate mathematical metrics (e.g. <code>SUM(GrandTotalAmount__c)</code>, <code>COUNT(Id__c)</code>, <code>AVG(SatisfactionScore__c)</code>).</li>
+               </ul>
+               <p>Calculated Insights carry the metadata suffix <code>__cio</code> and can be queried directly via SOQL or used as grounding attributes in Agentforce.</p>`
+      }
+    ],
+    code: [
+      {
+        h: "Customer Lifetime Value & Recency Insight (ANSI SQL)",
+        lang: "sql",
+        code: `SELECT
+  UnifiedIndividual__dlm.Id__c as UnifiedIndividualId__c,
+  SUM(SalesOrder__dlm.GrandTotalAmount__c) as TotalLifetimeSpend__c,
+  COUNT(SalesOrder__dlm.Id__c) as TotalOrderCount__c,
+  MAX(SalesOrder__dlm.OrderDate__c) as LastOrderTimestamp__c,
+  AVG(SalesOrder__dlm.GrandTotalAmount__c) as AverageOrderValue__c
+FROM UnifiedIndividual__dlm
+JOIN IndividualIdentityLink__dlm 
+  ON UnifiedIndividual__dlm.Id__c = IndividualIdentityLink__dlm.UnifiedRecordId__c
+JOIN SalesOrder__dlm 
+  ON IndividualIdentityLink__dlm.SourceRecordId__c = SalesOrder__dlm.SoldToCustomerId__c
+GROUP BY UnifiedIndividual__dlm.Id__c;`,
+        note: "Atlas reads TotalLifetimeSpend__c when reasoning about customer VIP status or offering concessions during billing disputes."
+      }
+    ],
+    quiz: [
+      {
+        qt: "What metadata suffix identifies Calculated Insights in Salesforce Data Cloud?",
+        opts: [
+          "__ci",
+          "__dlm",
+          "__cio",
+          "__insight"
+        ],
+        a: 2,
+        expl: "Calculated Insights use the __cio suffix (Calculated Insight Object), distinguishing them from DMOs (__dlm) and DLOs (__dll)."
+      }
+    ]
+  },
+  {
+    id: "data-graphs-subsecond",
+    title: "Sub-Second Grounding via Data Graphs",
+    tag: "DATA-GRAPHS",
+    why: "Discover why standard SOQL joins fail in conversational AI and how pre-compiled JSON Data Graphs provide sub-second agent grounding.",
+    points: [
+      {
+        h: "The Conversational Latency Bottleneck",
+        body: `<p>In conversational AI, human users expect responses within 1 to 2 seconds. If an AI agent has to execute 5 separate relational SOQL joins across billions of rows (Customer $\rightarrow$ Orders $\rightarrow$ Order Items $\rightarrow$ Cases $\rightarrow$ Insights), query execution alone can take 4-8 seconds, causing timeouts.</p>
+               <p>Salesforce solves this with <b>Data Graphs</b>: pre-joined, hierarchical JSON structures materialized in an ultra-fast cache.</p>`
+      },
+      {
+        h: "Data Graph Architecture",
+        body: `<p>A Data Graph is defined starting from a <b>Root Object</b> (e.g. <code>UnifiedIndividual__dlm</code> or <code>Account__dlm</code>) with nested child arrays:</p>
+               <pre><code>Root: UnifiedIndividual__dlm
+ ├── ContactPoints (Email, Phone)
+ ├── CalculatedInsights (LTV, ChurnRisk)
+ ├── RecentOrders (Last 10 orders with LineItems)
+ └── RecentSupportCases (Status, Priority)</code></pre>
+               <p>When an agent needs context on a customer, Atlas executes a <b>single indexed key-value read (< 100ms)</b> and receives the entire 360-degree tree as a structured JSON object.</p>`
+      }
+    ],
+    code: [
+      {
+        h: "Materialized Data Graph Representation (JSON)",
+        lang: "json",
+        code: `{
+  "DataGraphName": "Unified_Customer_360_Graph",
+  "PrimaryEntityId": "003XXXXXXXXXXXX",
+  "UnifiedIndividual": {
+    "FirstName": "Alex",
+    "LastName": "Mercer",
+    "VIP_Tier": "Platinum",
+    "LifetimeSpend": 14250.00,
+    "CalculatedInsights": {
+      "ChurnRiskScore": 0.12,
+      "OpenCaseCount": 1
+    },
+    "RecentOrders": [
+      {
+        "OrderId": "801XXXXXXXXXXXX",
+        "OrderNumber": "ORD-8812",
+        "Total": 349.00,
+        "Status": "Delivered",
+        "Items": [
+          { "Sku": "HEADSET-PRO", "Qty": 1 }
+        ]
+      }
+    ]
+  }
+}`,
+        note: "This complete JSON tree is injected directly into Atlas's reasoning context in a single lightning-fast read."
+      }
+    ],
+    quiz: [
+      {
+        qt: "What is the primary architectural advantage of using Data Graphs for Agentforce grounding instead of runtime relational SOQL queries?",
+        opts: [
+          "Data Graphs automatically translate text into 50 languages",
+          "Data Graphs pre-join hierarchical data into a fast-lookup JSON cache, enabling sub-second latency",
+          "Data Graphs eliminate the need for user authentication",
+          "Data Graphs bypass the Einstein Trust Layer"
+        ],
+        a: 1,
+        expl: "Data Graphs pre-materialize relational joins into a hierarchical JSON cache, allowing the agent to retrieve complete 360-degree context in under 100ms."
+      }
+    ]
+  },
+  {
+    id: "unstructured-vector-rag",
+    title: "Unstructured Data & Hybrid Vector RAG",
+    tag: "VECTOR-RAG",
+    why: "Master unstructured document processing, chunking strategies, embeddings, and Hybrid Search combining BM25 keyword matching with vector cosine similarity.",
+    points: [
+      {
+        h: "Unstructured Data Pipeline (UDLO to UDMO)",
+        body: `<p>Enterprise knowledge lives in unstructured documents: PDF user guides, warranty manuals, return policies, and Knowledge articles. Data Cloud ingests these files into <b>Unstructured Data Lake Objects (UDLO)</b> and maps them to <b>Unstructured Data Model Objects (UDMO)</b>.</p>
+               <p>The system breaks documents into chunks (e.g. 500-1000 tokens) with a sliding overlap (e.g. 100-200 tokens) to ensure ideas spanning paragraph boundaries are not cut off.</p>`
+      },
+      {
+        h: "Hybrid Search (BM25 + Cosine Similarity)",
+        body: `<p>A common pitfall in generative AI is relying solely on semantic vector search. Vector embeddings capture conceptual meaning well (e.g. 'leaking pipe' matches 'water valve fracture'), but struggle with exact alphanumeric strings like product SKUs or error codes (e.g. <code>ERR-9021-X</code>).</p>
+               <p>Data Cloud implements <b>Hybrid Search</b>:</p>
+               <ul>
+                 <li><b>Dense Vector Search</b>: Finds conceptual/semantic similarity via cosine distance.</li>
+                 <li><b>Sparse Lexical Search (BM25)</b>: Finds exact keyword matches, model numbers, and codes.</li>
+                 <li><b>Reciprocal Rank Fusion (RRF)</b>: Merges and re-ranks the results into a single optimized context set for the LLM.</li>
+               </ul>`
+      }
+    ],
+    code: [
+      {
+        h: "Apex Vector Search Execution via ConnectApi",
+        lang: "apex",
+        code: `// Programmatic invocation of Data Cloud Hybrid Vector Search from Apex
+ConnectApi.SearchIndexQueryInput queryInput = new ConnectApi.SearchIndexQueryInput();
+queryInput.queryText = 'What is the return policy for water-damaged electronics?';
+queryInput.numResults = 3;
+
+// Target the Search Index built over Knowledge Articles
+ConnectApi.SearchIndexResult result = ConnectApi.DatacloudSearch.searchIndex(
+    'Knowledge_Return_Policies_Index', 
+    queryInput
+);
+
+for (ConnectApi.SearchResultChunk chunk : result.results) {
+    System.debug('Relevance Score: ' + chunk.score);
+    System.debug('Chunk Text: ' + chunk.text);
+    System.debug('Source Doc: ' + chunk.metadata.get('DocumentTitle__c'));
+}`,
+        note: "This allows developers to ground custom Apex actions with vector search results dynamically."
+      }
+    ],
+    quiz: [
+      {
+        qt: "What search algorithm does Data Cloud use to merge lexical keyword matching (BM25) with vector semantic search?",
+        opts: [
+          "Dijkstra's Shortest Path",
+          "Reciprocal Rank Fusion (RRF)",
+          "Binary Search Tree Traversal",
+          "Stochastic Gradient Descent"
+        ],
+        a: 1,
+        expl: "Data Cloud uses Reciprocal Rank Fusion (RRF) to score and combine results from BM25 lexical keyword search and dense vector search into a unified ranking."
+      }
+    ]
+  },
+  {
+    id: "zero-copy-federation",
+    title: "Zero Copy Lakehouse Federation",
+    tag: "ZERO-COPY",
+    why: "Understand how Zero Copy eliminates ETL pipelines by virtualizing Snowflake, Databricks, BigQuery, and Redshift data via Apache Iceberg.",
+    points: [
+      {
+        h: "The Death of Brittle ETL Pipelines",
+        body: `<p>Historically, integrating external enterprise data into Salesforce required ETL jobs running overnight. These pipelines duplicated gigabytes of data, incurred steep storage costs, and went out of sync.</p>
+               <p><b>Zero Copy eliminates data movement</b>. Data Cloud accesses external data warehouses virtually at the metadata layer without copying physical rows into Salesforce storage.</p>`
+      },
+      {
+        h: "Two Flavors of Zero Copy Federation",
+        body: `<ol>
+                 <li><b>Storage Federation (Open Table Formats)</b>:
+                   <ul>
+                     <li>Relies on <b>Apache Iceberg</b> or <b>Delta Lake</b> table formats.</li>
+                     <li>Data Cloud and external platforms (like Snowflake or Databricks) read from the same parquet files stored in AWS S3 or Google Cloud Storage.</li>
+                     <li>Zero data movement; zero synchronization delay.</li>
+                   </ul>
+                 </li>
+                 <li><b>Query Federation (Compute Pushdown)</b>:
+                   <ul>
+                     <li>Data Cloud sends the SQL query to the external compute engine (e.g. Snowflake Virtual Warehouse, Google BigQuery compute).</li>
+                     <li>The external warehouse processes the query and returns only the filtered result set to Salesforce.</li>
+                   </ul>
+                 </li>
+               </ol>
+               <p>Zero Copy is <b>bi-directional</b>: external data science teams can also query Data Cloud harmonized profiles in Snowflake without data egress fees!</p>`
+      }
+    ],
+    code: [
+      {
+        h: "Zero Copy Lakehouse Architecture Diagram",
+        lang: "text",
+        code: `┌────────────────────────────────────────┐
+│         Salesforce Data Cloud          │
+│   • DMO (Virtual Iceberg Metadata)     │
+│   • Real-Time Agentforce Grounding     │
+└───────────────────▲────────────────────┘
+                    │ Zero Copy Virtual Link
+                    │ (Apache Iceberg / Arrow)
+┌───────────────────▼────────────────────┐
+│      External Enterprise Warehouse     │
+│   (Snowflake / Databricks / BigQuery)  │
+│   • 500 Million Transaction Records    │
+│   • Data Stored in S3 / GCS Parquet    │
+└────────────────────────────────────────┘`,
+        note: "Data Cloud queries the data directly where it lives without replicating 500M rows into Salesforce CRM storage."
+      }
+    ],
+    quiz: [
+      {
+        qt: "Which open table format is predominantly utilized for Zero Copy storage federation between Salesforce Data Cloud and modern data platforms?",
+        opts: [
+          "Apache Iceberg",
+          "Hadoop HDFS SequenceFiles",
+          "SQLite Flat Files",
+          "MongoDB BSON"
+        ],
+        a: 0,
+        expl: "Salesforce Data Cloud relies on open table formats like Apache Iceberg (and Delta Lake) to enable multi-engine read/write access to shared parquet storage without data duplication."
+      }
+    ]
+  },
+  {
+    id: "trust-layer-security",
+    title: "Einstein Trust Layer & Governance",
+    tag: "TRUST-LAYER",
+    why: "Master the 6 pillars of enterprise security: Zero Data Retention (ZDR), PII masking, toxicity defense, and audit logging.",
+    points: [
+      {
+        h: "The 6 Pillars of the Einstein Trust Layer",
+        body: `<p>The Einstein Trust Layer intercepts every single payload passing between Agentforce, Data Cloud, and foundation LLMs:</p>
+               <ol>
+                 <li><b>Dynamic Grounding</b>: Injects context while strictly honoring user Object and Field-Level Security (FLS).</li>
+                 <li><b>PII Data Masking</b>: Detects sensitive data (SSNs, credit cards, emails, phone numbers) and replaces them with synthetic tokens (e.g. <code>[PERSON_1]</code>) before the prompt leaves Salesforce.</li>
+                 <li><b>Zero Data Retention (ZDR)</b>: Legally and technically guarantees that third-party LLM vendors (OpenAI, Anthropic) do NOT retain data or train public models on customer prompts.</li>
+                 <li><b>Toxicity Scoring & Guardrails</b>: Screens inputs and completions for hate speech, harassment, and profanity.</li>
+                 <li><b>Prompt Injection Defense</b>: Defends against adversarial attempts to hijack the agent persona.</li>
+                 <li><b>Audit Trail</b>: Logs prompt templates, masked tokens, latency, and toxicity scores for regulatory compliance.</li>
+               </ol>`
+      },
+      {
+        h: "User Mode vs. System Mode in Agentforce",
+        body: `<p>When configuring an agent, choosing the execution mode is critical for security:</p>
+               <ul>
+                 <li><b>User Mode</b>: The agent executes strictly with the permissions of the logged-in user. If a portal customer cannot view the <code>CostPrice__c</code> field, the agent cannot access it.</li>
+                 <li><b>System Mode (with Sharing)</b>: Used for public customer service agents that need to look up shared knowledge or inventory records without granting direct object permissions to unauthenticated visitors.</li>
+               </ul>`
+      }
+    ],
+    code: [
+      {
+        h: "PII Masking & De-Masking Pipeline Lifecycle",
+        lang: "text",
+        code: `1. CRM Grounded Prompt:
+   "Customer Sophia Chen (SSN: 999-12-3456) has requested an address update to 742 Evergreen Terrace."
+
+2. Einstein Trust Layer PII Masking:
+   "Customer [NAME_1] (SSN: [SSN_1]) has requested an address update to [ADDRESS_1]."
+
+3. External LLM (Claude 3.5 / GPT-4o via ZDR):
+   Processes masked tokens without ever seeing Sophia's real name or SSN.
+   Returns: "I have updated the residential record for [NAME_1] at [ADDRESS_1]."
+
+4. Trust Layer Secure De-Masking:
+   "I have updated the residential record for Sophia Chen at 742 Evergreen Terrace."`,
+        note: "Customer PII never touches external servers or model training sets."
+      }
+    ],
+    quiz: [
+      {
+        qt: "What does the Zero Data Retention (ZDR) guarantee ensure when using third-party LLMs with Agentforce?",
+        opts: [
+          "That Salesforce will delete the org's sandbox after 30 days",
+          "That third-party LLM vendors do not store prompt data or use it to train foundation models",
+          "That the customer's browser cache is cleared upon logout",
+          "That SOQL queries return zero rows for unauthenticated guest users"
+        ],
+        a: 1,
+        expl: "ZDR guarantees that external LLM providers process the request in memory and immediately discard the payload without storing, logging, or training on enterprise customer data."
+      }
+    ]
+  }
+];
+
+/* ==========================================================================
+   Flashcards Data Model: 32 Technical Cards
+   ========================================================================== */
+const CARDS = [
+  ["AGENTFORCE", "What is the Atlas Reasoning Engine?", "The cognitive orchestration brain of Agentforce that executes an iterative ReAct (Reason + Act) loop to plan, select tools, observe results, and dynamically replan conversational trajectories."],
+  ["AGENTFORCE", "How do Topics differ from traditional chatbot dialog trees?", "Topics are modular semantic boundaries with isolated classification descriptions, system instructions, and allowed tools. Atlas routes dynamically based on intent rather than following rigid static branches."],
+  ["APEX ACTIONS", "Why must @InvocableMethod signatures always accept and return List types?", "Salesforce platform architecture requires bulkified list signatures (List<Input> to List<Output>) to support automated batch agent executions and multi-user parallel dispatch."],
+  ["APEX ACTIONS", "What is the 'Atlas-Friendly' error handling pattern?", "Never throw unhandled exceptions. Instead, return structured DTOs containing isSuccess=false and descriptive outcome messages so Atlas can read the failure, reason about it, and propose alternatives."],
+  ["DATA CLOUD", "What is a Data Lake Object (DLO) and what suffix does it use?", "A raw, immutable landing container preserving source system schema and field names. Identified by the suffix '__dll'."],
+  ["DATA CLOUD", "What is a Data Model Object (DMO) and what suffix does it use?", "A harmonized canonical representation adhering to the Customer 360 data model. Identified by the suffix '__dlm'."],
+  ["DATA CLOUD", "Can Agentforce query DLOs directly?", "No. DLOs are raw landing tables. Data must be mapped to DMOs (__dlm) before it can be activated, queried by Agentforce, or used in segmentation."],
+  ["DATA CLOUD", "What is a Data Space?", "A logical partition within a single Data Cloud instance used to segregate data, metadata, and agents by brand, business unit, or regulatory jurisdiction (e.g. GDPR vs CCPA)."],
+  ["IDENTITY RESOLUTION", "What is the difference between Deterministic and Probabilistic matching?", "Deterministic matching requires exact matches on unique identifiers (normalized email, phone, party ID). Probabilistic matching uses fuzzy logic and phonetic algorithms on names and addresses."],
+  ["IDENTITY RESOLUTION", "What is a Reconciliation Rule in Data Cloud?", "A conflict resolution rule (Most Frequent, Last Modified, Source Priority) that determines which attribute value appears on the Unified Individual Golden Record when source records disagree."],
+  ["IDENTITY RESOLUTION", "What is IndividualIdentityLink__dlm?", "The lineage bridge table that maps each original source record ID to its resulting Unified Record ID."],
+  ["INSIGHTS", "What is the architectural difference between Batch and Streaming Calculated Insights?", "Batch Insights use Apache Spark to scan historical tables on hourly/daily schedules. Streaming Insights use Apache Flink to calculate metrics in real time over sliding/tumbling windows."],
+  ["INSIGHTS", "What metadata suffix identifies Calculated Insights?", "The '__cio' suffix (Calculated Insight Object)."],
+  ["DATA GRAPHS", "Why are Data Graphs required for real-time Agentforce grounding?", "Standard relational SOQL joins across billions of rows take seconds. Data Graphs pre-materialize hierarchical JSON trees for sub-second (< 100ms) indexed reads."],
+  ["VECTOR RAG", "What is Hybrid Search in Salesforce Data Cloud?", "A search technique combining dense vector semantic search (cosine similarity) with sparse lexical keyword search (BM25), merged and re-ranked using Reciprocal Rank Fusion (RRF)."],
+  ["VECTOR RAG", "Why is pure vector search insufficient for enterprise technical support?", "Vector search captures concepts but struggles with exact alphanumeric strings like product SKUs, serial numbers, and error codes (which BM25 keyword search handles perfectly)."],
+  ["ZERO COPY", "What is Zero Copy Lakehouse Federation?", "An architecture that enables Data Cloud to query and share external data in Snowflake, Databricks, BigQuery, or Redshift virtually without duplicating physical storage or running ETL pipelines."],
+  ["ZERO COPY", "What open table format predominantly powers Zero Copy storage federation?", "Apache Iceberg (along with Delta Lake for Databricks)."],
+  ["TRUST LAYER", "What is the Zero Data Retention (ZDR) guarantee?", "A binding agreement ensuring third-party LLM providers (OpenAI, Anthropic) do not store, log, or use enterprise customer prompt data to train foundation models."],
+  ["TRUST LAYER", "How does PII Data Masking protect customer privacy in Agentforce?", "The Trust Layer replaces sensitive data (SSN, credit card, email, phone) with synthetic tokens ([SSN_1], [NAME_1]) before leaving Salesforce, then securely de-masks upon return."],
+  ["TRUST LAYER", "What is the difference between User Mode and System Mode in Agentforce?", "User Mode enforces the exact Object/Field-Level Security and sharing of the authenticated user. System Mode executes with elevated access to read shared catalog/knowledge data."],
+  ["PROMPT BUILDER", "What are the four ways to ground a prompt template in Prompt Builder?", "1. Record Grounding (CRM merge fields), 2. Flow Grounding, 3. Apex Grounding (PromptTemplatePlugin), and 4. Data Cloud Grounding (Data Graphs / Vector Search)."],
+  ["MODEL BUILDER", "What is Einstein Model Builder?", "The management console that allows Salesforce organizations to select out-of-the-box LLMs or connect custom models (BYO-LLM) hosted on AWS Bedrock, Google Cloud Vertex AI, or Azure OpenAI."],
+  ["AGENTFORCE", "What are the 4 types of Agent Actions?", "Apex Actions (@InvocableMethod), Autolaunched Flows, Prompt Templates, and MuleSoft API integrations."],
+  ["DATA CLOUD", "What is an Unstructured Data Lake Object (UDLO)?", "A raw landing object that stores ingested unstructured files such as PDFs, audio transcripts, emails, and knowledge documents."],
+  ["IDENTITY RESOLUTION", "What is identity over-consolidation?", "A severe data defect where unconstrained matching rules (e.g. matching on shared landline phone) incorrectly merge distinct individuals (like family members) into one profile."],
+  ["AGENTFORCE", "What is Topic Classification Drift?", "A condition where overlapping classification descriptions cause the Atlas Reasoning Engine to bounce between topics mid-conversation, causing erratic responses."],
+  ["DATA CLOUD", "What is the Ingestion API?", "A high-throughput REST API endpoint that enables external applications to push streaming or batch payloads directly into Data Cloud DLOs."],
+  ["APEX ACTIONS", "What happens if an Apex action description omits pre-conditions?", "Atlas may invoke the action prematurely or in inappropriate contexts, such as processing a cancellation when a user merely asks for pricing information."],
+  ["TRUST LAYER", "What is Toxicity Scoring in the Einstein Trust Layer?", "An automated inspection mechanism that scans incoming user utterances and outgoing LLM responses for hate speech, profanity, and physical threats against safety thresholds."],
+  ["DATA GRAPHS", "Can a Data Graph be built on native CRM objects without Data Cloud?", "Yes! Salesforce supports CRM Data Graphs built directly on standard CRM objects as well as Data Cloud Data Graphs built on DMOs."],
+  ["AGENTFORCE", "What is autonomous parameter elicitation in Agentforce?", "When an action has a required parameter missing from context, Atlas automatically pauses execution and asks the user for the value in natural conversation before firing the action."]
+];
+
+/* ==========================================================================
+   Real-World Implementation Scenarios: 8 Scenarios
+   ========================================================================== */
+const SCEN = [
+  {
+    lvl: "ARCHITECTURE",
+    q: "A high-volume retail client wants their Agentforce customer service agent to automatically approve up to a $50 credit for VIP customers with an LTV over $5,000, but reject credits for customers with a high return rate. How do you architect this end-to-end between Data Cloud, Atlas, and Apex?",
+    a: [
+      "<b>1. Data Cloud Calculated Insights:</b> Build a batch Calculated Insight (<code>Customer_LTV_and_Risk__cio</code>) on Apache Spark calculating <code>TotalCustomerSpend__c</code> and <code>ReturnRatio__c</code> grouped by <code>UnifiedIndividualId__c</code>.",
+      "<b>2. Data Graph Materialization:</b> Incorporate the Calculated Insight into a <code>Unified_Customer_360_Graph</code> as a child attribute under the Unified Individual for sub-second retrieval.",
+      "<b>3. Topic & Instruction Guardrails:</b> Create a <code>Billing_Disputes_and_Credits</code> topic with explicit instructions: <i>'Only issue credits if the customer's LTV exceeds $5,000 and return ratio is below 0.15. Never offer credits exceeding $50.00.'</i>",
+      "<b>4. Structured Apex Action:</b> Develop an <code>IssueCustomerCreditAction</code> annotated with <code>@InvocableMethod</code> that enforces Field-Level Security, runs credit DML, and returns a structured DTO with <code>isSuccess</code> and <code>outcomeMessage</code> for Atlas to explain."
+    ],
+    checklist: [
+      "Calculated Insight definition (ANSI SQL)",
+      "Data Graph sub-second caching",
+      "Topic instruction boundaries & negative rules",
+      "Apex @InvocableMethod with structured outcome DTO"
+    ]
+  },
+  {
+    lvl: "DATA MODELING",
+    q: "After deploying Identity Resolution rules in Data Cloud, the client notices that multiple family members sharing a home landline and address have been merged into a single Golden Record. What caused this, and what is the exact architectural remediation?",
+    a: [
+      "<b>Cause:</b> Over-consolidation caused by an unconstrained deterministic matching rule on <code>ContactPointPhone</code> or loose probabilistic matching on Street Address without requiring an exact First Name match.",
+      "<b>Remediation Step 1:</b> Deactivate the active Identity Resolution ruleset.",
+      "<b>Remediation Step 2:</b> Redesign matching rulesets: ensure phone matching requires a composite match with Normalized First Name (or unique Party Identification ID like National ID / Loyalty ID).",
+      "<b>Remediation Step 3:</b> Adjust reconciliation rules: if source systems disagree, use Source Priority (e.g. Verified CRM Contact > E-commerce Guest Checkout).",
+      "<b>Remediation Step 4:</b> Trigger a re-run of Identity Resolution to un-merge the consolidated profiles and re-generate <code>IndividualIdentityLink__dlm</code>."
+    ],
+    checklist: [
+      "Identified over-consolidation defect",
+      "Composite matching rules (Phone + First Name)",
+      "Source Priority reconciliation",
+      "Re-running Identity Resolution pipeline"
+    ]
+  },
+  {
+    lvl: "PERFORMANCE",
+    q: "An Agentforce customer support agent is experiencing 6-second latency timeouts when looking up recent orders. Code inspection shows the agent action executes a 5-object SOQL query with multiple joins across Order, OrderItem, PricebookEntry, Asset, and Case. How do you re-architect this?",
+    a: [
+      "<b>Root Cause:</b> Relational SOQL joins executed at runtime across high-volume tables introduce severe database latency that violates conversational AI timeouts.",
+      "<b>Architectural Fix:</b> Replace the relational SOQL query with a <b>Salesforce Data Graph</b> (or CRM Data Graph).",
+      "<b>Implementation:</b> Configure a Data Graph with <code>Account</code> or <code>UnifiedIndividual</code> as root, nesting <code>Orders</code>, <code>OrderItems</code>, and <code>Cases</code>.",
+      "<b>Result:</b> The Apex action or Prompt Builder template retrieves the pre-joined hierarchical JSON blob via an indexed key read in under 100ms, eliminating the 6-second timeout."
+    ],
+    checklist: [
+      "Identified multi-table SOQL join bottleneck",
+      "Created Data Graph with Root Object and nested children",
+      "Point-in-time JSON cache lookup (< 100ms)",
+      "Refactored Agent Action to query Data Graph"
+    ]
+  },
+  {
+    lvl: "SECURITY SPECIALIST",
+    q: "A healthcare client wants Agentforce to assist patients with medical appointments, but HIPAA regulations strictly prohibit sending patient Social Security Numbers or diagnoses to external LLMs. How does the Einstein Trust Layer enforce compliance?",
+    a: [
+      "<b>Dynamic PII Masking:</b> The Einstein Trust Layer intercepts the prompt before it exits Salesforce boundary, detects SSNs, medical codes, and personal identifiers, replacing them with synthetic tokens (e.g. <code>[SSN_1]</code>, <code>[PERSON_1]</code>).",
+      "<b>Zero Data Retention (ZDR):</b> Salesforce maintains binding legal and technical contracts with model providers guaranteeing zero data logging and zero model training.",
+      "<b>Secure De-Masking:</b> Upon receiving the model completion, the Trust Layer swaps synthetic tokens back with the patient's real information inside the secure Salesforce boundary.",
+      "<b>Audit Trail Logging:</b> The entire transaction logs masked vs unmasked text, toxicity scores, and user context in the Einstein Audit Log for compliance reviews."
+    ],
+    checklist: [
+      "PII Masking & Synthetic token generation",
+      "Zero Data Retention (ZDR) architecture",
+      "Boundary-contained de-masking pipeline",
+      "Einstein Audit Trail compliance tracking"
+    ]
+  },
+  {
+    lvl: "ZERO COPY",
+    q: "A multinational enterprise has 300 million transactional records sitting in a Snowflake lakehouse. The executive team wants Agentforce to answer questions about transaction history, but rejects copying 300M rows into Salesforce storage. What is your design?",
+    a: [
+      "<b>Zero Copy Architecture:</b> Implement bi-directional Zero Copy Storage Federation via open table formats (Apache Iceberg).",
+      "<b>Storage Federation:</b> Configure Snowflake to share the underlying Iceberg metadata pointing to S3 parquet storage directly with Data Cloud.",
+      "<b>Virtual DMO Mapping:</b> Map the external Snowflake table to a standard or custom DMO (e.g. <code>HistoricalTransaction__dlm</code>).",
+      "<b>Sub-Second Grounding:</b> Create a Data Graph linking Unified Individual to <code>HistoricalTransaction__dlm</code>. Agentforce queries the data virtually where it lives, with zero physical storage replication and zero egress fees."
+    ],
+    checklist: [
+      "Selected Zero Copy Storage Federation (Apache Iceberg)",
+      "Snowflake to Data Cloud metadata link",
+      "Virtual DMO mapping (__dlm)",
+      "Data Graph grounding for sub-second retrieval"
+    ]
+  },
+  {
+    lvl: "APEX ACTIONS",
+    q: "During testing, your Apex Agent Action throws an unhandled 'QueryException: List has no rows for assignment to SObject' when a customer provides a mistyped order number. The user sees: 'I encountered an unexpected system error.' How do you refactor the code?",
+    a: [
+      "<b>Refactoring Pattern:</b> Implement the <b>Atlas-Friendly Structured Outcome Pattern</b>.",
+      "<b>1. Safe Querying:</b> Query into a <code>List&lt;Order&gt;</code> instead of a single SObject to prevent <code>QueryException</code> on zero rows.",
+      "<b>2. Structured Output DTO:</b> Return an object containing <code>isSuccess = false</code> and <code>outcomeMessage = 'Order ORD-999 was not found for customer email sophia@example.com'</code>.",
+      "<b>3. Try-Catch Wrapper:</b> Catch unexpected exceptions and return a user-friendly diagnostic message.",
+      "<b>4. Atlas Reflection:</b> Atlas reads the outcome message, remains in conversational control, and naturally informs the customer: <i>'I couldn't find order ORD-999. Could you please double-check your order number or provide your shipping zip code?'</i>"
+    ],
+    checklist: [
+      "Safe list query (no unhandled QueryException)",
+      "Structured output wrapper (isSuccess, outcomeMessage)",
+      "Avoided conversational crash",
+      "Enabled Atlas self-correction loop"
+    ]
+  },
+  {
+    lvl: "AI SPECIALIST",
+    q: "A manufacturing client has 10,000 PDF technical manuals and wants Agentforce to answer technician questions in the field. When technicians ask about specific part SKUs (e.g. 'VALVE-904-B'), the agent gives generic valve instructions instead of the exact model. Why is this happening, and how do you fix it?",
+    a: [
+      "<b>Diagnosis:</b> The system is relying solely on semantic dense vector search. Vector embeddings represent conceptual semantic similarity, but fail on exact alphanumeric keyword matching for SKUs and serial numbers.",
+      "<b>Remediation Step 1:</b> Enable <b>Hybrid Search</b> in Data Cloud vector search index configuration.",
+      "<b>Remediation Step 2:</b> Verify that <b>BM25 Lexical Keyword Search</b> is enabled alongside dense vector search.",
+      "<b>Remediation Step 3:</b> Configure <b>Reciprocal Rank Fusion (RRF)</b> to blend keyword hits with vector similarity, ensuring that queries with exact part numbers prioritize the exact SKU match in the top chunks passed to Atlas."
+    ],
+    checklist: [
+      "Identified pure vector semantic limitation",
+      "Enabled Hybrid Search in Data Cloud",
+      "Activated BM25 lexical keyword matching",
+      "Reciprocal Rank Fusion (RRF) score blending"
+    ]
+  },
+  {
+    lvl: "GOVERNANCE",
+    q: "A conglomerate runs two distinct brands (Luxury Travel and Budget Airline) in a single Salesforce org. How do you architect Data Cloud and Agentforce so each brand's digital agent strictly accesses its own customers, models, and actions?",
+    a: [
+      "<b>1. Data Spaces:</b> Create two isolated Data Spaces: <code>Luxury_Travel_Space</code> and <code>Budget_Airline_Space</code>.",
+      "<b>2. Segregated Ingestion:</b> Assign incoming Data Streams, DLOs, and DMOs to their respective Data Space.",
+      "<b>3. Scoped Identity Resolution:</b> Run separate Identity Resolution rulesets within each Data Space to prevent cross-brand profile merging.",
+      "<b>4. Agentforce Scoping:</b> Configure Brand A's Agentforce agent and topics to operate strictly within <code>Luxury_Travel_Space</code> via permission sets and Data Space assignment.",
+      "<b>5. Security Validation:</b> Verify that Apex Invocables enforce <code>WITH SECURITY_ENFORCED</code> and filter by brand context."
+    ],
+    checklist: [
+      "Data Spaces logical partitioning",
+      "Isolated Identity Resolution rulesets",
+      "Agentforce agent permission set scoping",
+      "Code-level security enforcement"
+    ]
+  }
+];
+
+/* ==========================================================================
+   7-Day Master Study Plan
+   ========================================================================== */
+const PLAN = [
+  {
+    d: "Day 1",
+    h: "Autonomous AI & Atlas Foundations",
+    items: [
+      "Study Module 1 (Atlas ReAct loop, digital labor vs chatbots)",
+      "Practice explaining the ReAct (Reason, Act, Observe, Plan) cycle out loud",
+      "Review Flashcards 1 to 5",
+      "Take Module 1 Quiz"
+    ]
+  },
+  {
+    d: "Day 2",
+    h: "Topics, Instructions, & Action Types",
+    items: [
+      "Study Modules 2 & 3 (Topics, Classification Descriptions, Flow/Apex actions)",
+      "Draft a sample Topic JSON schema with positive and negative constraints",
+      "Review Flashcards 6 to 10",
+      "Answer Scenario 1 & 6 with the 5-minute timer"
+    ]
+  },
+  {
+    d: "Day 3",
+    h: "Senior Apex Invocable Action Engineering",
+    items: [
+      "Study Module 4 (Apex @InvocableMethod description tuning, structured error DTOs)",
+      "Write a sample Agentforce Invocable class with isSuccess and outcomeMessage",
+      "Review Flashcards 11 to 15",
+      "Take Module 4 Quiz"
+    ]
+  },
+  {
+    d: "Day 4",
+    h: "Data Cloud Ingestion & Canonical DMO Modeling",
+    items: [
+      "Study Modules 5 & 6 (Data Streams, Connectors, DLO __dll vs DMO __dlm, Data Spaces)",
+      "Inspect standard Customer 360 schemas (Individual__dlm, SalesOrder__dlm)",
+      "Review Flashcards 16 to 20",
+      "Answer Scenario 2 & 8"
+    ]
+  },
+  {
+    d: "Day 5",
+    h: "Identity Resolution & Calculated Insights",
+    items: [
+      "Study Modules 7 & 8 (Deterministic vs Fuzzy matching, Golden Record, Spark vs Flink CI)",
+      "Write an ANSI SQL Calculated Insight query with Dimensions and Measures",
+      "Review Flashcards 21 to 25",
+      "Take Module 7 & 8 Quizzes"
+    ]
+  },
+  {
+    d: "Day 6",
+    h: "Data Graphs, Vector Search, & Zero Copy",
+    items: [
+      "Study Modules 9, 10 & 11 (Sub-second Data Graphs, Hybrid Search RRF, Apache Iceberg federation)",
+      "Compare relational SOQL joins vs pre-materialized Data Graph latency",
+      "Review Flashcards 26 to 30",
+      "Answer Scenario 3, 5, & 7"
+    ]
+  },
+  {
+    d: "Day 7",
+    h: "Trust Layer, Security, & Knowledge Review",
+    items: [
+      "Study Module 12 (PII masking/de-masking, ZDR, User vs System modes)",
+      "Run through all 32 Flashcards twice (Shuffle mode)",
+      "Conduct a 15-minute end-to-end walkthrough of Atlas & Data 360 architecture",
+      "Retake any module quizzes where you scored under 100%"
+    ]
+  }
+];
+
+/* ==========================================================================
+   Comprehensive Cheat Sheet Data
+   ========================================================================== */
+const CHEAT = [
+  {
+    h: "Metadata Suffixes in Salesforce & Data Cloud",
+    rows: [
+      ["__dll", "Data Lake Object (Raw landing schema from Data Stream)"],
+      ["__dlm", "Data Model Object (Canonical C360 harmonized schema)"],
+      ["__cio", "Calculated Insight Object (Spark/Flink analytical SQL metrics)"],
+      ["__c", "Standard CRM Custom Object / Custom Field"],
+      ["__mdt", "Custom Metadata Type (Configuration & bypass switches)"]
+    ]
+  },
+  {
+    h: "The 4 Core Agent Action Types",
+    rows: [
+      ["Apex Action", "@InvocableMethod class for high-performance DML and logic"],
+      ["Flow Action", "Autolaunched screenless flow for declarative orchestration"],
+      ["Prompt Template", "Einstein Prompt Builder template for text/email generation"],
+      ["MuleSoft API", "External Anypoint API connecting to legacy ERPs (SAP/Oracle)"]
+    ]
+  },
+  {
+    h: "Key Platform Architecture & Numbers",
+    rows: [
+      ["< 100 ms", "Sub-second retrieval latency of pre-compiled Data Graphs"],
+      ["500 - 1000", "Recommended token chunk size for Unstructured Data vectorization"],
+      ["100 - 200", "Recommended token overlap between document chunks"],
+      ["BM25 + Cosine", "Hybrid Search engines merged via Reciprocal Rank Fusion (RRF)"],
+      ["Apache Iceberg", "Primary open table format powering Zero Copy Storage Federation"]
+    ]
+  },
+  {
+    h: "The 6 Pillars of the Einstein Trust Layer",
+    rows: [
+      ["Dynamic Grounding", "Retrieves context while strictly honoring user FLS & Object permissions"],
+      ["PII Data Masking", "Replaces sensitive data with synthetic tokens before LLM callout"],
+      ["Zero Data Retention", "Binding legal/tech guarantee that third-party LLMs do not store data"],
+      ["Toxicity Scoring", "Scans prompts and responses for hate, harassment, and profanity"],
+      ["Prompt Injection", "Detects and neutralizes adversarial system prompt override attacks"],
+      ["Audit Trail Log", "Comprehensive audit history of masked text, latency, and model metrics"]
+    ]
+  },
+  {
+    h: "Standard Customer 360 DMOs",
+    rows: [
+      ["Individual__dlm", "Individual person profile record"],
+      ["UnifiedIndividual__dlm", "Consolidated Golden Record created by Identity Resolution"],
+      ["IndividualIdentityLink__dlm", "Bridge table linking source records to Unified Individual"],
+      ["ContactPointEmail__dlm", "Email address associated with an individual"],
+      ["ContactPointPhone__dlm", "Phone number associated with an individual"],
+      ["SalesOrder__dlm", "Harmonized purchase/order transactions across all channels"]
+    ]
+  },
+  {
+    h: "Identity Resolution Matching Types",
+    rows: [
+      ["Deterministic Match", "Exact matches on unique keys (Email, Phone, National ID)"],
+      ["Probabilistic Match", "Fuzzy matching using phonetic and semantic algorithms on names/addresses"],
+      ["Last Modified", "Reconciliation rule selecting the most recently updated attribute"],
+      ["Most Frequent", "Reconciliation rule selecting the value appearing most across sources"],
+      ["Source Priority", "Reconciliation rule giving highest authority to trusted source systems"]
+    ]
+  }
+];
+
+/* ==========================================================================
+   Application State & LocalStorage Management
+   ========================================================================== */
+const store = {
+  get(k, d) {
+    try {
+      const v = localStorage.getItem('af_d360_v1:' + k);
+      return v === null ? d : JSON.parse(v);
+    } catch(e) { return d; }
+  },
+  set(k, v) {
+    try {
+      localStorage.setItem('af_d360_v1:' + k, JSON.stringify(v));
+    } catch(e) {}
+  }
+};
+
+let done = store.get('done', {});
+let cur = store.get('cur', MODULES[0].id);
+if (!MODULES.find(m => m.id === cur)) cur = MODULES[0].id;
+let tab = 'learn';
+const answers = store.get('answers', {});
+let starred = store.get('starred', {});
+let scenarioNotes = store.get('scen_notes', {});
+let planDone = store.get('plan_done', {});
+
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/* ==========================================================================
+   Module Navigation & Rendering
+   ========================================================================== */
+function renderRail() {
+  const rail = document.getElementById('rail');
+  rail.innerHTML = MODULES.map((m, i) => `
+    <button type="button" data-id="${m.id}" class="${done[m.id] ? 'done' : ''}" aria-current="${m.id === cur}">
+      <span class="num">${String(i + 1).padStart(2, '0')}</span>
+      <span>${m.title}</span>
+      <span class="tick" aria-label="${done[m.id] ? 'Completed' : 'Not completed'}">${done[m.id] ? '✓' : ''}</span>
+    </button>
+  `).join('');
+
+  rail.querySelectorAll('button').forEach(b => {
+    b.onclick = () => {
+      cur = b.dataset.id;
+      tab = 'learn';
+      store.set('cur', cur);
+      renderRail();
+      renderMod();
+      document.getElementById('mod').scrollIntoView({ block: 'start', behavior: 'smooth' });
+    };
+  });
+
+  const n = MODULES.filter(m => done[m.id]).length;
+  document.getElementById('pct').textContent = n + ' / ' + MODULES.length;
+  document.getElementById('pbar').style.width = (n / MODULES.length * 100) + '%';
+  updateStarBadge();
+}
+
+function renderMod() {
+  const m = MODULES.find(x => x.id === cur);
+  const el = document.getElementById('mod');
+  const isStarred = !!starred[m.id];
+  let body = '';
+
+  if (tab === 'learn') {
+    body = `<div class="points">` + m.points.map(p => `
+      <div class="pt">
+        <h3>${p.h}</h3>
+        ${p.body}
+      </div>
+    `).join('') + `</div>`;
+  } else if (tab === 'code') {
+    body = `<div class="points">` + m.code.map((c, i) => `
+      <div class="code">
+        <div class="bar2">
+          <span>${c.h} &bull; ${c.lang.toUpperCase()}</span>
+          <button type="button" data-idx="${i}" class="copy-btn">Copy Code</button>
+        </div>
+        <pre><code>${esc(c.code)}</code></pre>
+        ${c.note ? `<div class="note"><b>Architecture Rationale:</b> ${c.note}</div>` : ''}
+      </div>
+    `).join('') + `</div>`;
+  } else if (tab === 'quiz') {
+    const qList = m.quiz;
+    const answeredCount = qList.filter((_, i) => answers[m.id + ':' + i] !== undefined).length;
+    const correctCount = qList.filter((q, i) => answers[m.id + ':' + i] === q.a).length;
+
+    body = `
+      <div class="score">
+        <span>Completed: ${answeredCount} / ${qList.length} &bull; Score: ${correctCount} / ${qList.length}</span>
+        ${answeredCount > 0 ? `<button type="button" id="reset-quiz">Reset Quiz</button>` : ''}
+      </div>
+    ` + qList.map((q, i) => {
+      const ansKey = m.id + ':' + i;
+      const userAns = answers[ansKey];
+      const isAnswered = userAns !== undefined;
+
+      return `
+        <div class="q">
+          <div class="qt">${i + 1}. ${q.qt}</div>
+          <div class="opts">
+            ${q.opts.map((opt, oi) => {
+              let cls = '';
+              if (isAnswered) {
+                if (oi === q.a) cls = 'right';
+                else if (oi === userAns) cls = 'wrong';
+              }
+              return `<button type="button" data-qi="${i}" data-oi="${oi}" class="${cls}" ${isAnswered ? 'disabled' : ''}>${opt}</button>`;
+            }).join('')}
+          </div>
+          ${isAnswered ? `<div class="expl"><b>Explanation:</b> ${q.expl}</div>` : ''}
+        </div>
+      `;
+    }).join('');
+  }
+
+  el.innerHTML = `
+    <div class="mod-head">
+      <div>
+        <span class="pill-tag">${m.tag}</span>
+        <h2 style="margin-top:6px;">${m.title}</h2>
+        <p class="why">${m.why}</p>
+      </div>
+      <div class="mod-actions">
+        <button type="button" class="star-btn ${isStarred ? 'starred' : ''}" id="star-btn" title="Bookmark module">
+          ${isStarred ? '★ Starred' : '☆ Star'}
+        </button>
+        <button type="button" class="done-btn" id="done-btn" aria-pressed="${done[m.id] ? 'true' : 'false'}">
+          ${done[m.id] ? '✓ Completed' : 'Mark Completed'}
+        </button>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button type="button" data-tab="learn" aria-selected="${tab === 'learn'}">Learn (${m.points.length})</button>
+      <button type="button" data-tab="code" aria-selected="${tab === 'code'}">Code & Architecture (${m.code.length})</button>
+      <button type="button" data-tab="quiz" aria-selected="${tab === 'quiz'}">Quiz (${m.quiz.length})</button>
+    </div>
+
+    <div class="panel">${body}</div>
+  `;
+
+  // Attach tab events
+  el.querySelectorAll('.tabs button').forEach(b => {
+    b.onclick = () => {
+      tab = b.dataset.tab;
+      renderMod();
+    };
+  });
+
+  // Attach mark completed
+  document.getElementById('done-btn').onclick = () => {
+    done[m.id] = !done[m.id];
+    store.set('done', done);
+    renderRail();
+    renderMod();
+  };
+
+  // Attach star button
+  document.getElementById('star-btn').onclick = () => {
+    starred[m.id] = !starred[m.id];
+    if (!starred[m.id]) delete starred[m.id];
+    store.set('starred', starred);
+    renderMod();
+    updateStarBadge();
+  };
+
+  // Attach copy code events
+  el.querySelectorAll('.copy-btn').forEach(b => {
+    b.onclick = () => {
+      const codeText = m.code[parseInt(b.dataset.idx, 10)].code;
+      navigator.clipboard.writeText(codeText).then(() => {
+        b.textContent = 'Copied!';
+        setTimeout(() => b.textContent = 'Copy Code', 1500);
+      });
+    };
+  });
+
+  // Attach quiz events
+  el.querySelectorAll('.opts button').forEach(b => {
+    b.onclick = () => {
+      const qi = parseInt(b.dataset.qi, 10);
+      const oi = parseInt(b.dataset.oi, 10);
+      answers[m.id + ':' + qi] = oi;
+      store.set('answers', answers);
+      renderMod();
+    };
+  });
+
+  const resetBtn = document.getElementById('reset-quiz');
+  if (resetBtn) {
+    resetBtn.onclick = () => {
+      m.quiz.forEach((_, i) => delete answers[m.id + ':' + i]);
+      store.set('answers', answers);
+      renderMod();
+    };
+  }
+}
+
+function updateStarBadge() {
+  const count = Object.keys(starred).length;
+  document.getElementById('star-count').textContent = count;
+}
+
+/* ==========================================================================
+   View 2: 3D Flashcards
+   ========================================================================== */
+let cardIdx = 0;
+function showCard() {
+  const c = CARDS[cardIdx];
+  document.getElementById('c-tag').textContent = c[0];
+  document.getElementById('c-q').textContent = c[1];
+  document.getElementById('c-a').textContent = c[2];
+  document.getElementById('c-num').textContent = `${cardIdx + 1} / ${CARDS.length}`;
+  document.getElementById('card').classList.remove('flip');
+}
+
+const cardEl = document.getElementById('card');
+cardEl.onclick = () => cardEl.classList.toggle('flip');
+cardEl.onkeydown = e => {
+  if (e.key === ' ' || e.key === 'Enter') {
+    e.preventDefault();
+    cardEl.classList.toggle('flip');
+  } else if (e.key === 'ArrowRight') {
+    document.getElementById('c-next').click();
+  } else if (e.key === 'ArrowLeft') {
+    document.getElementById('c-prev').click();
+  }
+};
+
+document.getElementById('c-prev').onclick = () => {
+  cardIdx = (cardIdx - 1 + CARDS.length) % CARDS.length;
+  showCard();
+};
+document.getElementById('c-next').onclick = () => {
+  cardIdx = (cardIdx + 1) % CARDS.length;
+  showCard();
+};
+document.getElementById('c-shuffle').onclick = () => {
+  for (let i = CARDS.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [CARDS[i], CARDS[j]] = [CARDS[j], CARDS[i]];
+  }
+  cardIdx = 0;
+  showCard();
+};
+
+/* ==========================================================================
+   View 3: Scenarios & Practice Mode
+   ========================================================================== */
+let timerInterval = null;
+let timerSeconds = 300;
+
+function renderScenarios() {
+  const el = document.getElementById('sc-list');
+  el.innerHTML = SCEN.map((s, idx) => `
+    <details class="sc" data-idx="${idx}">
+      <summary>
+        <span class="lvl">${s.lvl}</span>
+        <span>${s.q}</span>
+        <span style="font-size:12px;color:var(--muted);">&darr;</span>
+      </summary>
+      <div class="ans">
+        <div class="practice-box">
+          <div class="p-hdr">
+            <span>Practice Scratchpad (Auto-Saves)</span>
+            <div class="timer-bar">
+              <span id="timer-disp-${idx}">05:00</span>
+              <button type="button" class="btn-icon" onclick="startTimer(${idx})">Start Timer</button>
+              <button type="button" class="btn-icon" onclick="resetTimer(${idx})">Reset</button>
+            </div>
+          </div>
+          <textarea placeholder="Type your implementation approach or notes here before opening the model solution..." data-idx="${idx}">${scenarioNotes[idx] || ''}</textarea>
+        </div>
+
+        <div style="margin-top:18px;">
+          <h4 style="font-size:16px;margin-bottom:8px;">Recommended Solution & Architecture:</h4>
+          <ul>
+            ${s.a.map(pt => `<li>${pt}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div style="margin-top:16px;padding:12px 14px;background:var(--surface-2);border-radius:8px;">
+          <span style="font:700 11px var(--f-mono);text-transform:uppercase;color:var(--muted);letter-spacing:0.06em;">Key Discussion Hit-Points:</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;">
+            ${s.checklist.map(chk => `<span style="background:var(--surface);padding:3px 8px;border-radius:4px;font-size:13px;border:1px solid var(--line);">&#x2713; ${chk}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+    </details>
+  `).join('');
+
+  el.querySelectorAll('textarea').forEach(tx => {
+    tx.oninput = () => {
+      scenarioNotes[tx.dataset.idx] = tx.value;
+      store.set('scen_notes', scenarioNotes);
+    };
+  });
+}
+
+window.startTimer = function(idx) {
+  clearInterval(timerInterval);
+  const disp = document.getElementById(`timer-disp-${idx}`);
+  timerInterval = setInterval(() => {
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      disp.textContent = "TIME UP";
+      alert("5 Minutes is up! Compare your notes against the model answer.");
+      return;
+    }
+    timerSeconds--;
+    const m = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+    const s = String(timerSeconds % 60).padStart(2, '0');
+    disp.textContent = `${m}:${s}`;
+  }, 1000);
+};
+
+window.resetTimer = function(idx) {
+  clearInterval(timerInterval);
+  timerSeconds = 300;
+  const disp = document.getElementById(`timer-disp-${idx}`);
+  if (disp) disp.textContent = "05:00";
+};
+
+/* ==========================================================================
+   View 4: 7-Day Study Plan
+   ========================================================================== */
+function renderPlan() {
+  const el = document.getElementById('plan-grid');
+  el.innerHTML = PLAN.map((p, idx) => `
+    <div class="day">
+      <div class="d">${p.d}</div>
+      <h3>${p.h}</h3>
+      <ul>
+        ${p.items.map(it => `<li>${it}</li>`).join('')}
+      </ul>
+      <label>
+        <input type="checkbox" data-idx="${idx}" ${planDone[idx] ? 'checked' : ''}>
+        <span>Mark Day Complete</span>
+      </label>
+    </div>
+  `).join('');
+
+  el.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.onchange = () => {
+      planDone[cb.dataset.idx] = cb.checked;
+      store.set('plan_done', planDone);
+    };
+  });
+}
+
+/* ==========================================================================
+   View 5: Cheat Sheet
+   ========================================================================== */
+function renderCheat() {
+  const el = document.getElementById('cheat-grid');
+  el.innerHTML = CHEAT.map(c => `
+    <div class="blk">
+      <h3>${c.h}</h3>
+      <dl>
+        ${c.rows.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join('')}
+      </dl>
+    </div>
+  `).join('');
+}
+
+/* ==========================================================================
+   View 6: Starred Review List
+   ========================================================================== */
+function renderStarred() {
+  const el = document.getElementById('starred-list');
+  const starKeys = Object.keys(starred);
+
+  if (starKeys.length === 0) {
+    el.innerHTML = `
+      <div class="pt" style="text-align:center;padding:40px 20px;">
+        <h3>No Starred Modules Yet</h3>
+        <p style="color:var(--muted);margin:8px auto 0;">Click the '☆ Star' button on any module while studying to build your personalized pre-session revision list.</p>
+      </div>
+    `;
+    return;
+  }
+
+  el.innerHTML = starKeys.map(k => {
+    const m = MODULES.find(x => x.id === k);
+    if (!m) return '';
+    return `
+      <div class="pt">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <span class="pill-tag">${m.tag}</span>
+            <h3 style="margin-top:6px;">${m.title}</h3>
+            <p>${m.why}</p>
+          </div>
+          <button type="button" class="btn-icon" onclick="openModule('${m.id}')">Review Module &rarr;</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+window.openModule = function(id) {
+  cur = id;
+  tab = 'learn';
+  store.set('cur', cur);
+  switchView('modules');
+  renderRail();
+  renderMod();
+};
+
+/* ==========================================================================
+   View Switcher Logic
+   ========================================================================== */
+const viewBtns = document.querySelectorAll('nav.views button');
+const views = {
+  modules: document.getElementById('v-modules'),
+  cards: document.getElementById('v-cards'),
+  scenarios: document.getElementById('v-scenarios'),
+  plan: document.getElementById('v-plan'),
+  cheat: document.getElementById('v-cheat'),
+  starred: document.getElementById('v-starred'),
+  projects: document.getElementById('v-projects')
+};
+
+function switchView(name) {
+  viewBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.view === name ? 'true' : 'false'));
+  Object.keys(views).forEach(k => {
+    if (k === name) {
+      views[k].removeAttribute('hidden');
+    } else {
+      views[k].setAttribute('hidden', '');
+    }
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (name === 'cards') showCard();
+  else if (name === 'scenarios') renderScenarios();
+  else if (name === 'plan') renderPlan();
+  else if (name === 'cheat') renderCheat();
+  else if (name === 'starred') renderStarred();
+}
+
+viewBtns.forEach(b => b.onclick = () => switchView(b.dataset.view));
+
+/* ==========================================================================
+   Theme Management
+   ========================================================================== */
+const themeBtn = document.getElementById('btn-theme');
+let currentTheme = store.get('theme', 'auto');
+
+function applyTheme(t) {
+  if (t === 'auto') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', t);
+  }
+}
+applyTheme(currentTheme);
+
+themeBtn.onclick = () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark' || 
+    (!document.documentElement.hasAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const next = isDark ? 'light' : 'dark';
+  applyTheme(next);
+  store.set('theme', next);
+};
+
+/* ==========================================================================
+   Global Search Engine (Modal)
+   ========================================================================== */
+const searchModal = document.getElementById('search-modal');
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+const searchBtn = document.getElementById('btn-search');
+const searchClose = document.getElementById('search-close');
+
+function openSearch() {
+  searchModal.removeAttribute('hidden');
+  searchModal.classList.add('open');
+  searchInput.value = '';
+  searchInput.focus();
+  renderSearchResults('');
+}
+
+function closeSearch() {
+  searchModal.classList.remove('open');
+  searchModal.setAttribute('hidden', '');
+}
+
+searchBtn.onclick = openSearch;
+searchClose.onclick = closeSearch;
+searchModal.onclick = e => {
+  if (e.target === searchModal) closeSearch();
+};
+
+window.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    openSearch();
+  } else if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+    e.preventDefault();
+    openSearch();
+  } else if (e.key === 'Escape' && searchModal.classList.contains('open')) {
+    closeSearch();
+  }
+});
+
+function renderSearchResults(q) {
+  q = q.trim().toLowerCase();
+  if (!q) {
+    searchResults.innerHTML = `<div style="padding:20px;text-align:center;color:var(--muted);font-size:14px;">Type to search all 12 modules, code snippets, flashcards, and cheat sheet items...</div>`;
+    return;
+  }
+
+  const hits = [];
+
+  // Search Modules
+  MODULES.forEach(m => {
+    if (m.title.toLowerCase().includes(q) || m.why.toLowerCase().includes(q) || m.tag.toLowerCase().includes(q)) {
+      hits.push({ title: m.title, sub: `Module [${m.tag}]`, action: () => openModule(m.id) });
+    }
+    m.points.forEach(p => {
+      if (p.h.toLowerCase().includes(q) || p.body.toLowerCase().includes(q)) {
+        hits.push({ title: p.h, sub: `Learn Concept in ${m.title}`, action: () => openModule(m.id) });
+      }
+    });
+    m.code.forEach(c => {
+      if (c.h.toLowerCase().includes(q) || c.code.toLowerCase().includes(q)) {
+        hits.push({ title: c.h, sub: `Code Snippet in ${m.title}`, action: () => { openModule(m.id); tab = 'code'; renderMod(); } });
+      }
+    });
+  });
+
+  // Search Cards
+  CARDS.forEach(c => {
+    if (c[1].toLowerCase().includes(q) || c[2].toLowerCase().includes(q) || c[0].toLowerCase().includes(q)) {
+      hits.push({ title: c[1], sub: `Flashcard [${c[0]}]`, action: () => { switchView('cards'); } });
+    }
+  });
+
+  // Search Cheat Sheet
+  CHEAT.forEach(c => {
+    c.rows.forEach(r => {
+      if (r[0].toLowerCase().includes(q) || r[1].toLowerCase().includes(q)) {
+        hits.push({ title: `${r[0]}: ${r[1]}`, sub: `Cheat Sheet &bull; ${c.h}`, action: () => switchView('cheat') });
+      }
+    });
+  });
+
+  if (hits.length === 0) {
+    searchResults.innerHTML = `<div style="padding:20px;text-align:center;color:var(--muted);font-size:14px;">No matches found for "${esc(q)}".</div>`;
+    return;
+  }
+
+  searchResults.innerHTML = hits.slice(0, 15).map((h, i) => `
+    <div class="search-item" data-idx="${i}">
+      <span class="stitle">${esc(h.title)}</span>
+      <span class="ssub">${esc(h.sub)}</span>
+    </div>
+  `).join('');
+
+  searchResults.querySelectorAll('.search-item').forEach((item, idx) => {
+    item.onclick = () => {
+      closeSearch();
+      hits[idx].action();
+    };
+  });
+}
+
+searchInput.oninput = () => renderSearchResults(searchInput.value);
+
+/* ==========================================================================
+   Initialization
+   ========================================================================== */
+renderRail();
+renderMod();
+showCard();
+renderScenarios();
+renderPlan();
+renderCheat();
+updateStarBadge();
+</script>
+</body>
+</html>
+
