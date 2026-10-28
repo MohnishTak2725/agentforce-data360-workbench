@@ -2058,7 +2058,7 @@ for (ConnectApi.SearchResultChunk chunk : result.results) {
         h: "Agentforce DX Metadata Types",
         body: `<p>Agents are first-class Salesforce metadata deployable through SFDX CLI:</p>
                <ul>
-                 <li><b><code>GenAiPlanner</code></b>: Defines the reasoning engine configuration (Atlas), foundational LLM, and conversational hyperparameters.</li>
+                 <li><b><code>GenAiPlanner / GenAiPlannerBundle</code></b>: In API 64 (Winter '27), <code>GenAiPlannerBundle</code> packages the reasoning engine configuration configuration (Atlas), foundational LLM, and conversational hyperparameters.</li>
                  <li><b><code>GenAiPlugin</code></b>: Represents a <b>Topic</b> in Agent Builder. Bundles classification descriptions, scope boundaries, and linked actions.</li>
                  <li><b><code>GenAiFunction</code></b>: Represents an <b>Action</b> (Apex invocable, Flow, or Prompt Template). Defines input/output schemas and parameter descriptions.</li>
                </ul>`
@@ -2133,7 +2133,7 @@ for (ConnectApi.SearchResultChunk chunk : result.results) {
     id: "winter-27-innovations",
     title: "Winter '27 Innovations: MCP, SQL from Apex & A2A Orchestration",
     tag: "WINTER-27-API64",
-    why: "Master the breakthrough capabilities of Salesforce Winter '27: Model Context Protocol (MCP) standardized tool integration, native DataCloud.SqlQuery in Apex, and autonomous multi-agent (A2A) orchestration.",
+    why: "Master the breakthrough capabilities of Salesforce Winter '27: Model Context Protocol (MCP) standardized tool integration, native SQL from Apex (sfsqlquery namespace), and autonomous multi-agent (A2A) orchestration.",
     points: [
       {
         h: "Model Context Protocol (MCP) Standard Adoption",
@@ -2146,7 +2146,7 @@ for (ConnectApi.SearchResultChunk chunk : result.results) {
       },
       {
         h: "SQL from Apex for Data 360 (GA)",
-        body: `<p>Winter '27 introduces the ability to execute <b>native ANSI SQL queries directly against Data Cloud DMOs and Calculated Insights inside Apex</b> using <code>DataCloud.SqlQuery.query()</code>.</p>
+        body: `<p>Winter '27 introduces the ability to execute <b>native ANSI SQL queries directly against Data Cloud DMOs and Calculated Insights inside Apex</b> using the native <code>sfsqlquery</code> namespace (<code>sfsqlquery.SqlStatement.create(...)</code>).</p>
                <p>This eliminates the need for Connect REST API callouts in Apex, avoids callout limits in batch jobs, and enables sub-second data joins directly in backend transactions.</p>`
       },
       {
@@ -2163,22 +2163,24 @@ for (ConnectApi.SearchResultChunk chunk : result.results) {
       {
         label: "Apex: Querying Data Cloud with native SQL from Apex (Winter '27)",
         code: `public with sharing class DataCloudSQLService {
-    public static void evaluateCustomerUnifiedRisk(Id contactId) {
-        // Native ANSI SQL directly against Data Cloud DMOs & Calculated Insights
-        String sql = 'SELECT UnifiedIndividual__dlm.ssot__Id__c, ' +
+    public static void evaluateCustomerUnifiedRisk(String customerId) {
+        // Winter '27 GA: Native ANSI SQL against Data Cloud DMOs & Calculated Insights
+        String sql = 'SELECT ssot__Individual__dlm.ssot__Id__c, ' +
                      '       Customer_LTV_and_Risk__cio.TotalCustomerSpend__c, ' +
                      '       Customer_LTV_and_Risk__cio.ReturnRatio__c ' +
-                     'FROM UnifiedIndividual__dlm ' +
+                     'FROM ssot__Individual__dlm ' +
                      'JOIN Customer_LTV_and_Risk__cio ' +
-                     '  ON UnifiedIndividual__dlm.ssot__Id__c = Customer_LTV_and_Risk__cio.UnifiedIndividualId__c ' +
-                     'WHERE UnifiedIndividual__dlm.ssot__Id__c = :contactId';
+                     '  ON ssot__Individual__dlm.ssot__Id__c = Customer_LTV_and_Risk__cio.UnifiedIndividualId__c ' +
+                     'WHERE ssot__Individual__dlm.ssot__Id__c = \'' + String.escapeSingleQuotes(customerId) + '\'';
         
-        // Winter '27 GA: Direct transactional SQL execution
-        DataCloud.SqlDataResult result = DataCloud.SqlQuery.query(sql);
+        // Winter '27 GA: Native sfsqlquery namespace execution in Apex
+        sfsqlquery.SqlRowIterator iterator = sfsqlquery.SqlStatement.create(sql, 'default')
+            .withWorkloadName('AgentforceRiskEvaluation')
+            .execute();
         
-        for (DataCloud.Row row : result.getRows()) {
-            Double ltv = (Double) row.get('TotalCustomerSpend__c');
-            Double returnRatio = (Double) row.get('ReturnRatio__c');
+        for (sfsqlquery.Row row : iterator) {
+            Double ltv = row.getDouble('TotalCustomerSpend__c');
+            Double returnRatio = row.getDouble('ReturnRatio__c');
             System.debug('Unified LTV: ' + ltv + ' | Return Ratio: ' + returnRatio);
         }
     }
@@ -2190,12 +2192,12 @@ for (ConnectApi.SearchResultChunk chunk : result.results) {
         qt: "What major Data Cloud capability became Generally Available (GA) for Apex developers in Salesforce Winter '27?",
         opts: [
           "Ability to write Data Cloud triggers in JavaScript",
-          "SQL from Apex (DataCloud.SqlQuery) enabling direct ANSI SQL queries against DMOs and Calculated Insights without REST callouts",
+          "SQL from Apex (sfsqlquery namespace) enabling direct ANSI SQL queries against DMOs and Calculated Insights without REST callouts",
           "Automatic migration of all SOQL queries to GraphQL",
           "Unlimited storage for Data Lake Objects (DLOs)"
         ],
         a: 1,
-        expl: "In Winter '27, SQL from Apex (DataCloud.SqlQuery) reached General Availability, allowing developers to execute ANSI SQL queries directly against unified Data Cloud tables and Calculated Insights within standard Apex execution contexts."
+        expl: "In Winter '27, SQL from Apex (sfsqlquery namespace) reached General Availability, allowing developers to execute ANSI SQL queries directly against unified Data Cloud tables and Calculated Insights within standard Apex execution contexts."
       },
       {
         qt: "What are the updated Apex Heap Limits in Salesforce Winter '27 to support generative AI and Data Cloud workloads?",
@@ -2259,7 +2261,7 @@ const CARDS = [
   ["PRO-CODE", "What is aiplatform.ModelsAPI in Apex?", "Native Apex classes providing direct programmatic access to foundation models (GPT-4o, Claude 3.5, Gemini) fully governed by the Einstein Trust Layer without external API keys."],
   ["PRO-CODE", "What are the core metadata types in Agentforce DX?", "GenAiPlanner (reasoning configuration/LLM), GenAiPlugin (Topics, classification prompts), and GenAiFunction (Actions, input/output schemas)."],
   ["CERTIFICATION", "What are the 5 domains of the Salesforce Certified AI Specialist exam?", "Agentforce Architecture & Agent Builder (30%), Prompt Builder (24%), Einstein Trust Layer (17%), Generative CRM Apps (17%), and Model Builder & Data Cloud (12%)."],
-  ["WINTER '27", "What is SQL from Apex in Salesforce Winter '27?", "The GA feature allowing developers to execute native ANSI SQL queries against Data Cloud DMOs and Calculated Insights in Apex using DataCloud.SqlQuery without REST callouts."],
+  ["WINTER '27", "What is SQL from Apex in Salesforce Winter '27?", "The GA feature allowing developers to execute native ANSI SQL queries against Data Cloud DMOs and Calculated Insights in Apex using the official sfsqlquery namespace (sfsqlquery.SqlStatement) without REST callout overhead."],
   ["WINTER '27", "How does Model Context Protocol (MCP) integrate with Agentforce in Winter '27?", "Agentforce functions as an MCP client and hosted server, enabling dynamic tool discovery across external systems with strict per-user authentication boundaries."],
   ["WINTER '27", "What are the upgraded Apex Heap Limits in Winter '27?", "Synchronous Apex heap is increased to 10 MB (up from 6 MB), and Asynchronous heap is increased to 25 MB (up from 12 MB) to support heavy generative AI and Data Cloud payloads."]
 ];
@@ -2436,13 +2438,13 @@ const SCEN = [
     lvl: "WINTER '27 ARCHITECTURE",
     q: "A financial services firm with 15 million accounts needs an automated overnight batch Apex job to evaluate high-net-worth customer risk profiles by querying unified Data Cloud data and running an autonomous compliance evaluation. In earlier releases, Connect REST API callouts in batch Apex caused timeout and callout limit issues. How do you architect this in Winter '27?",
     a: [
-      "<b>1. Native SQL from Apex:</b> Replace legacy Connect REST API callouts with Winter '27 <code>DataCloud.SqlQuery.query()</code> inside Batchable Apex to query <code>UnifiedIndividual__dlm</code> and Calculated Insights directly via ANSI SQL.",
+      "<b>1. Native SQL from Apex:</b> Replace legacy Connect REST API callouts with Winter '27 <code>sfsqlquery.SqlStatement.create(...)</code> inside Batchable Apex to query <code>UnifiedIndividual__dlm</code> and Calculated Insights directly via ANSI SQL.",
       "<b>2. Leverage 25 MB Asynchronous Heap:</b> Take advantage of the upgraded 25 MB asynchronous heap limit in Winter '27 to process larger batches of complex financial metrics without heap exhaustion.",
       "<b>3. Agent-to-Agent (A2A) Compliance Delegation:</b> Route edge cases autonomously to a specialized Compliance Worker Agent using Winter '27 multi-agent orchestration.",
       "<b>4. Flow Builder Test Mode Assertions:</b> Validate the compliance flow logic in Flow Builder Test Mode using mock external credit score callouts."
     ],
     checklist: [
-      "DataCloud.SqlQuery native ANSI SQL",
+      "sfsqlquery native ANSI SQL in Apex",
       "Winter '27 25 MB Async Heap limit",
       "A2A Multi-Agent delegation",
       "Flow Builder Test Mode with Mock Callouts"
