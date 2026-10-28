@@ -632,15 +632,15 @@ details.sc .ans li + li { margin-top: 7px; }
   <nav class="views" aria-label="Views">
     <button type="button" data-view="modules" aria-pressed="true">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-      Modules <span class="pill-count">16</span>
+      Modules <span class="pill-count">17</span>
     </button>
     <button type="button" data-view="cards" aria-pressed="false">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M7 15h0M2 9.5h20"></path></svg>
-      3D Flashcards <span class="pill-count">42</span>
+      3D Flashcards <span class="pill-count">45</span>
     </button>
     <button type="button" data-view="scenarios" aria-pressed="false">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      Practice Scenarios <span class="pill-count">10</span>
+      Practice Scenarios <span class="pill-count">11</span>
     </button>
     <button type="button" data-view="plan" aria-pressed="false">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -2128,6 +2128,87 @@ for (ConnectApi.SearchResultChunk chunk : result.results) {
         expl: "aiplatform.ModelsAPI provides governed, native LLM access. It routes calls through the Einstein Trust Layer (applying PII masking, toxicity checks, and audit logging) with zero API keys or external credential management."
       }
     ]
+  },
+  {
+    id: "winter-27-innovations",
+    title: "Winter '27 Innovations: MCP, SQL from Apex & A2A Orchestration",
+    tag: "WINTER-27-API64",
+    why: "Master the breakthrough capabilities of Salesforce Winter '27: Model Context Protocol (MCP) standardized tool integration, native DataCloud.SqlQuery in Apex, and autonomous multi-agent (A2A) orchestration.",
+    points: [
+      {
+        h: "Model Context Protocol (MCP) Standard Adoption",
+        body: `<p>In Winter '27, Salesforce natively integrated Anthropic's open-source <b>Model Context Protocol (MCP)</b>:</p>
+               <ul>
+                 <li><b>Agentforce as an MCP Client</b>: Agents can dynamically discover and invoke tools hosted on remote MCP servers without custom point-to-point integrations.</li>
+                 <li><b>Per-User Authentication & Boundaries</b>: MCP server tool calls run under individual user credentials rather than shared system accounts, enforcing strict CRM sharing and FLS.</li>
+                 <li><b>Developer Tooling</b>: Native hosted MCP servers allow external AI tools (Claude Code, Cursor) to safely read org metadata, Apex symbols, and run SFDX commands.</li>
+               </ul>`
+      },
+      {
+        h: "SQL from Apex for Data 360 (GA)",
+        body: `<p>Winter '27 introduces the ability to execute <b>native ANSI SQL queries directly against Data Cloud DMOs and Calculated Insights inside Apex</b> using <code>DataCloud.SqlQuery.query()</code>.</p>
+               <p>This eliminates the need for Connect REST API callouts in Apex, avoids callout limits in batch jobs, and enables sub-second data joins directly in backend transactions.</p>`
+      },
+      {
+        h: "A2A Orchestration & Upgraded Platform Heap Limits",
+        body: `<p>Winter '27 advances autonomous digital labor with:</p>
+               <ul>
+                 <li><b>Agent-to-Agent (A2A) Orchestration</b>: Coordinator agents dynamically delegate multi-step operations to specialized worker agents with unified state passing.</li>
+                 <li><b>Apex Heap Limit Boost</b>: Synchronous heap increased from 6 MB to <b>10 MB</b>; Asynchronous heap increased from 12 MB to <b>25 MB</b> to effortlessly handle heavy AI and Data Cloud payloads.</li>
+                 <li><b>Flow Builder Test Mode (Beta)</b>: Built-in assertions and Mock External Callouts for Flow actions.</li>
+               </ul>`
+      }
+    ],
+    code: [
+      {
+        label: "Apex: Querying Data Cloud with native SQL from Apex (Winter '27)",
+        code: `public with sharing class DataCloudSQLService {
+    public static void evaluateCustomerUnifiedRisk(Id contactId) {
+        // Native ANSI SQL directly against Data Cloud DMOs & Calculated Insights
+        String sql = 'SELECT UnifiedIndividual__dlm.ssot__Id__c, ' +
+                     '       Customer_LTV_and_Risk__cio.TotalCustomerSpend__c, ' +
+                     '       Customer_LTV_and_Risk__cio.ReturnRatio__c ' +
+                     'FROM UnifiedIndividual__dlm ' +
+                     'JOIN Customer_LTV_and_Risk__cio ' +
+                     '  ON UnifiedIndividual__dlm.ssot__Id__c = Customer_LTV_and_Risk__cio.UnifiedIndividualId__c ' +
+                     'WHERE UnifiedIndividual__dlm.ssot__Id__c = :contactId';
+        
+        // Winter '27 GA: Direct transactional SQL execution
+        DataCloud.SqlDataResult result = DataCloud.SqlQuery.query(sql);
+        
+        for (DataCloud.Row row : result.getRows()) {
+            Double ltv = (Double) row.get('TotalCustomerSpend__c');
+            Double returnRatio = (Double) row.get('ReturnRatio__c');
+            System.debug('Unified LTV: ' + ltv + ' | Return Ratio: ' + returnRatio);
+        }
+    }
+}`
+      }
+    ],
+    quiz: [
+      {
+        qt: "What major Data Cloud capability became Generally Available (GA) for Apex developers in Salesforce Winter '27?",
+        opts: [
+          "Ability to write Data Cloud triggers in JavaScript",
+          "SQL from Apex (DataCloud.SqlQuery) enabling direct ANSI SQL queries against DMOs and Calculated Insights without REST callouts",
+          "Automatic migration of all SOQL queries to GraphQL",
+          "Unlimited storage for Data Lake Objects (DLOs)"
+        ],
+        a: 1,
+        expl: "In Winter '27, SQL from Apex (DataCloud.SqlQuery) reached General Availability, allowing developers to execute ANSI SQL queries directly against unified Data Cloud tables and Calculated Insights within standard Apex execution contexts."
+      },
+      {
+        qt: "What are the updated Apex Heap Limits in Salesforce Winter '27 to support generative AI and Data Cloud workloads?",
+        opts: [
+          "Synchronous: 6 MB, Asynchronous: 12 MB (No change)",
+          "Synchronous: 10 MB, Asynchronous: 25 MB",
+          "Synchronous: 50 MB, Asynchronous: 100 MB",
+          "Heap limits were completely removed in Winter '27"
+        ],
+        a: 1,
+        expl: "In Winter '27, Salesforce increased the synchronous transaction heap limit from 6 MB to 10 MB and the asynchronous heap limit from 12 MB to 25 MB to accommodate memory-intensive LLM payloads and Data Cloud record sets."
+      }
+    ]
   }
 ];
 
@@ -2177,7 +2258,10 @@ const CARDS = [
   ["VOICE", "What is the conversational latency budget for Agentforce Voice?", "Under 1,000 milliseconds total turnaround time. This necessitates pre-materialized Data Graphs and streaming token-by-token TTS synthesis."],
   ["PRO-CODE", "What is aiplatform.ModelsAPI in Apex?", "Native Apex classes providing direct programmatic access to foundation models (GPT-4o, Claude 3.5, Gemini) fully governed by the Einstein Trust Layer without external API keys."],
   ["PRO-CODE", "What are the core metadata types in Agentforce DX?", "GenAiPlanner (reasoning configuration/LLM), GenAiPlugin (Topics, classification prompts), and GenAiFunction (Actions, input/output schemas)."],
-  ["CERTIFICATION", "What are the 5 domains of the Salesforce Certified AI Specialist exam?", "Agentforce Architecture & Agent Builder (30%), Prompt Builder (24%), Einstein Trust Layer (17%), Generative CRM Apps (17%), and Model Builder & Data Cloud (12%)."]
+  ["CERTIFICATION", "What are the 5 domains of the Salesforce Certified AI Specialist exam?", "Agentforce Architecture & Agent Builder (30%), Prompt Builder (24%), Einstein Trust Layer (17%), Generative CRM Apps (17%), and Model Builder & Data Cloud (12%)."],
+  ["WINTER '27", "What is SQL from Apex in Salesforce Winter '27?", "The GA feature allowing developers to execute native ANSI SQL queries against Data Cloud DMOs and Calculated Insights in Apex using DataCloud.SqlQuery without REST callouts."],
+  ["WINTER '27", "How does Model Context Protocol (MCP) integrate with Agentforce in Winter '27?", "Agentforce functions as an MCP client and hosted server, enabling dynamic tool discovery across external systems with strict per-user authentication boundaries."],
+  ["WINTER '27", "What are the upgraded Apex Heap Limits in Winter '27?", "Synchronous Apex heap is increased to 10 MB (up from 6 MB), and Asynchronous heap is increased to 25 MB (up from 12 MB) to support heavy generative AI and Data Cloud payloads."]
 ];
 
 /* ==========================================================================
@@ -2346,6 +2430,22 @@ const SCEN = [
       "Einstein Trust Layer automatic PII masking",
       "Zero Data Retention (ZDR) guarantee",
       "Field update with grounded generation output"
+    ]
+  },
+  {
+    lvl: "WINTER '27 ARCHITECTURE",
+    q: "A financial services firm with 15 million accounts needs an automated overnight batch Apex job to evaluate high-net-worth customer risk profiles by querying unified Data Cloud data and running an autonomous compliance evaluation. In earlier releases, Connect REST API callouts in batch Apex caused timeout and callout limit issues. How do you architect this in Winter '27?",
+    a: [
+      "<b>1. Native SQL from Apex:</b> Replace legacy Connect REST API callouts with Winter '27 <code>DataCloud.SqlQuery.query()</code> inside Batchable Apex to query <code>UnifiedIndividual__dlm</code> and Calculated Insights directly via ANSI SQL.",
+      "<b>2. Leverage 25 MB Asynchronous Heap:</b> Take advantage of the upgraded 25 MB asynchronous heap limit in Winter '27 to process larger batches of complex financial metrics without heap exhaustion.",
+      "<b>3. Agent-to-Agent (A2A) Compliance Delegation:</b> Route edge cases autonomously to a specialized Compliance Worker Agent using Winter '27 multi-agent orchestration.",
+      "<b>4. Flow Builder Test Mode Assertions:</b> Validate the compliance flow logic in Flow Builder Test Mode using mock external credit score callouts."
+    ],
+    checklist: [
+      "DataCloud.SqlQuery native ANSI SQL",
+      "Winter '27 25 MB Async Heap limit",
+      "A2A Multi-Agent delegation",
+      "Flow Builder Test Mode with Mock Callouts"
     ]
   }
 ];

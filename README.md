@@ -1,13 +1,13 @@
 # Salesforce Agentforce & Data 360 Interactive Workbench
 
-An enterprise training portal, interactive field manual, and study workbench for **Salesforce Agentforce**, **Data 360 (Data Cloud)**, and the **Agentblazer 2026 Credential Roadmap**.
+An enterprise training portal, interactive field manual, and study workbench for **Salesforce Agentforce**, **Data 360 (Data Cloud)**, and the **Agentblazer 2026/2027 Credential Roadmap**, fully updated for **Salesforce Winter '27 (API 64)**.
 
 ## 🌐 Live Portal
 👉 **[https://mohnishtak2725.github.io/agentforce-data360-workbench/](https://mohnishtak2725.github.io/agentforce-data360-workbench/)**
 
 ---
 
-## 📚 Curriculum & Architecture Covered (16 Modules)
+## 📚 Curriculum & Architecture Covered (17 Modules)
 
 ### Part I: Agentforce Autonomous Architecture
 1. **Autonomous AI & The Atlas Engine**: ReAct (Reason + Act) loop, model planning, Model Builder (BYO-LLM).
@@ -31,16 +31,24 @@ An enterprise training portal, interactive field manual, and study workbench for
 15. **Autonomous SDR, Sales Coach & Voice Architecture**: 24/7 lead qualification, interactive roleplay simulations (MEDDPICC), Service Cloud Voice, Voice Gateway, and <1,000ms latency budgeting.
 16. **Pro-Code Developer Stack**: Agentforce DX metadata (`GenAiPlanner`, `GenAiPlugin`, `GenAiFunction`), headless REST Agent API, and native Apex `aiplatform.ModelsAPI`.
 
+### Part IV: Salesforce Winter '27 Breakthroughs (API 64)
+17. **Winter '27 Innovations: MCP, SQL from Apex & A2A Orchestration**:
+    - **Model Context Protocol (MCP)** standard integration: Agentforce as an MCP client and hosted server with granular per-user authentication boundaries.
+    - **SQL from Apex for Data 360 (GA)**: Direct ANSI SQL querying via `DataCloud.SqlQuery.query()` inside native transactional Apex without REST callout overhead.
+    - **Agent-to-Agent (A2A) Multi-Agent Orchestration**: Dispatcher agents coordinating specialized worker agents.
+    - **Apex Heap Limit Upgrades**: Synchronous heap increased from 6 MB to **10 MB**; Asynchronous heap increased from 12 MB to **25 MB**.
+    - **Flow Builder Test Mode (Beta)**: Repeatable test assertions with Mock External Callouts for Flow actions.
+
 ---
 
 ## ⚡ Features
-- **16 Interactive Modules** (Full theory, code with copy buttons, and self-scoring quizzes)
-- **42 3D Flip Flashcards** (Keyboard navigable with shuffle mode)
-- **10 Real-World Implementation Scenarios** (Built-in 5-minute practice timer & auto-saving scratchpad)
-- **Agentblazer 2026 Credential Roadmap**: Interactive guides for Level 1 Champion, Level 2 Innovator, and Level 3 Legend
+- **17 Interactive Modules** (Full theory, code with copy buttons, and self-scoring quizzes)
+- **45 3D Flip Flashcards** (Keyboard navigable with shuffle mode)
+- **11 Real-World Implementation Scenarios** (Built-in 5-minute practice timer & auto-saving scratchpad)
+- **Agentblazer 2026/2027 Credential Roadmap**: Interactive guides for Level 1 Champion, Level 2 Innovator, and Level 3 Legend
 - **Salesforce Certified AI Specialist Blueprint**: Interactive domain breakdown and exam weighting
 - **7-Day Study Plan** with progress checkboxes
-- **Quick Reference Cheat Sheet**
+- **Quick Reference Cheat Sheet** (Updated with Winter '27 10MB/25MB heap limits)
 - **Production Projects & Case Studies** section
 - **Global Instant Search** (`Ctrl+K` or `/`)
 - **Dual Theme Engine** (Light & Dark mode)
