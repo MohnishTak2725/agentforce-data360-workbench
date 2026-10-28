@@ -34,7 +34,7 @@ An enterprise training portal, interactive field manual, and study workbench for
 ### Part IV: Salesforce Winter '27 Breakthroughs (API 64)
 17. **Winter '27 Innovations: MCP, SQL from Apex & A2A Orchestration**:
     - **Model Context Protocol (MCP)** standard integration: Agentforce as an MCP client and hosted server with granular per-user authentication boundaries.
-    - **SQL from Apex for Data 360 (GA)**: Direct ANSI SQL querying via `DataCloud.SqlQuery.query()` inside native transactional Apex without REST callout overhead.
+    - **SQL from Apex for Data 360 (GA)**: Direct ANSI SQL querying via `sfsqlquery` (`sfsqlquery.SqlStatement.create(...)`) inside native transactional Apex without REST callout overhead.
     - **Agent-to-Agent (A2A) Multi-Agent Orchestration**: Dispatcher agents coordinating specialized worker agents.
     - **Apex Heap Limit Upgrades**: Synchronous heap increased from 6 MB to **10 MB**; Asynchronous heap increased from 12 MB to **25 MB**.
     - **Flow Builder Test Mode (Beta)**: Repeatable test assertions with Mock External Callouts for Flow actions.
@@ -52,3 +52,9 @@ An enterprise training portal, interactive field manual, and study workbench for
 - **Production Projects & Case Studies** section
 - **Global Instant Search** (`Ctrl+K` or `/`)
 - **Dual Theme Engine** (Light & Dark mode)
+
+---
+
+## ⚖️ Legal & Trademark Notice
+- **Independent Educational Material**: This repository and workbench are independent educational materials developed solely for technical training, professional development, and study. This project is not affiliated with, sponsored, endorsed, or approved by Salesforce, Inc., nor does it represent official Salesforce certification exam questions or proprietary courseware.
+- **Trademarks**: Salesforce, Agentforce, Data Cloud, Einstein, Customer 360, Trailhead, Tableau, and MuleSoft are registered trademarks of Salesforce, Inc. Apache, Apache Spark, Apache Flink, and Apache Iceberg are trademarks of the Apache Software Foundation. All other trademarks are the property of their respective owners and are used strictly in nominative fair use for technical identification.
