@@ -776,6 +776,28 @@ details.sc .ans li + li { margin-top: 7px; }
   box-shadow: var(--shadow-sm);
   animation: d1Fade 0.25s ease;
 }
+
+.d1-slide-footer {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.d1-slide-footer-counter {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--surface-2);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+}
+
 .d1-slide.active {
   display: block;
 }
@@ -1294,10 +1316,10 @@ details.sc .ans li + li { margin-top: 7px; }
             </div>
           </div>
           <div class="d1-actions">
-            <button type="button" class="d1-btn" id="d1-prev-btn" onclick="navD1Step(-1)">
+            <button type="button" class="d1-btn d1-prev-action" id="d1-prev-btn" onclick="navD1Step(-1)">
               &larr; Previous Step
             </button>
-            <button type="button" class="d1-btn primary" id="d1-next-btn" onclick="navD1Step(1)">
+            <button type="button" class="d1-btn primary d1-next-action" id="d1-next-btn" onclick="navD1Step(1)">
               Next Step &rarr;
             </button>
             <button type="button" class="d1-btn fullscreen-btn" onclick="toggleD1Fullscreen()" title="Toggle Fullscreen Slide Mode (F)">
@@ -1390,10 +1412,18 @@ details.sc .ans li + li { margin-top: 7px; }
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Slide 2: The Paradigm Shift -->
-      <div class="d1-slide" id="d1-slide-2">
+      
+        <!-- Slide 1 Bottom Navigation Toolbar -->
+        <div class="d1-slide-footer">
+          <button type="button" class="d1-btn d1-prev-action" onclick="navD1Step(-1)" disabled>
+            &larr; Previous Step
+          </button>
+          <span class="d1-slide-footer-counter">Step 1 of 10</span>
+          <button type="button" class="d1-btn primary d1-next-action" onclick="navD1Step(1)" >
+            Next Step &rarr;
+          </button>
+        </div>
+      </div>id="d1-slide-2">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 02 &bull; Mental Model</span>
@@ -1442,10 +1472,18 @@ details.sc .ans li + li { margin-top: 7px; }
             <b>How Atlas Solves It:</b> 1) Checks order eligibility &rarr; 2) Checks inventory for blue size M &rarr; 3) If out of stock, initiates refund flow &rarr; 4) Explains the full resolution in one clear reply.
           </div>
         </div>
-      </div>
-
-      <!-- Slide 3: Under the Hood - Atlas ReAct Loop -->
-      <div class="d1-slide" id="d1-slide-3">
+      
+        <!-- Slide 2 Bottom Navigation Toolbar -->
+        <div class="d1-slide-footer">
+          <button type="button" class="d1-btn d1-prev-action" onclick="navD1Step(-1)" >
+            &larr; Previous Step
+          </button>
+          <span class="d1-slide-footer-counter">Step 2 of 10</span>
+          <button type="button" class="d1-btn primary d1-next-action" onclick="navD1Step(1)" >
+            Next Step &rarr;
+          </button>
+        </div>
+      </div>id="d1-slide-3">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 03 &bull; Deep-Dive Architecture</span>
@@ -1501,10 +1539,18 @@ details.sc .ans li + li { margin-top: 7px; }
 |   7. SYNTHESIZE ──► Formulates polite conversational response to user.  |
 +-------------------------------------------------------------------------+</div>
         </div>
-      </div>
-
-      <!-- Slide 4: The 3 Core Pillars -->
-      <div class="d1-slide" id="d1-slide-4">
+      
+        <!-- Slide 3 Bottom Navigation Toolbar -->
+        <div class="d1-slide-footer">
+          <button type="button" class="d1-btn d1-prev-action" onclick="navD1Step(-1)" >
+            &larr; Previous Step
+          </button>
+          <span class="d1-slide-footer-counter">Step 3 of 10</span>
+          <button type="button" class="d1-btn primary d1-next-action" onclick="navD1Step(1)" >
+            Next Step &rarr;
+          </button>
+        </div>
+      </div>id="d1-slide-4">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 04 &bull; Core Building Blocks</span>
@@ -1561,10 +1607,18 @@ details.sc .ans li + li { margin-top: 7px; }
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Slide 5: Foundation Models & Trust Layer -->
-      <div class="d1-slide" id="d1-slide-5">
+      
+        <!-- Slide 4 Bottom Navigation Toolbar -->
+        <div class="d1-slide-footer">
+          <button type="button" class="d1-btn d1-prev-action" onclick="navD1Step(-1)" >
+            &larr; Previous Step
+          </button>
+          <span class="d1-slide-footer-counter">Step 4 of 10</span>
+          <button type="button" class="d1-btn primary d1-next-action" onclick="navD1Step(1)" >
+            Next Step &rarr;
+          </button>
+        </div>
+      </div>id="d1-slide-5">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 05 &bull; AI Ethics &amp; Infrastructure</span>
@@ -1602,10 +1656,18 @@ details.sc .ans li + li { margin-top: 7px; }
             Grounding is the process of anchoring LLM responses in verifiable, real-time facts from your enterprise CRM rather than relying on the LLM's static pre-trained weights. In Salesforce, grounding dynamically injects Contact, Account, Case, and Data Cloud records directly into the prompt context right before model execution.
           </p>
         </div>
-      </div>
-
-      <!-- Slide 6: Salesforce Setup Screen Clicks -->
-      <div class="d1-slide" id="d1-slide-6">
+      
+        <!-- Slide 5 Bottom Navigation Toolbar -->
+        <div class="d1-slide-footer">
+          <button type="button" class="d1-btn d1-prev-action" onclick="navD1Step(-1)" >
+            &larr; Previous Step
+          </button>
+          <span class="d1-slide-footer-counter">Step 5 of 10</span>
+          <button type="button" class="d1-btn primary d1-next-action" onclick="navD1Step(1)" >
+            Next Step &rarr;
+          </button>
+        </div>
+      </div>id="d1-slide-6">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 06 &bull; Live Screen-Sharing Demo</span>
@@ -1667,10 +1729,18 @@ details.sc .ans li + li { margin-top: 7px; }
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Slide 7: Live Utterances & Reasoning Log -->
-      <div class="d1-slide" id="d1-slide-7">
+      
+        <!-- Slide 6 Bottom Navigation Toolbar -->
+        <div class="d1-slide-footer">
+          <button type="button" class="d1-btn d1-prev-action" onclick="navD1Step(-1)" >
+            &larr; Previous Step
+          </button>
+          <span class="d1-slide-footer-counter">Step 6 of 10</span>
+          <button type="button" class="d1-btn primary d1-next-action" onclick="navD1Step(1)" >
+            Next Step &rarr;
+          </button>
+        </div>
+      </div>id="d1-slide-7">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 07 &bull; Execution &amp; Tracing</span>
@@ -1754,10 +1824,18 @@ Action Output Payload:
 Prompt Sent to LLM: Grounded with Case status 'New' and Priority 'High'.
 Model Completion: "I checked Case #00001025 for you. It is currently in 'New' status with 'High' priority and is assigned to the Tier 2 Support Queue."</div>
         </div>
-      </div>
-
-      <!-- Slide 8: Architectural Traps & Limits -->
-      <div class="d1-slide" id="d1-slide-8">
+      
+        <!-- Slide 7 Bottom Navigation Toolbar -->
+        <div class="d1-slide-footer">
+          <button type="button" class="d1-btn d1-prev-action" onclick="navD1Step(-1)" >
+            &larr; Previous Step
+          </button>
+          <span class="d1-slide-footer-counter">Step 7 of 10</span>
+          <button type="button" class="d1-btn primary d1-next-action" onclick="navD1Step(1)" >
+            Next Step &rarr;
+          </button>
+        </div>
+      </div>id="d1-slide-8">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 08 &bull; Production Governance</span>
@@ -1806,10 +1884,18 @@ Model Completion: "I checked Case #00001025 for you. It is currently in 'New' st
             </p>
           </div>
         </div>
-      </div>
-
-      <!-- Slide 9: Hands-On Lab Exercise -->
-      <div class="d1-slide" id="d1-slide-9">
+      
+        <!-- Slide 8 Bottom Navigation Toolbar -->
+        <div class="d1-slide-footer">
+          <button type="button" class="d1-btn d1-prev-action" onclick="navD1Step(-1)" >
+            &larr; Previous Step
+          </button>
+          <span class="d1-slide-footer-counter">Step 8 of 10</span>
+          <button type="button" class="d1-btn primary d1-next-action" onclick="navD1Step(1)" >
+            Next Step &rarr;
+          </button>
+        </div>
+      </div>id="d1-slide-9">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 09 &bull; Hands-On Lab</span>
@@ -1871,10 +1957,18 @@ Model Completion: "I checked Case #00001025 for you. It is currently in 'New' st
             </div>
           </label>
         </div>
-      </div>
-
-      <!-- Slide 10: Checkpoint Quiz & Cheatsheet -->
-      <div class="d1-slide" id="d1-slide-10">
+      
+        <!-- Slide 9 Bottom Navigation Toolbar -->
+        <div class="d1-slide-footer">
+          <button type="button" class="d1-btn d1-prev-action" onclick="navD1Step(-1)" >
+            &larr; Previous Step
+          </button>
+          <span class="d1-slide-footer-counter">Step 9 of 10</span>
+          <button type="button" class="d1-btn primary d1-next-action" onclick="navD1Step(1)" >
+            Next Step &rarr;
+          </button>
+        </div>
+      </div>id="d1-slide-10">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 10 &bull; Knowledge Verification</span>
@@ -1931,8 +2025,18 @@ WHERE UserType = 'AutomatedProcess'
         </div>
       </div>
 
-    </div>
-  </section>
+    
+        <!-- Slide 10 Bottom Navigation Toolbar -->
+        <div class="d1-slide-footer">
+          <button type="button" class="d1-btn d1-prev-action" onclick="navD1Step(-1)" >
+            &larr; Previous Step
+          </button>
+          <span class="d1-slide-footer-counter">Step 10 of 10</span>
+          <button type="button" class="d1-btn primary d1-next-action" onclick="navD1Step(1)" disabled>
+            Completed &#10003;
+          </button>
+        </div>
+      </div></section>
 
   <!-- Legal, Trademark & Fair Use Disclaimer Footer -->
   <footer style="margin-top:64px;padding:32px 0 28px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;line-height:1.6;">
@@ -4094,14 +4198,7 @@ function switchView(name) {
 
 viewBtns.forEach(b => b.onclick = () => switchView(b.dataset.view));
 
-// Handle query parameter routing (e.g. ?view=day1)
-(function() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const v = urlParams.get('view');
-  if (v && views[v]) {
-    switchView(v);
-  }
-})();
+
 
 /* ==========================================================================
    Theme Management
@@ -4241,61 +4338,78 @@ renderPlan();
 renderCheat();
 updateStarBadge();
 
+
 /* ==========================================================================
    Day 1 Playbook Interactive Slide Deck Controller
    ========================================================================== */
-let currentD1Step = 1;
-const totalD1Steps = 10;
+var currentD1Step = 1;
+var totalD1Steps = 10;
 
 function jumpD1Step(stepNum) {
+  stepNum = parseInt(stepNum, 10);
+  if (isNaN(stepNum)) stepNum = 1;
   if (stepNum < 1) stepNum = 1;
   if (stepNum > totalD1Steps) stepNum = totalD1Steps;
   currentD1Step = stepNum;
 
-  // Update Slides visibility
-  for (let i = 1; i <= totalD1Steps; i++) {
-    const slide = document.getElementById('d1-slide-' + i);
+  // 1. Update Slides visibility
+  for (var i = 1; i <= totalD1Steps; i++) {
+    var slide = document.getElementById('d1-slide-' + i);
     if (slide) {
-      if (i === stepNum) slide.classList.add('active');
-      else slide.classList.remove('active');
+      if (i === stepNum) {
+        slide.classList.add('active');
+      } else {
+        slide.classList.remove('active');
+      }
     }
   }
 
-  // Update Step Pills
-  const pills = document.querySelectorAll('.d1-step-pill');
-  pills.forEach((p, idx) => {
-    if (idx + 1 === stepNum) p.classList.add('active');
-    else p.classList.remove('active');
+  // 2. Update Step Pills in Navigation Strip
+  var pills = document.querySelectorAll('.d1-step-pill');
+  pills.forEach(function(p, idx) {
+    if (idx + 1 === stepNum) {
+      p.classList.add('active');
+      try {
+        p.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } catch (e) {}
+    } else {
+      p.classList.remove('active');
+    }
   });
 
-  // Update Progress info
-  const stepNumEl = document.getElementById('d1-step-num');
-  const stepPctEl = document.getElementById('d1-step-pct');
-  const barEl = document.getElementById('d1-progress-bar');
-  const pct = Math.round((stepNum / totalD1Steps) * 100);
+  // 3. Update Progress Header Stats
+  var stepNumEl = document.getElementById('d1-step-num');
+  var stepPctEl = document.getElementById('d1-step-pct');
+  var barEl = document.getElementById('d1-progress-bar');
+  var pct = Math.round((stepNum / totalD1Steps) * 100);
 
   if (stepNumEl) stepNumEl.textContent = stepNum;
   if (stepPctEl) stepPctEl.textContent = pct + '% Complete';
   if (barEl) barEl.style.width = pct + '%';
 
-  // Update Prev / Next buttons
-  const prevBtn = document.getElementById('d1-prev-btn');
-  const nextBtn = document.getElementById('d1-next-btn');
-  if (prevBtn) prevBtn.disabled = (stepNum <= 1);
-  if (nextBtn) {
-    if (stepNum >= totalD1Steps) {
-      nextBtn.textContent = 'Completed ✓';
-      nextBtn.disabled = true;
-    } else {
-      nextBtn.textContent = 'Next Step →';
-      nextBtn.disabled = false;
-    }
-  }
+  // 4. Update ALL Previous & Next buttons across top hero and slide footers
+  var prevBtns = document.querySelectorAll('.d1-prev-action');
+  prevBtns.forEach(function(b) {
+    b.disabled = (stepNum <= 1);
+  });
 
-  // Scroll smoothly to slide top
-  const container = document.getElementById('d1-slide-' + stepNum);
-  if (container) {
-    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  var nextBtns = document.querySelectorAll('.d1-next-action');
+  nextBtns.forEach(function(b) {
+    if (stepNum >= totalD1Steps) {
+      b.textContent = 'Completed ✓';
+      b.disabled = true;
+    } else {
+      b.textContent = 'Next Step →';
+      b.disabled = false;
+    }
+  });
+
+  // 5. Scroll active slide smoothly into view
+  var activeSlide = document.getElementById('d1-slide-' + stepNum);
+  if (activeSlide) {
+    try {
+      activeSlide.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (e) {}
   }
 }
 
@@ -4304,12 +4418,12 @@ function navD1Step(delta) {
 }
 
 function copyD1Snippet(text, btn) {
-  navigator.clipboard.writeText(text).then(() => {
-    const orig = btn.textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    var orig = btn.textContent;
     btn.textContent = 'Copied! ✓';
     btn.style.borderColor = 'var(--accent)';
     btn.style.color = 'var(--accent)';
-    setTimeout(() => {
+    setTimeout(function() {
       btn.textContent = orig;
       btn.style.borderColor = '';
       btn.style.color = '';
@@ -4319,54 +4433,78 @@ function copyD1Snippet(text, btn) {
 function copyTrainerSnippet(text, btn) { copyD1Snippet(text, btn); }
 
 function copyD1Code(btn) {
-  const codeBlock = btn.parentElement;
+  var codeBlock = btn.parentElement;
   if (!codeBlock) return;
-  const clone = codeBlock.cloneNode(true);
-  const btnInClone = clone.querySelector('.d1-copy-btn');
+  var clone = codeBlock.cloneNode(true);
+  var btnInClone = clone.querySelector('.d1-copy-btn');
   if (btnInClone) btnInClone.remove();
-  const text = clone.textContent.trim();
+  var text = clone.textContent.trim();
 
-  navigator.clipboard.writeText(text).then(() => {
-    const orig = btn.textContent;
-    btn.textContent = 'Copied! ✓';
-    btn.style.borderColor = 'var(--accent)';
-    btn.style.color = 'var(--accent)';
-    setTimeout(() => {
-      btn.textContent = orig;
-      btn.style.borderColor = '';
-      btn.style.color = '';
-    }, 1800);
-  });
+  copyD1Snippet(text, btn);
 }
 
 function toggleD1Fullscreen() {
-  const elem = document.getElementById('v-day1');
+  var elem = document.getElementById('v-day1');
   if (!elem) return;
-  if (!document.fullscreenElement) {
-    elem.requestFullscreen().catch(err => {
-      alert(`Fullscreen error: ${err.message}`);
-    });
+  var isFs = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+  if (!isFs) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen().catch(function(err) { console.warn(err); });
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    }
   } else {
-    document.exitFullscreen();
+    if (document.exitFullscreen) {
+      document.exitFullscreen().catch(function(err) { console.warn(err); });
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
   }
 }
 
-// Global Keyboard Navigation for Day 1 when active
-document.addEventListener('keydown', (e) => {
-  const vDay1 = document.getElementById('v-day1');
-  if (vDay1 && !vDay1.hasAttribute('hidden')) {
-    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
-    if (e.key === 'ArrowRight' || e.key === ' ') {
+// Global Keyboard Navigation for Day 1 Presenter Mode
+window.addEventListener('keydown', function(e) {
+  var vDay1 = document.getElementById('v-day1');
+  if (!vDay1 || vDay1.hasAttribute('hidden')) return;
+
+  // Don't intercept when user is typing in form inputs or textareas
+  if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+    e.preventDefault();
+    navD1Step(1);
+  } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault();
+    navD1Step(-1);
+  } else if (e.key === 'f' || e.key === 'F') {
+    if (!e.ctrlKey && !e.metaKey && !e.altKey) {
       e.preventDefault();
-      navD1Step(1);
-    } else if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      navD1Step(-1);
-    } else if (e.key === 'f' || e.key === 'F') {
       toggleD1Fullscreen();
     }
+  } else if (e.key >= '1' && e.key <= '9' && (e.altKey || e.metaKey)) {
+    e.preventDefault();
+    jumpD1Step(parseInt(e.key, 10));
   }
 });
+
+/* ==========================================================================
+   End-of-Script View Routing Initialization (Safe after all functions exist)
+   ========================================================================== */
+(function() {
+  var urlParams = new URLSearchParams(window.location.search);
+  var viewParam = urlParams.get('view');
+  if (viewParam && views[viewParam]) {
+    switchView(viewParam);
+  }
+})();
 
 </script>
 </body>
