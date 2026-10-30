@@ -956,15 +956,19 @@ details.sc .ans li + li { margin-top: 7px; }
 }
 
 /* Fullscreen mode support */
-#v-day1:fullscreen {
+#v-day1:fullscreen,
+#v-day1:-webkit-full-screen,
+#v-day1:-moz-full-screen,
+#v-day1:-ms-fullscreen {
   background: var(--bg);
-  padding: 40px;
+  padding: 28px 48px 80px;
   overflow-y: auto;
+  box-sizing: border-box;
 }
-#v-day1:-webkit-full-screen {
-  background: var(--bg);
-  padding: 40px;
-  overflow-y: auto;
+#v-day1:fullscreen .d1-container,
+#v-day1:-webkit-full-screen .d1-container {
+  max-width: 1240px;
+  margin: 0 auto;
 }
 
 </style>
@@ -1423,7 +1427,10 @@ details.sc .ans li + li { margin-top: 7px; }
             Next Step &rarr;
           </button>
         </div>
-      </div>id="d1-slide-2">
+      </div>
+
+      <!-- Slide 2: The Paradigm Shift -->
+      <div class="d1-slide" id="d1-slide-2">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 02 &bull; Mental Model</span>
@@ -1483,7 +1490,10 @@ details.sc .ans li + li { margin-top: 7px; }
             Next Step &rarr;
           </button>
         </div>
-      </div>id="d1-slide-3">
+      </div>
+
+      <!-- Slide 3: Under the Hood - Atlas ReAct Loop -->
+      <div class="d1-slide" id="d1-slide-3">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 03 &bull; Deep-Dive Architecture</span>
@@ -1550,7 +1560,10 @@ details.sc .ans li + li { margin-top: 7px; }
             Next Step &rarr;
           </button>
         </div>
-      </div>id="d1-slide-4">
+      </div>
+
+      <!-- Slide 4: The 3 Core Pillars -->
+      <div class="d1-slide" id="d1-slide-4">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 04 &bull; Core Building Blocks</span>
@@ -1618,7 +1631,10 @@ details.sc .ans li + li { margin-top: 7px; }
             Next Step &rarr;
           </button>
         </div>
-      </div>id="d1-slide-5">
+      </div>
+
+      <!-- Slide 5: Foundation Models & Trust Layer -->
+      <div class="d1-slide" id="d1-slide-5">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 05 &bull; AI Ethics &amp; Infrastructure</span>
@@ -1667,7 +1683,10 @@ details.sc .ans li + li { margin-top: 7px; }
             Next Step &rarr;
           </button>
         </div>
-      </div>id="d1-slide-6">
+      </div>
+
+      <!-- Slide 6: Salesforce Setup Screen Clicks -->
+      <div class="d1-slide" id="d1-slide-6">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 06 &bull; Live Screen-Sharing Demo</span>
@@ -1740,7 +1759,10 @@ details.sc .ans li + li { margin-top: 7px; }
             Next Step &rarr;
           </button>
         </div>
-      </div>id="d1-slide-7">
+      </div>
+
+      <!-- Slide 7: Live Utterances & Reasoning Log -->
+      <div class="d1-slide" id="d1-slide-7">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 07 &bull; Execution &amp; Tracing</span>
@@ -1835,7 +1857,10 @@ Model Completion: "I checked Case #00001025 for you. It is currently in 'New' st
             Next Step &rarr;
           </button>
         </div>
-      </div>id="d1-slide-8">
+      </div>
+
+      <!-- Slide 8: Architectural Traps & Limits -->
+      <div class="d1-slide" id="d1-slide-8">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 08 &bull; Production Governance</span>
@@ -1895,7 +1920,10 @@ Model Completion: "I checked Case #00001025 for you. It is currently in 'New' st
             Next Step &rarr;
           </button>
         </div>
-      </div>id="d1-slide-9">
+      </div>
+
+      <!-- Slide 9: Hands-On Lab Exercise -->
+      <div class="d1-slide" id="d1-slide-9">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 09 &bull; Hands-On Lab</span>
@@ -1968,7 +1996,10 @@ Model Completion: "I checked Case #00001025 for you. It is currently in 'New' st
             Next Step &rarr;
           </button>
         </div>
-      </div>id="d1-slide-10">
+      </div>
+
+      <!-- Slide 10: Checkpoint Quiz & Cheatsheet -->
+      <div class="d1-slide" id="d1-slide-10">
         <div class="d1-slide-head">
           <div>
             <span class="d1-slide-badge">Step 10 &bull; Knowledge Verification</span>
@@ -2023,9 +2054,7 @@ WHERE UserType = 'AutomatedProcess'
             </div>
           </div>
         </div>
-      </div>
-
-    
+      
         <!-- Slide 10 Bottom Navigation Toolbar -->
         <div class="d1-slide-footer">
           <button type="button" class="d1-btn d1-prev-action" onclick="navD1Step(-1)" >
@@ -2036,7 +2065,10 @@ WHERE UserType = 'AutomatedProcess'
             Completed &#10003;
           </button>
         </div>
-      </div></section>
+      </div>
+
+    </div>
+  </section>
 
   <!-- Legal, Trademark & Fair Use Disclaimer Footer -->
   <footer style="margin-top:64px;padding:32px 0 28px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;line-height:1.6;">
@@ -4192,7 +4224,9 @@ function switchView(name) {
   else if (name === 'cheat') renderCheat();
   else if (name === 'starred') renderStarred();
   else if (name === 'day1') {
-    if (typeof jumpD1Step === 'function') jumpD1Step(currentD1Step || 1);
+    if (typeof jumpD1Step === 'function') {
+      jumpD1Step(currentD1Step || 1);
+    }
   }
 }
 
@@ -4352,14 +4386,16 @@ function jumpD1Step(stepNum) {
   if (stepNum > totalD1Steps) stepNum = totalD1Steps;
   currentD1Step = stepNum;
 
-  // 1. Update Slides visibility
+  // 1. Update Slides visibility with both class and inline style for 100% guarantee
   for (var i = 1; i <= totalD1Steps; i++) {
     var slide = document.getElementById('d1-slide-' + i);
     if (slide) {
       if (i === stepNum) {
         slide.classList.add('active');
+        slide.style.display = 'block';
       } else {
         slide.classList.remove('active');
+        slide.style.display = 'none';
       }
     }
   }
@@ -4499,6 +4535,11 @@ window.addEventListener('keydown', function(e) {
    End-of-Script View Routing Initialization (Safe after all functions exist)
    ========================================================================== */
 (function() {
+  // Initialize Day 1 slides state (ensure slides 2-10 are explicitly hidden)
+  if (typeof jumpD1Step === 'function') {
+    jumpD1Step(1);
+  }
+
   var urlParams = new URLSearchParams(window.location.search);
   var viewParam = urlParams.get('view');
   if (viewParam && views[viewParam]) {
