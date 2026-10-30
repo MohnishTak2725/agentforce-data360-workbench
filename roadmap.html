@@ -999,6 +999,10 @@
         <div class="label">Target Credentials</div>
         <div class="value">Agentblazer Legend &bull; AI Specialist</div>
       </div>
+      <div class="meta-card">
+        <div class="label">Program Schedule</div>
+        <div class="value">4-Week Bootcamp &bull; Monday to Friday (2 hrs/day)</div>
+      </div>
     </div>
   </header>
 
@@ -1017,23 +1021,7 @@
     </a>
   </div>
 
-  <!-- Delivery Format Selector -->
-  <div class="delivery-selector">
-    <div class="delivery-title">
-      Select Preferred Program Delivery Format:
-    </div>
-    <div class="delivery-options">
-      <button type="button" class="mode-pill active" onclick="setMode('bootcamp', this)">
-        Option A: 4-Week Comprehensive Bootcamp (Recommended &bull; 2 hrs/day)
-      </button>
-      <button type="button" class="mode-pill" onclick="setMode('sprint', this)">
-        Option B: 2-Week Accelerated Sprint (Intensive &bull; 4 hrs/day)
-      </button>
-      <button type="button" class="mode-pill" onclick="setMode('workshop', this)">
-        Option C: 4-Weekend Intensive Workshop (Saturdays &amp; Sundays)
-      </button>
-    </div>
-  </div>
+  
 
     <!-- Trainer Interactive Guide Alert Banner -->
   <div class="trainer-banner-alert">
@@ -1556,16 +1544,8 @@
     toggle.textContent = isHidden ? 'Details ▾' : 'Hide ▴';
   }
 
-  // Delivery Mode Selection
-  let currentMode = '4-Week Comprehensive Bootcamp (2 hrs/day)';
-  function setMode(modeKey, btn) {
-    document.querySelectorAll('.mode-pill').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    if (modeKey === 'bootcamp') currentMode = '4-Week Comprehensive Bootcamp (2 hrs/day)';
-    else if (modeKey === 'sprint') currentMode = '2-Week Accelerated Sprint (4 hrs/day)';
-    else if (modeKey === 'workshop') currentMode = '4-Weekend Intensive Workshop (Saturdays & Sundays)';
-    updateSignoffState();
-  }
+    // Program Delivery Schedule (Monday to Friday, 2 hrs/day)
+  const currentMode = '4-Week Comprehensive Bootcamp (Monday to Friday, 2 hrs/day â€¢ 40 Hours Total)';
 
   // Dynamic Sign-off Summary Generation
   function updateSignoffState() {
