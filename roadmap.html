@@ -831,10 +831,6 @@
       <span><b>Enterprise AI Practice</b> &bull; Salesforce Agentforce &amp; Data 360 Enablement</span>
     </div>
     <div class="meta-right">
-      <button type="button" class="action-btn" onclick="window.print()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-        Print / PDF
-      </button>
       <button type="button" class="theme-btn" id="btn-theme" onclick="toggleTheme()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
         Theme
@@ -1257,10 +1253,6 @@
         <button type="button" class="tm-action-btn" onclick="popoutTrainerWindow()" title="Pop out into separate window for secondary monitor">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           Pop-Out Window
-        </button>
-        <button type="button" class="tm-action-btn" onclick="printTrainerGuide()" title="Print / Save this Day as PDF">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-          Print Deck
         </button>
         <button type="button" class="tm-close-btn" onclick="closeTrainerGuide(null)" title="Close (Esc)">✕</button>
       </div>
@@ -2852,10 +2844,6 @@ function copyTrainerSnippet(text, btn) {
   });
 }
 
-function printTrainerGuide() {
-  window.print();
-}
-
 function popoutTrainerWindow() {
   const guide = TRAINING_GUIDES[currentTrainerDay];
   if (!guide) return;
@@ -2874,7 +2862,7 @@ function popoutTrainerWindow() {
     pre { background: #060911; padding: 12px; border-radius: 6px; color: #93c5fd; overflow-x: auto; }
     .slot { border-left: 3px solid #00a1e0; padding-left: 12px; margin-bottom: 12px; }
     .time { font-weight: 700; color: #00a1e0; font-size: 12px; }
-    @media print { body { background: #fff; color: #000; } .section { border: 1px solid #ccc; background: #fff; } pre { background: #f4f4f4; color: #000; } }
+    
   </style></head><body>
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border-bottom:1px solid #233355;padding-bottom:16px;">
     <div>
@@ -2882,7 +2870,7 @@ function popoutTrainerWindow() {
       <h1>${guide.title}</h1>
       <p style="color:#8295be;">${guide.summary}</p>
     </div>
-    <button onclick="window.print()" style="background:#00a1e0;color:#fff;border:0;padding:10px 18px;border-radius:6px;font-weight:700;cursor:pointer;">Print / PDF</button>
+    
   </div>
   <div class="section"><div class="title">⏱️ Minute-by-Minute Session Plan</div>` + document.getElementById('tm-tab-timeline').innerHTML + `</div>
   <div class="section"><div class="title">🧠 What to Teach</div>` + document.getElementById('tm-tab-what').innerHTML + `</div>
