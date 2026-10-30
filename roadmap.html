@@ -892,9 +892,9 @@
       </div>
     </div>
     <div style="display:flex;gap:10px;align-items:center;flex-shrink:0;flex-wrap:wrap;">
-      <a href="index.html?view=day1" class="action-btn primary" style="font-size:12.5px;padding:8px 16px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+      <a href="playbook.html" class="action-btn primary" style="font-size:12.5px;padding:8px 16px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-        Launch Day 1 Master Playbook ↗
+        Launch 20-Day Playbook ↗
       </a>
       <button type="button" class="action-btn" onclick="openTrainerGuide(1)" style="font-size:12.5px;padding:8px 16px;">
         Quick Modal ⤢
@@ -1256,6 +1256,10 @@
         <p id="tm-subtitle" class="tm-subtitle">Session overview description goes here...</p>
       </div>
       <div class="tm-header-actions">
+        <a id="tm-open-playbook-link" href="playbook.html?day=1" class="tm-action-btn" style="text-decoration:none;" title="Open in Full 20-Day Playbook View">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Full Playbook ↗
+        </a>
         <button type="button" class="tm-action-btn" onclick="popoutPlaybookWindow()" title="Pop out into separate window for secondary monitor">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           Pop-Out Window
@@ -2718,6 +2722,7 @@ function openTrainerGuide(dayNum) {
   document.getElementById('tm-title').textContent = 'Day ' + guide.num + ': ' + guide.title;
   document.getElementById('tm-subtitle').textContent = guide.summary;
   document.getElementById('tm-day-indicator').textContent = 'Day ' + guide.num + ' of 20 (' + guide.target + ')';
+  const pbLink = document.getElementById('tm-open-playbook-link'); if (pbLink) pbLink.href = 'playbook.html?day=' + dayNum;
 
   // Navigation button states
   document.getElementById('tm-prev-btn').disabled = (dayNum <= 1);
