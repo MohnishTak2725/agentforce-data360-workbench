@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -124,7 +124,7 @@
       filter: brightness(1.1);
     }
 
-    /* Hero / Proposal Banner */
+    /* Hero Banner */
     .hero {
       background: linear-gradient(135deg, var(--surface) 0%, var(--bg-alt) 100%);
       border: 1px solid var(--border);
@@ -194,46 +194,6 @@
       color: var(--ink);
     }
 
-    /* Tabs & Delivery Mode Selector */
-    .delivery-selector {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .delivery-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--ink);
-    }
-    .delivery-options {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .mode-pill {
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .mode-pill.active {
-      background: var(--brand);
-      color: #ffffff;
-      border-color: var(--brand);
-      box-shadow: 0 2px 8px var(--brand-glow);
-    }
 
     /* Section Styles */
     .section-title {
@@ -436,134 +396,6 @@
       line-height: 1.5;
     }
 
-    /* Interactive Approval & Sign-Off Workbench */
-    .signoff-box {
-      background: linear-gradient(135deg, var(--surface-variant) 0%, var(--surface) 100%);
-      border: 2px solid var(--brand);
-      border-radius: 16px;
-      padding: 36px;
-      margin-bottom: 48px;
-      box-shadow: var(--shadow-lg);
-    }
-    .signoff-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 24px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 20px;
-    }
-    .signoff-checklist {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-    .check-item {
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      font-size: 13.5px;
-      user-select: none;
-      transition: background 0.2s;
-    }
-    .check-item:hover {
-      background: var(--surface);
-    }
-    .check-item input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--brand);
-      cursor: pointer;
-    }
-    .notes-area {
-      width: 100%;
-      height: 90px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
-      color: var(--ink);
-      font-family: var(--font-body);
-      font-size: 13.5px;
-      resize: vertical;
-      margin-bottom: 20px;
-    }
-    .notes-area:focus {
-      outline: none;
-      border-color: var(--brand);
-    }
-    .signature-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-top: 24px;
-      border-top: 1px solid var(--border);
-      padding-top: 24px;
-    }
-    .sig-card {
-      background: var(--bg-alt);
-      border: 1px dashed var(--border);
-      border-radius: 10px;
-      padding: 20px;
-    }
-    .sig-role {
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 6px;
-    }
-    .sig-name {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-    .sig-status {
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 600;
-    }
-    .sig-status.ready { color: var(--accent); }
-    .sig-status.pending { color: var(--warn); }
-
-    /* Companion Portal Banner */
-    .companion-banner {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-
-    /* Print & Responsive */
-    @media print {
-      body { background: #ffffff !important; color: #000000 !important; }
-      .meta-bar, .delivery-selector, .theme-btn, .action-btn { display: none !important; }
-      .hero, .phase-card, .capstone-box, .signoff-box { border: 1px solid #ccc !important; box-shadow: none !important; }
-      .phase-content { display: block !important; }
-    }
-
-    @media (max-width: 768px) {
-      .hero { padding: 24px; }
-      .signature-grid { grid-template-columns: 1fr; }
-    }
-  
     /* Trainer Delivery Deck & Interactive Day Cards */
     .day-card {
       background: var(--bg-alt);
@@ -954,7 +786,7 @@
   <!-- Top Metadata Navigation -->
   <div class="meta-bar">
     <div class="meta-left">
-      <span class="meta-tag">Training Proposal</span>
+      <span class="meta-tag">Master Enablement Blueprint</span>
       <span style="color:var(--muted);">|</span>
       <span><b>Enterprise AI Practice</b> &bull; Salesforce Agentforce &amp; Data 360 Enablement</span>
     </div>
@@ -970,31 +802,22 @@
     </div>
   </div>
 
-  <!-- Hero Proposal Banner -->
+  <!-- Hero Roadmap Banner -->
   <header class="hero">
     <div class="hero-eyebrow">
-      <span>Executive Enablement Plan</span>
+      <span>Global Technical Enablement Blueprint</span>
       <span>&bull;</span>
       <span>Winter '27 (API 64) Aligned</span>
     </div>
     <h1>Salesforce Agentforce &amp; Data 360 Enablement Program</h1>
     <p class="hero-desc">
-      A comprehensive, milestone-based training curriculum and execution roadmap designed to upskill freshers and mid-level developers into enterprise-ready autonomous AI engineers. Integrates hands-on lab sandboxes, pro-code Apex actions, Data 360 architecture, and the official Agentblazer 2026/2027 credential ladder.
+      A comprehensive, milestone-driven technical roadmap designed to upskill software engineers, data professionals, and cloud developers (both Salesforce and non-Salesforce backgrounds) into enterprise-ready autonomous AI practitioners. Covers the complete spectrum: cognitive ReAct loops, prompt engineering, Data 360 lakehouse modeling, sub-second vector RAG, pro-code tool building, and the official Agentblazer / Salesforce AI Specialist credential path.
     </p>
 
     <div class="meta-cards-grid">
-      <div class="meta-card">
-        <div class="label">Review &amp; Sign-Off</div>
-        <div class="value">Lead Architect / Engineering Lead</div>
-      </div>
-      <div class="meta-card">
-        <div class="label">Curriculum Track</div>
-        <div class="value">Senior Salesforce AI Specialist</div>
-      </div>
-      <div class="meta-card">
-        <div class="label">Target Audience</div>
-        <div class="value">Engineering Cohort &bull; Freshers to Devs</div>
-      </div>
+      <div class="meta-card"><div class="label">Architecture Track</div><div class="value">Autonomous AI &bull; Data Cloud 360</div></div>
+      <div class="meta-card"><div class="label">Curriculum Level</div><div class="value">Foundations to Advanced Pro-Code</div></div>
+      <div class="meta-card"><div class="label">Target Audience</div><div class="value">Engineers, Architects &bull; All Backgrounds</div></div>
       <div class="meta-card">
         <div class="label">Target Credentials</div>
         <div class="value">Agentblazer Legend &bull; AI Specialist</div>
@@ -1286,7 +1109,7 @@
                 <span class="day-num">Day 20</span><span class="day-card-action-cue"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:2px;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>Trainer Guide</span><span class="day-duration">Grand Finale &bull; 2 hrs</span></div>
               <div class="day-title">Final Capstone Presentation &amp; AI Specialist Review</div>
               <div class="day-desc">Trainees present their working Project AeroPulse agent to the Technical Review Panel. Conduct certification review for the Salesforce AI Specialist exam.</div>
-              <div class="day-tags"><span class="tag-pill">Capstone Defense</span><span class="tag-pill">Sign-Off</span><span class="tag-pill">AI Specialist</span></div>
+              <div class="day-tags"><span class="tag-pill">Capstone Defense</span><span class="tag-pill">Certification</span><span class="tag-pill">AI Specialist</span></div>
             </div>
           </div>
           <div class="milestone-gate">
@@ -1374,77 +1197,7 @@
     </div>
   </section>
 
-  <!-- Section 4: Tech Lead Sign-Off & Approval Workbench -->
-  <section class="signoff-box" id="signoff">
-    <div class="signoff-header">
-      <div>
-        <div style="font-size:12px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Action Required</div>
-        <h2 style="font-family:var(--font-display);font-size:24px;margin:0;">Tech Lead Review &amp; Approval Workbench</h2>
-        <p style="font-size:13.5px;color:var(--ink-secondary);margin-top:4px;">
-          Review the curriculum phases, check off approved components, specify any adjustments, and sign off below.
-        </p>
-      </div>
-      <button type="button" class="action-btn primary" onclick="copySignOffSummary()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-        Copy Sign-Off Summary for Slack/Email
-      </button>
-    </div>
-
-    <div style="font-weight:600;font-size:13.5px;margin-bottom:10px;">Phase Approval Checkpoints:</div>
-    <div class="signoff-checklist">
-      <label class="check-item">
-        <input type="checkbox" id="chk-p1" checked onchange="updateSignoffState()">
-        <span><b>Approve Phase 1:</b> AI Foundations &amp; Prompt Builder</span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-p2" checked onchange="updateSignoffState()">
-        <span><b>Approve Phase 2:</b> Data 360 Ingestion &amp; Modeling</span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-p3" checked onchange="updateSignoffState()">
-        <span><b>Approve Phase 3:</b> Pro-Code Apex &amp; Data Graphs</span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-p4" checked onchange="updateSignoffState()">
-        <span><b>Approve Phase 4:</b> Security, Testing &amp; Winter '27</span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-capstone" checked onchange="updateSignoffState()">
-        <span><b>Approve Capstone:</b> Project AeroPulse VIP Concierge</span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-exam" checked onchange="updateSignoffState()">
-        <span><b>Approve Goal:</b> AI Specialist Certification Target</span>
-      </label>
-    </div>
-
-    <label style="display:block;font-weight:600;font-size:13.5px;margin-bottom:6px;">
-      Tech Lead Feedback, Specific Amendments &amp; Client Project Notes:
-    </label>
-    <textarea class="notes-area" id="lead-notes" placeholder="e.g. Looks good! Please prioritize Phase 3 Apex Invocables and ensure trainees use Winter '27 sfsqlquery syntax. Let's schedule kickoff next Monday."></textarea>
-
-    <!-- Signatures -->
-    <div class="signature-grid">
-      <div class="sig-card">
-        <div class="sig-role">Program Author &bull; Lead Instructor</div>
-        <div class="sig-name">Senior Salesforce AI Specialist</div>
-        <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px;">Enterprise AI &amp; Data Cloud Practice</div>
-        <div class="sig-status ready">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          Curriculum Ready &bull; Workbench Live
-        </div>
-      </div>
-      <div class="sig-card">
-        <div class="sig-role">Reviewing Authority &bull; Technical Lead</div>
-        <div class="sig-name">Engineering Lead / Architect</div>
-        <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px;">Technical Delivery &amp; Architectural Governance</div>
-        <div class="sig-status pending" id="lead-status-display">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
-          Pending Tech Lead Sign-Off
-        </div>
-      </div>
-    </div>
-  </section>
+  
 
   <!-- Trainer Delivery Guide Modal -->
 <div id="trainer-modal-overlay" class="trainer-modal-overlay" onclick="closeTrainerGuide(event)">
@@ -1509,7 +1262,7 @@
       <div style="max-width:760px;">
         <div style="font-weight:700;color:var(--ink);margin-bottom:4px;">Enterprise Technical Enablement Curriculum &bull; Community Edition</div>
         <p style="margin:0 0 6px;">
-          This roadmap and curriculum are prepared for professional skill development, self-paced learning, and enterprise team enablement. Salesforce, Agentforce, Data Cloud, Einstein, Customer 360, Trailhead, and Tableau are registered trademarks of Salesforce, Inc. All other marks are the property of their respective owners and used in nominative fair use for architectural identification.
+          This roadmap and curriculum are prepared for professional skill development, self-paced learning, and engineering team enablement across Salesforce and multi-cloud technical groups. Salesforce, Agentforce, Data Cloud, Einstein, Customer 360, Trailhead, and Tableau are registered trademarks of Salesforce, Inc. All other marks are the property of their respective owners and used in nominative fair use for architectural identification.
         </p>
       </div>
       <div style="text-align:right;">
@@ -1547,62 +1300,7 @@
     // Program Delivery Schedule (Monday to Friday, 2 hrs/day)
   const currentMode = '4-Week Comprehensive Bootcamp (Monday to Friday, 2 hrs/day â€¢ 40 Hours Total)';
 
-  // Dynamic Sign-off Summary Generation
-  function updateSignoffState() {
-    const allChecked = document.getElementById('chk-p1').checked &&
-                       document.getElementById('chk-p2').checked &&
-                       document.getElementById('chk-p3').checked &&
-                       document.getElementById('chk-p4').checked &&
-                       document.getElementById('chk-capstone').checked;
-    
-    const statusDisp = document.getElementById('lead-status-display');
-    if (allChecked) {
-      statusDisp.className = 'sig-status ready';
-      statusDisp.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Approved by Tech Lead (All Phases Sign-Off)`;
-    } else {
-      statusDisp.className = 'sig-status pending';
-      statusDisp.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg> Partially Approved / Modifications Requested`;
-    }
-  }
-
-  function copySignOffSummary() {
-    const p1 = document.getElementById('chk-p1').checked ? '✅ Approved' : '⏳ Needs Revision';
-    const p2 = document.getElementById('chk-p2').checked ? '✅ Approved' : '⏳ Needs Revision';
-    const p3 = document.getElementById('chk-p3').checked ? '✅ Approved' : '⏳ Needs Revision';
-    const p4 = document.getElementById('chk-p4').checked ? '✅ Approved' : '⏳ Needs Revision';
-    const cap = document.getElementById('chk-capstone').checked ? '✅ Approved' : '⏳ Needs Revision';
-    const notes = document.getElementById('lead-notes').value.trim() || 'No additional notes provided. Approved to proceed.';
-
-    const summary = `==========================================================
-SALESFORCE AGENTFORCE & DATA 360 ENABLEMENT ROADMAP
-TECH LEAD REVIEW & APPROVAL SUMMARY
-==========================================================
-Reviewing Authority : Technical Lead / Architect
-Curriculum Track    : Enterprise Agentforce & Data 360 Enablement
-Target Audience     : Engineering Cohort (Freshers to Senior Devs)
-Release Spec : Winter '27 (API 64)
-Delivery Mode: ${currentMode}
-
-PHASE APPROVALS:
-- Phase 1 (AI Foundations & Prompt Builder) : ${p1}
-- Phase 2 (Data 360 Ingestion & Modeling)   : ${p2}
-- Phase 3 (Apex Invocables & Data Graphs)   : ${p3}
-- Phase 4 (Security, Testing & Winter '27)  : ${p4}
-- Capstone Project (AeroPulse Concierge)    : ${cap}
-
-TECH LEAD FEEDBACK / DIRECTIVES:
-"${notes}"
-
-Interactive Companion Portal:
-https://mohnishtak2725.github.io/agentforce-data360-workbench/
-==========================================================`;
-
-    navigator.clipboard.writeText(summary).then(() => {
-      alert('Sign-Off Summary copied to clipboard! You can paste it into Slack, Microsoft Teams, or Email.');
-    }).catch(() => {
-      prompt('Copy the Approval Summary below:', summary);
-    });
-  }
+  
 
 
 // ===== TRAINER'S LIVE DELIVERY DECK DATA & CONTROLLER =====
@@ -1912,13 +1610,13 @@ const TRAINING_GUIDES = {
     title: 'Lab 1 Defense & Agentforce Builder Assembly',
     duration: '2 Hours (120 min)',
     type: 'Practical Evaluation & Defense',
-    target: 'Milestone Gate 1 Sign-Off (Champion Status)',
+    target: 'Milestone Gate 1: Champion Level Validation',
     summary: 'Trainees build and assemble a multi-topic customer service agent from scratch in their developer orgs. Formal Milestone Gate 1 defense in front of the trainer/Tech Lead to verify autonomous reasoning stability.',
     timeline: [
       { time: '00:00 - 00:20 (20m)', title: 'Milestone Gate 1 Evaluation Rubric', desc: 'Review the 5 evaluation criteria: Topic separation, Classification accuracy, Grounded prompts, Guardrails, and Error handling.' },
       { time: '00:20 - 01:20 (60m)', title: 'Individual Trainee Live Demonstrations', desc: 'Each trainee shares screen, demonstrates their agent handling 3 customer scenarios, and defends their Reasoning Log traces.' },
       { time: '01:20 - 01:45 (25m)', title: 'Adversarial Stress-Testing by Trainer', desc: 'Trainer injects edge cases: ambiguous requests, missing fields, prompt injection attempts, and boundary switches.' },
-      { time: '01:45 - 02:00 (15m)', title: 'Scoring, Feedback & Phase 1 Certification Sign-Off', desc: 'Record scores on the 30% Milestone 1 rubric. Award Trailhead Champion status for Phase 1.' }
+      { time: '01:45 - 02:00 (15m)', title: 'Scoring, Feedback & Phase 1 Champion Milestone', desc: 'Record scores on the 30% Milestone 1 rubric. Award Trailhead Champion status for Phase 1.' }
     ],
     what: {
       concepts: [
@@ -1931,7 +1629,7 @@ const TRAINING_GUIDES = {
           content: '1. <b>Architecture</b>: Clean separation into at least 2 distinct domain Topics.<br>2. <b>Intent Classification</b>: Zero routing oscillation on ambiguous queries.<br>3. <b>Prompt Grounding</b>: Dynamic CRM merge tags with negative constraints.<br>4. <b>Guardrails</b>: Clear rejection of out-of-scope requests.<br>5. <b>Reasoning Trace</b>: Clean, predictable ReAct loops in the Reasoning Log.'
         }
       ],
-      whiteboardTerms: ['Milestone Gate 1', 'Architectural Defense', 'Reasoning Trace', 'Disambiguation', 'Stress Testing', 'Champion Sign-Off']
+      whiteboardTerms: ['Milestone Gate 1', 'Architectural Defense', 'Reasoning Trace', 'Disambiguation', 'Stress Testing', 'Champion Validation']
     },
     how: [
       { step: 1, title: 'Open the Trainee Evaluation Sheet', script: 'Prepare grading rubric for each trainee (Architecture 20%, Routing 20%, Grounding 20%, Guardrails 20%, Defense 20%).' },
@@ -1951,7 +1649,7 @@ const TRAINING_GUIDES = {
         'Present live Agentforce Builder configuration.',
         'Demonstrate zero-oscillation intent routing.',
         'Successfully defend Reasoning Log traces under trainer stress testing.',
-        'Obtain Milestone Gate 1 Champion Sign-Off.'
+        'Complete Milestone Gate 1 Champion Validation.'
       ]
     },
     cheat: {
@@ -1966,6 +1664,7 @@ const TRAINING_GUIDES = {
     }
   }
 };
+
 
 // Phase 2: Data 360 (Data Cloud) Ingestion, Modeling & Golden Record (Days 6 - 10)
 const TRAINING_GUIDES_P2 = {
@@ -2224,13 +1923,13 @@ const TRAINING_GUIDES_P2 = {
     title: 'Lab 2 Defense: Unified Customer 360 Engine',
     duration: '2 Hours (120 min)',
     type: 'Practical Evaluation & Defense',
-    target: 'Milestone Gate 2 Sign-Off (Data 360 Architect)',
+    target: 'Milestone Gate 2: Data 360 Architect Validation',
     summary: 'Trainees ingest multi-system customer datasets, resolve duplicate contacts into a unified Golden Record, and compute active Calculated Insights. Formal Milestone Gate 2 defense.',
     timeline: [
       { time: '00:00 - 00:20 (20m)', title: 'Milestone Gate 2 Evaluation Standards', desc: 'Review the 4 core criteria: Data Lineage, Schema Mapping Accuracy, Identity Resolution Quality, and Calculated Insight Deployment.' },
       { time: '00:20 - 01:20 (60m)', title: 'Individual Trainee Live Data Pipeline Demonstrations', desc: 'Trainees share screen, trace a customer record from raw DLO (__dll) to canonical DMO (__dlm) to Unified Individual and Calculated Insight.' },
       { time: '01:20 - 01:45 (25m)', title: 'Live Query Interrogation by Trainer', desc: 'Trainer executes live queries in Data Explorer to verify Golden Record reconciliation and verify that Calculated Insights update accurately.' },
-      { time: '01:45 - 02:00 (15m)', title: 'Scoring, Feedback & Milestone 2 Sign-Off', desc: 'Record scores on the 30% Milestone 2 rubric. Award Data 360 Architect certification status.' }
+      { time: '01:45 - 02:00 (15m)', title: 'Scoring, Feedback & Milestone 2 Architecture Validation', desc: 'Record scores on the 30% Milestone 2 rubric. Award Data 360 Architect certification status.' }
     ],
     what: {
       concepts: [
@@ -2250,7 +1949,7 @@ const TRAINING_GUIDES_P2 = {
       { step: 2, title: 'Call Trainee for Live Demonstration', script: 'Ask trainee to open Data Cloud and show their Data Streams. "Show us the lineage of your customer dataset from raw CSV to Unified Individual."' },
       { step: 3, title: 'Verify Identity Resolution in Profile Explorer', script: 'Have trainee open Profile Explorer, search for a merged customer, and show all 3 source system IDs unified under one Golden Record.' },
       { step: 4, title: 'Test Calculated Insight Query', script: 'Open Query Workspace and run: `SELECT * FROM Customer_Lifetime_Value__cio WHERE CustomerId__c = :testId`. Verify the aggregated value matches source transactions.' },
-      { step: 5, title: 'Award Gate 2 Sign-Off', script: 'Record final score and confirm readiness to advance into Phase 3 Pro-Code Apex Actions.' }
+      { step: 5, title: 'Complete Gate 2 Architecture Validation', script: 'Record evaluation score and confirm readiness to advance into Phase 3 Pro-Code Apex Actions.' }
     ],
     traps: [
       { title: 'Incomplete Identity Resolution Job Run', desc: 'If the ruleset was edited right before the presentation and has not finished running, the unified records may be out of date.' },
@@ -2264,7 +1963,7 @@ const TRAINING_GUIDES_P2 = {
         'Show clean CIM mapping to `ssot__Individual__dlm`.',
         'Demonstrate unified customer profile in Profile Explorer.',
         'Demonstrate active Calculated Insight with verified aggregations.',
-        'Obtain Milestone Gate 2 Data 360 Architect Sign-Off.'
+        'Complete Milestone Gate 2 Data 360 Architecture Validation.'
       ]
     },
     cheat: {
@@ -2275,6 +1974,7 @@ const TRAINING_GUIDES_P2 = {
     }
   }
 };
+
 
 // Phase 3: Pro-Code Actions, Sub-Second Data Graphs & Hybrid RAG (Days 11 - 15)
 const TRAINING_GUIDES_P3 = {
@@ -2573,13 +2273,13 @@ const TRAINING_GUIDES_P3 = {
     title: 'Lab 3 Defense: Grounded Agent Actions',
     duration: '2 Hours (120 min)',
     type: 'Practical Evaluation & Defense',
-    target: 'Milestone Gate 3 Sign-Off (Innovator Level)',
+    target: 'Milestone Gate 3: Innovator Level Validation',
     summary: 'Trainees wire custom Apex Invocable actions to their agent, grounded with Data Graphs and Knowledge Vector RAG. Formal Milestone Gate 3 defense in front of the Tech Lead.',
     timeline: [
       { time: '00:00 - 00:20 (20m)', title: 'Milestone Gate 3 Evaluation Rubric', desc: 'Review the 4 core criteria: Apex DTO contract compliance, Data Graph grounding latency, Vector RAG relevance, and Error state resilience.' },
       { time: '00:20 - 01:20 (60m)', title: 'Individual Trainee Pro-Code Demonstrations', desc: 'Trainees present their custom Apex action running live in Agentforce Builder, grounded by Data Graphs and RAG.' },
       { time: '01:20 - 01:45 (25m)', title: 'Adversarial Code & Execution Interrogation', desc: 'Trainer inspects Apex code for exception handling and injects invalid inputs to test error reporting.' },
-      { time: '01:45 - 02:00 (15m)', title: 'Scoring, Feedback & Milestone 3 Sign-Off', desc: 'Record scores on the 40% Milestone 3 rubric. Award Agentforce Innovator certification status.' }
+      { time: '01:45 - 02:00 (15m)', title: 'Scoring, Feedback & Milestone 3 Innovator Validation', desc: 'Record scores on the 40% Milestone 3 rubric. Award Agentforce Innovator certification status.' }
     ],
     what: {
       concepts: [
@@ -2599,11 +2299,11 @@ const TRAINING_GUIDES_P3 = {
       { step: 2, title: 'Call Trainee for Live Demonstration', script: 'Trainee shares screen in VS Code and Agentforce Builder. "Walk us through your Apex action and demonstrate tool invocation in the Reasoning Log."' },
       { step: 3, title: 'Test Happy Path Execution', script: 'Enter customer inquiry that requires the Apex tool. Verify that Atlas extracts parameters, executes the Apex method, and synthesizes the answer.' },
       { step: 4, title: 'Inject Fault Ingestion Test', script: 'Pass an invalid or non-existent record ID. Verify that the Apex action returns `isSuccess = false` and the agent politely explains that the record was not found.' },
-      { step: 5, title: 'Award Gate 3 Sign-Off', script: 'Confirm passing grade and congratulate trainee on achieving Agentforce Innovator status!' }
+      { step: 5, title: 'Complete Gate 3 Innovator Validation', script: 'Confirm passing grade and congratulate trainee on achieving Agentforce Innovator status!' }
     ],
     traps: [
       { title: 'The Uncaught Null Pointer', desc: 'If the Apex action crashes on null inputs, immediate 15-point penalty on the evaluation rubric.' },
-      { title: 'Missing Parameter Descriptions', desc: 'If variables lack descriptions, trainee must fix before receiving sign-off.' }
+      { title: 'Missing Parameter Descriptions', desc: 'If variables lack descriptions, trainee must fix before passing evaluation.' }
     ],
     lab: {
       title: 'Milestone Gate 3 Defense Exam',
@@ -2613,7 +2313,7 @@ const TRAINING_GUIDES_P3 = {
         'Demonstrate autonomous tool invocation in Agentforce Builder.',
         'Prove sub-second retrieval from Data Graphs.',
         'Handle negative/error test cases gracefully.',
-        'Obtain Milestone Gate 3 Innovator Sign-Off.'
+        'Complete Milestone Gate 3 Innovator Validation.'
       ]
     },
     cheat: {
@@ -2624,6 +2324,7 @@ const TRAINING_GUIDES_P3 = {
     }
   }
 };
+
 
 // Phase 4: Enterprise Security, Testing Center & Winter '27 Innovations (Days 16 - 20)
 const TRAINING_GUIDES_P4 = {
@@ -2899,7 +2600,7 @@ const TRAINING_GUIDES_P4 = {
       { time: '00:00 - 00:20 (20m)', title: 'Capstone Defense Protocol & Executive Panel Welcome', desc: 'Introduction by Technical Review Panel. Reviewing the 40% Capstone scoring rubric and enterprise readiness criteria.' },
       { time: '00:20 - 01:20 (60m)', title: 'Individual Trainee Live Capstone Demonstrations', desc: 'Each trainee delivers a 15-minute live end-to-end defense of Project AeroPulse: Data Cloud + Apex Invocables + Data Graphs + Trust Layer.' },
       { time: '01:20 - 01:45 (25m)', title: 'Executive Code Review & Adversarial Stress Testing', desc: 'Lead Architect and Trainer interrogate trainee orgs with live edge cases, security audits, and code inspections.' },
-      { time: '01:45 - 02:00 (15m)', title: 'Final Certification Sign-Off & Program Graduation', desc: 'Awarding completion certificates, recording final scores, and providing official Trailhead AI Specialist exam vouchers.' }
+      { time: '01:45 - 02:00 (15m)', title: 'Final Capstone Assessment & Program Graduation', desc: 'Awarding completion certificates, recording final scores, and providing official Trailhead AI Specialist exam vouchers.' }
     ],
     what: {
       concepts: [
@@ -2916,14 +2617,14 @@ const TRAINING_GUIDES_P4 = {
           content: 'Passing the Capstone Defense certifies that the trainee is officially ready to be deployed as a qualified, billable Salesforce AI Specialist on enterprise client deliverables.'
         }
       ],
-      whiteboardTerms: ['Project AeroPulse', 'Capstone Defense', 'Salesforce Certified AI Specialist', 'Legend Status', 'Executive Sign-Off', 'Billable Readiness']
+      whiteboardTerms: ['Project AeroPulse', 'Capstone Defense', 'Salesforce Certified AI Specialist', 'Legend Status', 'Capstone Validation', 'Billable Readiness']
     },
     how: [
-      { step: 1, title: 'Open Executive Defense Console', script: 'Technical Review Panel opens the master evaluation sheet.' },
+      { step: 1, title: 'Open Executive Defense Console', script: 'Technical Review Panel and trainer open the master evaluation sheet.' },
       { step: 2, title: 'Trainee Live Architecture Defense', script: 'Trainee presents the end-to-end architecture diagram and walks through their sandbox configuration in 10 minutes.' },
       { step: 3, title: 'Execute Live Capstone Scenario', script: 'Run live query: "Hello, my flight UA104 was delayed by 2 hours. Can you check my VIP status, rebook me on the next available flight, and issue a complimentary lounge pass?"' },
       { step: 4, title: 'Verify Reasoning Log & Apex Execution', script: 'Inspect the Reasoning Log: Verify Data Graph grounding, Apex tool invocation, and Einstein Trust Layer de-masking.' },
-      { step: 5, title: 'Formal Sign-Off & Graduation', script: 'The Technical Review Authority clicks the formal "Approve & Sign-Off" button in the workbench, awarding the official Enablement Certificate!' }
+      { step: 5, title: 'Final Assessment & Graduation', script: 'The instructor verifies the working solution and awards the completion certificate and exam readiness endorsement!' }
     ],
     traps: [
       { title: 'Relying on Mock Slides', desc: 'PowerPoint presentations are NOT accepted. The defense must be executed live inside an active Salesforce sandbox.' },
@@ -2931,13 +2632,13 @@ const TRAINING_GUIDES_P4 = {
     ],
     lab: {
       title: 'Grand Capstone Defense: Project AeroPulse',
-      objective: 'Deliver an end-to-end live demonstration of the Autonomous VIP Concierge in front of the Technical Review Panel and achieve certification sign-off.',
+      objective: 'Deliver an end-to-end live demonstration of the Autonomous VIP Concierge in front of the Technical Review Panel and achieve certification readiness.',
       deliverables: [
         'Demonstrate working Data Cloud Identity Resolution and Calculated Insights.',
         'Demonstrate sub-second Data Graph grounding.',
         'Demonstrate Apex Invocable action execution in Agentforce Builder.',
         'Successfully defend against 3 live adversarial stress-test scenarios.',
-        'Achieve formal Tech Lead Capstone Approval and AI Specialist certification readiness.'
+        'Achieve Capstone Validation and Salesforce AI Specialist certification readiness.'
       ]
     },
     cheat: {
@@ -2945,11 +2646,12 @@ const TRAINING_GUIDES_P4 = {
         'I am passenger Arthur Song. My flight UA402 is delayed. Can you check my VIP loyalty tier, retrieve my Data Graph itinerary, and rebook me on flight UA408?'
       ],
       snippets: [
-        { label: 'Final Certification Sign-Off Milestone', code: 'Graduation Benchmark: Trainee completes Capstone Defense with >= 85% aggregate score and receives recommendation for the Salesforce Certified AI Specialist exam.' }
+        { label: 'Final Program Graduation Milestone', code: 'Graduation Benchmark: Trainee completes Capstone Defense with >= 85% aggregate score and receives recommendation for the Salesforce Certified AI Specialist exam.' }
       ]
     }
   }
 };
+
 
 Object.assign(TRAINING_GUIDES, TRAINING_GUIDES_P2, TRAINING_GUIDES_P3, TRAINING_GUIDES_P4);
 
