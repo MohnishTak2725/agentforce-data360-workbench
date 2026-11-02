@@ -2726,6 +2726,21 @@ function openTrainerGuide(dayNum) {
   document.getElementById('tm-subtitle').textContent = guide.summary;
   document.getElementById('tm-day-indicator').textContent = 'Day ' + guide.num + ' of 20 (' + guide.target + ')';
   const pbLink = document.getElementById('tm-open-playbook-link'); if (pbLink) pbLink.href = 'playbook.html?day=' + dayNum;
+  const pptBtn = document.getElementById('tm-download-ppt-btn');
+  const pptMap = {
+    1: { file: 'Day-1-Atlas-Reasoning-Engine.pptx', label: '📥 Day 1 PPT' },
+    2: { file: 'Day-2-Prompt-Builder-and-Grounding.pptx', label: '📥 Day 2 PPT' }
+  };
+  if (pptBtn) {
+    if (pptMap[dayNum]) {
+      pptBtn.href = pptMap[dayNum].file;
+      pptBtn.download = pptMap[dayNum].file;
+      pptBtn.textContent = pptMap[dayNum].label;
+      pptBtn.style.display = 'inline-flex';
+    } else {
+      pptBtn.style.display = 'none';
+    }
+  }
 
   // Navigation button states
   document.getElementById('tm-prev-btn').disabled = (dayNum <= 1);

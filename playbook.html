@@ -688,8 +688,8 @@
       <h1 class="nav-title">Master Implementation Playbook</h1>
     </div>
     <div class="top-nav-right">
-      <a href="Day-1-Atlas-Reasoning-Engine.pptx" download="Day-1-Atlas-Reasoning-Engine.pptx" class="nav-btn primary" title="Download Day 1 PowerPoint Presentation (.pptx)">
-        📥 Download Day 1 PPT
+      <a href="Day-2-Prompt-Builder-and-Grounding.pptx" download="Day-2-Prompt-Builder-and-Grounding.pptx" class="nav-btn primary" id="top-ppt-btn" title="Download Current Day PowerPoint Presentation (.pptx)">
+        📥 Day 2 PPT Deck
       </a>
       <a href="index.html" class="nav-btn" title="Back to Interactive Workbench Portal">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
@@ -2368,6 +2368,29 @@ function selectDay(dayNum) {
       finishBtn.textContent = 'Proceed to Day ' + (dayNum + 1) + ' &rarr;';
       finishBtn.disabled = false;
     }
+  }
+
+  // Update PPT download buttons in Hero & Top Nav
+  const heroPptBtn = document.getElementById('hero-day1-ppt-btn');
+  const topPptBtn = document.getElementById('top-ppt-btn');
+  const pptMap = {
+    1: { file: 'Day-1-Atlas-Reasoning-Engine.pptx', label: '📥 Day 1 PPT Deck' },
+    2: { file: 'Day-2-Prompt-Builder-and-Grounding.pptx', label: '📥 Day 2 PPT Deck' }
+  };
+  if (pptMap[dayNum]) {
+    if (heroPptBtn) {
+      heroPptBtn.href = pptMap[dayNum].file;
+      heroPptBtn.download = pptMap[dayNum].file;
+      heroPptBtn.textContent = pptMap[dayNum].label;
+      heroPptBtn.style.display = 'inline-flex';
+    }
+    if (topPptBtn) {
+      topPptBtn.href = pptMap[dayNum].file;
+      topPptBtn.download = pptMap[dayNum].file;
+      topPptBtn.textContent = pptMap[dayNum].label;
+    }
+  } else {
+    if (heroPptBtn) heroPptBtn.style.display = 'none';
   }
 
   // Render Step Contents for this Day
