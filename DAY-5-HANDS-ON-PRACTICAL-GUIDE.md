@@ -278,8 +278,10 @@ Now we wire our compiled Apex class into **Topic 2** using the Custom Action cre
      ```
    * **Reference Action Type:**
      * Click the dropdown and select **`Apex`**.
-   * **Reference Action (Appears after selecting Apex):**
-     * Select your compiled class: **`Get Account Metrics & SLA Tier`** (or `GetAccountMetricsAction`).
+   * **Reference Action Category (Appears after selecting Apex):**
+     * Click the dropdown and select **`Invocable Method`**.
+   * **Reference Action (Appears after selecting Invocable Method):**
+     * Select your compiled method/class: **`Get Account Metrics & SLA Tier`** (or `GetAccountMetricsAction`).
 6. Click the black button: **`Create and Open`** (bottom right).
 
 ---
