@@ -400,9 +400,18 @@ We will execute all 4 defense scenarios sequentially.
 
 In an actual Technical Review, the reviewer will ask you to open the **Reasoning Log** and explain what occurred behind the scenes.
 
-### How to Inspect the Log:
-1. In the top-right corner of the Simulator, click the **Reasoning Log** icon (the small document or magnifying glass 🔍 icon).
-2. The turn-by-turn trace will open. Verify the **4 Stages of the ReAct Cycle**:
+### How to Inspect the Reasoning Log:
+In modern Agentforce Builder, the reasoning trace is **already open side-by-side** on the right side of the simulator screen:
+
+1. Look at the right panel titled **`Agent Preview Details`** (with the **`Summary`** and **`Context Variables`** tabs).
+2. Under the **`Summary`** tab, you will see the full live execution timeline:
+   * **`Input`**: The raw utterance received.
+   * **`Transition to Subagent`**: Topic classification and boundary hand-off.
+   * **`Reasoning`**: Click on any **Reasoning ✦** step to expand the Atlas decision rationale and instructions evaluated.
+   * **`Action`**: Shows the tool invoked (e.g. `⚡ Get Account Metrics SLA Tier`). Click it to inspect the exact input parameters and raw output payload.
+   * **`Output Evaluation`**: Confirms whether the response was `GROUNDED` by the Einstein Trust Layer.
+3. Below the timeline, the **Summary Box** provides Atlas's complete natural language forensic narrative of what occurred during the turn.
+4. **Alternative Detailed View:** At the very bottom-left of the chat simulator pane (below the text box), click the **`Trace`** button (next to `Variables`) to toggle the granular turn-by-turn event log.
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
