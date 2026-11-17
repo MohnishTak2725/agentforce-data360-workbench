@@ -184,7 +184,13 @@ Setup ➔ Quick Find: "Agents" ➔ Click "Agents"
 
 4. Choose one of two options:
    * **Option A (Existing Agent - Preferred):** If you see **`Einstein Service Agent`** (or *Service Agent*), click on its name, then click **Open in Builder** (top right).
-   * **Option B (New Agent):** Click **`+ New Agent`** ➔ Select **`Agentforce Service Agent`** ➔ Name it `Enterprise Service Agent` ➔ Select the default user context ➔ Click **Create** ➔ Click **Open in Builder**.
+   * **Option B (New Agent):** Click **`+ New Agent`** ➔ Select **`Agentforce Service Agent`**:
+     * **Agent Name:** `Enterprise Service Agent`
+     * **Agent Description / Role:**
+       ```text
+       Autonomous enterprise service agent that resolves customer support cases and provides real-time account financials, ARR metrics, and SLA tier intelligence.
+       ```
+     * Select the default user context (Einstein User) ➔ Click **Create** ➔ Click **Open in Builder**.
 
 > [!NOTE]
 > **Understanding the Execution User:**
@@ -192,56 +198,63 @@ Setup ➔ Quick Find: "Agents" ➔ Click "Agents"
 
 ---
 
-## 4. Step 3: Assembling Topic 1 (Customer Inquiries & Cases)
+## 4. Step 3: Assembling Topic 1 / Sub-Agent 1 (Customer Inquiries & Cases)
 
-Every enterprise Agentforce agent requires **modular domain separation**. Our first topic handles support cases.
+Every enterprise Agentforce agent requires **modular domain separation**. In Agentforce, **each Topic acts as an autonomous domain Sub-Agent**.
 
-### Click Path:
-1. In Agentforce Builder, look at the **Left Sidebar** navigation.
-2. Click on **`Topics`**.
-3. Check the existing topics:
-   * If a topic named **`Customer Support`**, **`Case Inquiries`**, or **`Service`** already exists, click to select it.
+### 1. Creation Modal Setup (When clicking "+ New Topic"):
+1. In Agentforce Builder, click on **`Topics`** in the left sidebar.
+2. Check existing topics:
+   * If a topic named **`Customer Support`**, **`Case Inquiries`**, or **`Service`** already exists, click to select and edit it.
    * If not, click the **`+ New Topic`** button.
-4. Set the **Topic Label**:
-   ```text
-   Customer Inquiries & Case Management
-   ```
-5. Set the **Classification Description** (Atlas uses this embedding to route user intent):
-   ```text
-   Assists customers with inquiries regarding active support cases, case status, ticket priority, and escalation logs. Use this topic when the user asks about technical support, ticket numbers, or open service incidents. Do not handle billing, ARR, or financial contracts. Route financial queries to the Account Financials topic.
-   ```
-6. In the **Instructions** tab, paste the operational rules:
-   ```text
-   - Always confirm the customer's identity or case number before providing detailed status.
-   - For high-priority or escalated cases, summarize the last agent comment clearly.
-   - If the user asks about pricing, annual revenue, or contract renewal, politely transition them to the Account Financials domain.
-   ```
-7. Click **Save**.
+3. In the popup modal, fill in:
+   * **Topic / Sub-Agent Name:**
+     ```text
+     Customer Inquiries & Case Management
+     ```
+   * **Description (Paste this directly into the "Description" field during creation):**
+     ```text
+     Assists customers with inquiries regarding active support cases, case status, ticket priority, and escalation logs. Use this sub-agent/topic when the user asks about technical support, ticket numbers, or open service incidents. Do not handle billing, ARR, or financial contracts. Route financial queries to the Account Financials topic.
+     ```
+4. Click **Save** (or Next) to create the sub-agent.
+
+### 2. Operational Instructions Setup:
+Once the topic/sub-agent is created, click on its **Instructions** tab in the center canvas and paste:
+```text
+- Always confirm the customer's identity or case number before providing detailed status.
+- For high-priority or escalated cases, summarize the last agent comment clearly.
+- If the user asks about pricing, annual revenue, or contract renewal, politely transition them to the Account Financials domain.
+```
+Click **Save**.
 
 ---
 
-## 5. Step 4: Assembling Topic 2 (Account Financials & SLA Management)
+## 5. Step 4: Assembling Topic 2 / Sub-Agent 2 (Account Financials & SLA Management)
 
-This is the commercial topic where our custom Apex action and prompt templates live.
+This is the commercial sub-agent where our custom Apex action and prompt templates live.
 
-### Click Path:
-1. In the Left Navigation under **Topics**, click **`+ New Topic`**.
-2. Set the **Topic Label**:
-   ```text
-   Account Financials & SLA Management
-   ```
-3. Set the **Classification Description** (Crucial for Atlas vector matching):
-   ```text
-   Assists users with inquiries regarding account financials, closed-won revenue, active ARR, contract values, and SLA customer tiers. Use this topic when the user mentions financial metrics, contract status, or SLA level for any client or company. Do not process case escalations or technical troubleshooting.
-   ```
-4. In the **Instructions** tab, paste the operational rules:
-   ```text
-   - When a user asks about contract value or ARR for a company, invoke the "Get Account Metrics & SLA Tier" action.
-   - Extract the account name accurately from conversation text.
-   - Present dollar amounts formatted with currency symbols and clearly state whether the client qualifies for Platinum or Standard SLA tier.
-   - If asked for an executive renewal strategy, summarize recommendations based on active ARR.
-   ```
-5. Click **Save**.
+### 1. Creation Modal Setup (When clicking "+ New Topic"):
+1. In the Left Navigation under **Topics**, click the **`+ New Topic`** button.
+2. In the popup creation modal, fill in:
+   * **Topic / Sub-Agent Name:**
+     ```text
+     Account Financials & SLA Management
+     ```
+   * **Description (Paste this directly into the "Description" field during creation):**
+     ```text
+     Assists users with inquiries regarding account financials, closed-won revenue, active ARR, contract values, and SLA customer tiers. Use this sub-agent/topic when the user mentions financial metrics, contract status, or SLA level for any client or company. Do not process case escalations or technical troubleshooting.
+     ```
+3. Click **Save** (or Next) to create the sub-agent.
+
+### 2. Operational Instructions Setup:
+Once created, click on its **Instructions** tab in the center canvas and paste:
+```text
+- When a user asks about contract value or ARR for a company, invoke the "Get Account Metrics & SLA Tier" action.
+- Extract the account name accurately from conversation text.
+- Present dollar amounts formatted with currency symbols and clearly state whether the client qualifies for Platinum or Standard SLA tier.
+- If asked for an executive renewal strategy, summarize recommendations based on active ARR.
+```
+Click **Save**.
 
 ---
 
