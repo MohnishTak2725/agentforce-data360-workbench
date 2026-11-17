@@ -286,28 +286,29 @@ Now we wire our compiled Apex class into **Topic 2** using the Custom Action cre
 
 ---
 
-### 2. Configuring Input Mappings (The Crucial Step):
-On the Action configuration screen that opens:
-* In the **Inputs** tab:
-  * **`accountName`:** Change Input Mode to **`Let the model decide`**. *(This allows Atlas to dynamically extract "Edge Communications" from user chat!)*
-  * **`accountId`:** Set Input Mode to **`Let the model decide`** (Leave optional).
+### 2. Verifying Inline Input & Output Mappings (Expand Section):
+Once created, the action appears in the canvas under **Actions Available For Reasoning**:
 
-> [!WARNING]
-> **Common Trap:** Never set `accountName` to *Specific Value* unless you are intentionally hardcoding a static constant. Leaving it as *Specific Value* with a blank field will prevent the agent from extracting names from chat!
+1. Click the small arrow / chevron (`>`) next to **`Get Account Metrics & SLA Tier`** to expand its input/output mapping tree.
+2. **Verify Inputs:**
+   * `With input: Account ID = Agent Populated`
+   * `With input: Account Name = Agent Populated`
+   * > [!NOTE]
+     > **Default Setting:** Salesforce automatically defaults inputs to **`Agent Populated (Allow agent to choose input)`**. This is the exact setting we want! It instructs Atlas to autonomously extract the company name (e.g. *"Edge Communications"*) directly from the user's conversation text. You do not need to change it.
+
+3. **Verify Outputs:**
+   * `Set output: Not assigned = Active ARR`
+   * `Set output: Not assigned = Customer SLA Tier`
+   * `Set output: Not assigned = Is Success`
+   * `Set output: Not assigned = Outcome Message`
+   * > [!TIP]
+     > **Output Assignment:** Leaving outputs as `Not assigned` is standard and expected in Agentforce. All output DTO variables are automatically captured in the tool's raw **Observation** payload, which Atlas reads and synthesizes into the final conversational answer.
+
+4. Click the blue **Save** button in the top-right header of Agentforce Builder!
 
 ---
 
-### 3. Configuring Output Mappings:
-* In the **Outputs** tab:
-  * Verify that the following fields have **"Include in response"** checked (ON):
-    * `outcomeMessage`
-    * `activeARR`
-    * `customerTier`
-* Click **Finish** (or Save).
-
----
-
-### 4. (Optional) Adding the Day 3 Prompt Template Action:
+### 3. (Optional) Adding the Day 3 Prompt Template Action:
 1. Under the same **Actions Available For Reasoning** section, click **`+ Add action`**.
 2. Select **`+ Create a custom action`** (or select from library).
 3. **Reference Action Type:** Select **`Prompt Template`**.
