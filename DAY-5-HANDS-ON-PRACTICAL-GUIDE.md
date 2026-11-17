@@ -47,7 +47,7 @@ We will deploy our enterprise Apex Invocable class with precision semantic descr
 4. Replace the entire code with the following production implementation:
 
 ```apex
-public with sharing class GetAccountMetricsAction {
+public without sharing class GetAccountMetricsAction {
 
     @InvocableMethod(
         label='Get Account Metrics & SLA Tier'
