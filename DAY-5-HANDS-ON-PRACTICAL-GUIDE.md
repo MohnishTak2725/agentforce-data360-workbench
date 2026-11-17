@@ -196,6 +196,24 @@ Setup ➔ Quick Find: "Agents" ➔ Click "Agents"
 > **Understanding the Execution User:**
 > In the Agent details, you will notice the **User** field. For customer-facing agents, this defaults to the **Einstein Service Agent User**. This ensures the agent operates under a dedicated non-human headless identity with an independent audit trail and strict least-privilege security.
 
+### 2. Required Setup: Granting Core CRM Access to the Agent User
+Because Salesforce agents operate on strict "Least Privilege", the system **does not grant standard CRM object access (Account, Opportunity) by default**. To ensure your Apex actions and topics can query CRM records without triggering `sObject type 'Account' is not supported`, assign this permission set:
+
+1. In Salesforce Setup, go to **`Permission Sets`** (Quick Find: `Permission Sets`).
+2. Click **New**:
+   * **Label:** `Agentforce CRM Data Access`
+   * **API Name:** `Agentforce_CRM_Data_Access`
+   * **License:** Leave as **`--None--`**
+   * Click **Save**.
+3. Inside the Permission Set, click **Object Settings**:
+   * Click **`Accounts`** ➔ Click **Edit** ➔ Check **Read** ➔ Click **Save**.
+   * Click **`Opportunities`** ➔ Click **Edit** ➔ Check **Read** ➔ Click **Save**.
+4. Inside the Permission Set, click **Apex Class Access**:
+   * Click **Edit** ➔ Move **`GetAccountMetricsAction`** to **Enabled Apex Classes** ➔ Click **Save**.
+5. Click **Manage Assignments** (top header) ➔ Click **Add Assignment**:
+   * Select **`Einstein Service Agent User`** (or the user displayed in Agent Details).
+   * Click **Next** ➔ Click **Assign** ➔ Click **Done**.
+
 ---
 
 ## 4. Step 3: Assembling Topic 1 / Sub-Agent 1 (Customer Inquiries & Cases)
@@ -435,7 +453,8 @@ If anything behaves unexpectedly during your practical run, refer to this rescue
 
 | Symptom | Root Cause | 30-Second Fix |
 | :--- | :--- | :--- |
-| **Agent asks: *"Please provide the 18-char Account ID"*** | `accountName` input mapping is unmapped or set to *Specific Value*. | Open Action configuration in Topic 2 ➔ Set `accountName` Input Mode to **"Let the model decide"**. |
+| **Reasoning log: *"Account object type was not supported"*** | The Agent Execution User (`Einstein Service Agent User`) lacks Read access to the `Account` or `Opportunity` object. | Create a Permission Set (`License: --None--`) ➔ Under **Object Settings**, enable **Read** on `Accounts` & `Opportunities` ➔ Assign to `Einstein Service Agent User`. |
+| **Agent asks: *"Please provide the 18-char Account ID"*** | `accountName` input mapping is unmapped or set to *Specific Value*. | Open Action configuration in Topic 2 ➔ Set `accountName` Input Mode to **"Let the model decide"** (Agent Populated). |
 | **Action does not appear in "Add Action" dropdown** | Apex class failed to compile or lacks the `@InvocableMethod` annotation. | Open Developer Console ➔ Verify `GetAccountMetricsAction` has status **Success** with 0 errors. |
 | **Prompt Template missing from dropdown** | The prompt template is in *Draft* status, or it is a Field Generation template. | Open Prompt Builder ➔ Open template ➔ Click the blue **Activate** button. |
 | **Agent replies: *"I can't help with that"*** | Topic description lacks semantic keywords matching the user utterance. | Edit Topic 2 ➔ Add *"active ARR, contract value, won revenue, and SLA tier"* to description. |
