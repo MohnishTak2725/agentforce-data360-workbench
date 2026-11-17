@@ -260,40 +260,59 @@ Click **Save**.
 
 ## 6. Step 5: Wiring Actions & Configuring Dynamic Parameter Extraction
 
-Now we wire our compiled Apex class into **Topic 2**.
+Now we wire our compiled Apex class into **Topic 2** using the Custom Action creation modal.
 
-### 1. Adding the Apex Action:
-1. Select **`Account Financials & SLA Management`** in the Topics list.
-2. In the center canvas, click the **`This Topic's Actions`** tab.
-3. Click the **`+ Add Action`** button.
-4. In the popup wizard:
-   * **Action Type:** Select **`Apex`**.
-   * **Reference Action:** Select **`Get Account Metrics & SLA Tier`**.
-   * Click **Next**.
+### 1. Adding the Apex Action (Click Path & Modal Setup):
+1. Select **`Account Financials & SLA Management`** in the left Topics list.
+2. In the center canvas, locate the section titled **Actions Available For Reasoning**.
+3. Click the **`+ Add action`** button.
+4. From the dropdown menu, select **`+ Create a custom action`**.
+5. In the **Add Action** popup modal that appears, fill in these exact fields:
+   * **Action Name:**
+     ```text
+     Get Account Metrics & SLA Tier
+     ```
+   * **Description (Crucial for Atlas Tool Selection):**
+     ```text
+     Fetches Closed Won revenue, active ARR, and SLA customer tier for a specified Account. Use this action whenever the user asks for contract value, active ARR, total won revenue, SLA level, or financial tier for a client or company.
+     ```
+   * **Reference Action Type:**
+     * Click the dropdown and select **`Apex`**.
+   * **Reference Action (Appears after selecting Apex):**
+     * Select your compiled class: **`Get Account Metrics & SLA Tier`** (or `GetAccountMetricsAction`).
+6. Click the black button: **`Create and Open`** (bottom right).
+
+---
 
 ### 2. Configuring Input Mappings (The Crucial Step):
-* In the **Inputs** configuration:
+On the Action configuration screen that opens:
+* In the **Inputs** tab:
   * **`accountName`:** Change Input Mode to **`Let the model decide`**. *(This allows Atlas to dynamically extract "Edge Communications" from user chat!)*
-  * **`accountId`:** Change Input Mode to **`Let the model decide`** (Leave optional).
+  * **`accountId`:** Set Input Mode to **`Let the model decide`** (Leave optional).
 
 > [!WARNING]
 > **Common Trap:** Never set `accountName` to *Specific Value* unless you are intentionally hardcoding a static constant. Leaving it as *Specific Value* with a blank field will prevent the agent from extracting names from chat!
 
+---
+
 ### 3. Configuring Output Mappings:
 * In the **Outputs** tab:
-  * Verify that the following fields have **"Include in response"** checked:
+  * Verify that the following fields have **"Include in response"** checked (ON):
     * `outcomeMessage`
     * `activeARR`
     * `customerTier`
-5. Click **Finish**.
+* Click **Finish** (or Save).
+
+---
 
 ### 4. (Optional) Adding the Day 3 Prompt Template Action:
-1. Under the same **This Topic's Actions** tab, click **`+ Add Action`**.
-2. **Action Type:** Select **`Prompt Template`**.
-3. Select your active Day 3 Flex template (e.g. *Opportunity Deal Strategy* or *Account Summary*).
-4. Set Input Mode: **`Let the model decide`**.
-5. Click **Finish**.
-6. Click the blue **Save** button in the top-right header of Agentforce Builder.
+1. Under the same **Actions Available For Reasoning** section, click **`+ Add action`**.
+2. Select **`+ Create a custom action`** (or select from library).
+3. **Reference Action Type:** Select **`Prompt Template`**.
+4. Select your active Day 3 Flex template (e.g. *Opportunity Deal Strategy* or *Account Summary*).
+5. Set Input Mode: **`Let the model decide`**.
+6. Click **Finish**.
+7. Click the blue **Save** button in the top-right header of Agentforce Builder.
 
 ---
 
